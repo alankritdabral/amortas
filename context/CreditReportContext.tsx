@@ -1,8 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebaseClient";
 
 interface CreditReportContextType {
   userOverrides: any;
@@ -94,7 +92,8 @@ export function CreditReportProvider({
     setIsDirty(true);
   }, []);
 
-  // Event-driven save: Only persists to Firestore on explicit request (Apply, Download, Save button)
+  // Event-driven save: only persists (through our server, to the backend) on explicit request
+  // (Apply, Download, Save button)
   const saveOverridesToDB = useCallback(async (): Promise<boolean> => {
     if (!docId) return false;
     const hasKeys = Object.keys(userOverrides).length > 0 || Object.keys(loanOverrides).length > 0;
@@ -102,9 +101,19 @@ export function CreditReportProvider({
 
     setIsSaving(true);
     try {
-      await updateDoc(doc(db, "credit_reports", docId), {
-        overrides: { userOverrides, loanOverrides },
+      // docId is "<PAN or NOPAN>_<mobile>_<bureau>"; the bureau code itself may contain underscores.
+      const [pan, mobile, ...bureauParts] = docId.split("_");
+      const res = await fetch("/api/credit-report/overrides", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pan: pan && pan !== "NOPAN" ? pan : undefined,
+          mobile,
+          bureau: bureauParts.join("_"),
+          overrides: { userOverrides, loanOverrides },
+        }),
       });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setIsDirty(false);
       return true;
     } catch (e) {

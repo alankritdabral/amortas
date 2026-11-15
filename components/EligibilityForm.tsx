@@ -5,8 +5,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, CheckCircle2, Plus, Trash2, User, Phone, Mail, MapPin, Briefcase, Building2, Shield, CreditCard, Loader2, AlertCircle, ChevronDown, ChevronUp, Download, RotateCw, X, KeyRound } from "lucide-react";
 import dynamic from "next/dynamic";
-import { collection, doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "@/lib/firebaseClient";
 import { searchEmployers, EmployerResult } from "@/lib/employerLookup";
 import { parseBureauData } from "@/lib/bureauParsers";
 import { NOTICE_VERSION } from "@/lib/consent";
@@ -31,24 +29,6 @@ const CreditReportDashboard = dynamic(
   }
 );
 import { logSystemEvent } from "@/lib/logger";
-
-const getPrefixes = (str: string) => {
-  const arr = [];
-  for (let i = 1; i <= str.length; i++) arr.push(str.substring(0, i));
-  return arr;
-};
-
-const generateSearchTokens = (name: string, mobile: string, pan: string) => {
-  const tokens = new Set<string>();
-  const nameParts = name.toLowerCase().split(' ').filter(Boolean);
-  nameParts.forEach(part => getPrefixes(part).forEach(p => tokens.add(p)));
-  getPrefixes(name.toLowerCase()).forEach(p => tokens.add(p));
-  getPrefixes(mobile).forEach(p => tokens.add(p));
-  if (pan) {
-    getPrefixes(pan.toLowerCase()).forEach(p => tokens.add(p));
-  }
-  return Array.from(tokens);
-};
 
 export function EligibilityForm() {
 
@@ -336,18 +316,25 @@ export function EligibilityForm() {
     let startTime = 0;
     let fallbackStartTime = 0;
     try {
-      // 1. Check Database First
+      // 1. Check for a stored report first (our server asks the backend; needs the verified OTP)
       const safePan = formData.pan ? formData.pan.toUpperCase() : "NOPAN";
-      const docId = `${safePan}_${formData.mobile}_${formData.bureau}`;
-      const docRef = doc(db, "credit_reports", docId);
+      const lookupStoredReport = async (bureau: string): Promise<any | null> => {
+        const lookupRes = await fetch("/api/credit-report/lookup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pan: formData.pan ? safePan : undefined, mobile: formData.mobile, bureau }),
+        });
+        if (!lookupRes.ok) throw new Error(`Stored report lookup failed (HTTP ${lookupRes.status})`);
+        const found = await lookupRes.json();
+        return found.exists ? found : null;
+      };
 
       try {
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
+        const data = await lookupStoredReport(formData.bureau);
+        if (data) {
           let createdAt = new Date();
           if (data.created_at) {
-            createdAt = typeof data.created_at.toDate === 'function' ? data.created_at.toDate() : new Date(data.created_at);
+            createdAt = new Date(data.created_at);
           }
           const daysOld = (new Date().getTime() - createdAt.getTime()) / (1000 * 60 * 60 * 24);
 
@@ -371,10 +358,8 @@ export function EligibilityForm() {
                 if (isExperianFailureCache) {
                   console.warn("Cached Experian report is corrupted/failed. Attempting CRIF fallback.");
                   // Try to find a CRIF report in cache
-                  const crifDocId = `${safePan}_${formData.mobile}_crif_v1`;
-                  const crifSnap = await getDoc(doc(db, "credit_reports", crifDocId));
-                  if (crifSnap.exists() && crifSnap.data().raw_api_data) {
-                    const crifData = crifSnap.data();
+                  const crifData = await lookupStoredReport("crif_v1");
+                  if (crifData && crifData.raw_api_data) {
                     setFormData((prev: any) => ({ 
                       ...prev, 
                       bureau: "crif_v1", 
@@ -415,7 +400,7 @@ export function EligibilityForm() {
         }
       } catch (e) {
         console.error("Error checking cache:", e);
-        // Continue to fetch if DB read fails (e.g. missing permissions)
+        // Continue to a live fetch if the stored-report check fails
       }
 
       // 2. Not in DB or no cache -> Fetch from Surepass
@@ -585,10 +570,9 @@ export function EligibilityForm() {
           params: { bureau: bureauForTracking, report_outcome: fallbackData ? "fallback" : "live", duration_band: bandDuration(bureauDurationMs) },
         });
 
-        // Save to Firebase
+        // Save through our server, which hands the report to the backend (RDS + S3)
         try {
           const safePan = formData.pan ? formData.pan.toUpperCase() : "NOPAN";
-          const docId = `${safePan}_${formData.mobile}_${typeof activeBureau !== "undefined" ? activeBureau : formData.bureau}`;
 
           let extractedScore = data.data?.credit_score;
           let extractedEmail = "";
@@ -605,31 +589,33 @@ export function EligibilityForm() {
           }
 
           const fullName = `${formData.firstName} ${formData.lastName}`.trim();
-          await setDoc(doc(db, "credit_reports", docId), {
-            name: fullName,
-            mobile: formData.mobile,
-            pan: safePan,
-            gender: formData.gender,
-            bureau: usedBureau,
-            credit_score: extractedScore || null,
-            email: extractedEmail || null,
-            pdf_link: data.data?.web_token_url || data.data?.credit_report_link || null,
-            raw_api_data: data.data, // Save the full response to rebuild dashboard later
-            created_at: serverTimestamp(),
-            branch: "customer",
-            search_tokens: generateSearchTokens(fullName, formData.mobile, safePan),
-            consent: {
-              bureauFetch: formData.consent,
-              contact: formData.consentContact,
-              shareWithLenders: formData.consentShareWithLenders,
-              noticeVersion: NOTICE_VERSION,
-              recordedAt: serverTimestamp(),
-            },
-            attribution: getAttribution(),
-            ...(fallbackData && { fallbackData })
+          const saveRes = await fetch("/api/credit-report/save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: fullName,
+              mobile: formData.mobile,
+              pan: formData.pan ? safePan : "",
+              gender: formData.gender,
+              dob: formData.dob || undefined,
+              bureau: usedBureau,
+              credit_score: extractedScore || null,
+              email: extractedEmail || null,
+              pdf_link: data.data?.web_token_url || data.data?.credit_report_link || null,
+              raw_api_data: data.data, // The full response, to rebuild the report view later
+              consent: {
+                bureauFetch: formData.consent,
+                contact: formData.consentContact,
+                shareWithLenders: formData.consentShareWithLenders,
+                noticeVersion: NOTICE_VERSION,
+              },
+              attribution: getAttribution(),
+              ...(fallbackData && { fallbackData }),
+            }),
           });
+          if (!saveRes.ok) console.error("Report was not saved (HTTP " + saveRes.status + ")");
         } catch (e) {
-          console.error("Error saving to Firebase", e);
+          console.error("Error saving the report", e);
         }
 
         processFetchedReport(data.data);
