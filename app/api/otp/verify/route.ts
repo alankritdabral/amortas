@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { verifyStoredOtp } from "@/lib/otpStore";
+import { createOtpProof, OTP_PROOF_COOKIE, OTP_PROOF_TTL_SECONDS } from "@/lib/otpProof";
 
 export async function POST(req: Request) {
   try {
@@ -33,10 +34,19 @@ export async function POST(req: Request) {
     const verificationResult = await verifyStoredOtp(cleanMobile, cleanOtp);
 
     if (verificationResult.success) {
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         message: "Mobile number verified successfully",
       });
+      // Server-side proof of this verification; the credit-report routes require it.
+      response.cookies.set(OTP_PROOF_COOKIE, createOtpProof(cleanMobile), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/api/credit-report",
+        maxAge: OTP_PROOF_TTL_SECONDS,
+      });
+      return response;
     } else {
       return NextResponse.json(
         {
