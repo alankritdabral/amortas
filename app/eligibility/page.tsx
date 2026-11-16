@@ -28,7 +28,7 @@ export default function EligibilityPage() {
 
       <Eligibility />
       <WhoWeHelp />
-      <section id="credit-profile" className="py-16 md:py-24 bg-[#FFF1E8] scroll-mt-20">
+      <section id="credit-profile" className="py-12 md:py-[72px] bg-[#FFF1E8] scroll-mt-20">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <EligibilityForm />
         </div>

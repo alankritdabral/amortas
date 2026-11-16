@@ -52,8 +52,8 @@ export default function ContactPage() {
         href="#contact-form"
       />
 
-      <section className="bg-white">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 grid gap-12 lg:grid-cols-[5fr_7fr]">
+      <section className="section-tint">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid gap-12 lg:grid-cols-[5fr_7fr]">
           <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A]">
             Or come and see us.
           </h2>

@@ -23,8 +23,8 @@ export default function Page() {
         imageAlt="An Indian city skyline, representing Amortas's nationwide service"
         points={["Written for salaried borrowers", "General information, not advice", "Free to read"]}
       />
-      <section className="bg-white text-[#0A0A0A]">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section className="section-tint text-[#0A0A0A]">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           {articles.map((a, n) => (
             <Link
               key={a.slug}

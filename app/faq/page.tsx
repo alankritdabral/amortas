@@ -46,8 +46,8 @@ export default function FAQPage() {
         points={["Straight answers, no jargon", "Free to ask", "A real person replies"]}
       />
 
-      <section className="bg-white">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section className="section-tint">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <FAQ />
         </div>
       </section>

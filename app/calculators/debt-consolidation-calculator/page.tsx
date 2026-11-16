@@ -157,7 +157,7 @@ export default function DebtConsolidationCalculatorPage() {
       </section>
 
       {/* Educational & SEO Content Guide */}
-      <section className="py-16 bg-white border-t border-slate-200">
+      <section className="py-16 section-tint border-t border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-12">
           
           {/* Section 1: How It Works */}

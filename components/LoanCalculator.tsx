@@ -51,7 +51,7 @@ export function LoanCalculator() {
 
   return (
     <section id="calculator" className="bg-[#FFF1E8]">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A] max-w-3xl">
           How much could you stop paying every month?
         </h2>

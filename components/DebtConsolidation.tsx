@@ -52,8 +52,8 @@ export function DebtConsolidation() {
   const [activeScenario, setActiveScenario] = useState(SCENARIOS[0]);
 
   return (
-    <section id="debt-consolidation" className="bg-white text-[#0A0A0A]">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+    <section id="debt-consolidation" className="section-tint text-[#0A0A0A]">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold max-w-3xl">
           Here&apos;s what it could look like.
         </h2>

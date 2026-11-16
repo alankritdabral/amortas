@@ -41,8 +41,8 @@ export function CityLoanPage({ city }: { city: City }) {
 
       <PageIntro page="city" />
 
-      <section className="bg-white text-[#0A0A0A]">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
+      <section className="section-tint text-[#0A0A0A]">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
           <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">
             What we can help you with in {city.name}.
           </h2>
@@ -62,7 +62,7 @@ export function CityLoanPage({ city }: { city: City }) {
       </section>
 
       {office && (
-        <section className="bg-white text-[#0A0A0A] border-t border-[#E5E5E5]">
+        <section className="section-tint text-[#0A0A0A] border-t border-[#E5E5E5]">
           <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-20">
             <h2 className="text-[32px] md:text-[40px] leading-[1.05] tracking-[-0.03em] font-bold">
               Visit us in {city.name}.

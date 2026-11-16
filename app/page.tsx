@@ -3,7 +3,7 @@ import Image from "next/image";
 import { HeroGridBlock, HeroLogos } from "@/components/HeroGridBlock";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { LoanSolutionsSection } from "@/components/LoanSolutionsSection";
-import { MarqueeBand, CtaBand } from "@/components/home/Bands";
+import { CtaBand } from "@/components/home/Bands";
 import { SectionRules, SectionDivider } from "@/components/SectionRules";
 import {
   HeroVisualBlock,
@@ -59,13 +59,13 @@ export default function Home() {
         </div>
       </section>
 
-      <MarqueeBand />
+      <SectionDivider />
       {/* Row 1.5: Loan Solutions Section (New) */}
       <LoanSolutionsSection />
 
       <SectionDivider />
       {/* Row 1.6: Contact Form */}
-      <section className="w-full bg-[#FFF1E8] py-16 md:py-24">
+      <section className="w-full bg-[#FFF1E8] py-12 md:py-[72px]">
         <div className="max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <ContactForm />
@@ -76,7 +76,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 2: Eligible Loans Slider (Redesigned) */}
-      <div className="w-full bg-white">
+      <div className="w-full section-tint">
         <EligibleLoansSlider />
       </div>
 
@@ -103,8 +103,8 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 5: FAQ */}
-      <section className="w-full bg-white">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section className="w-full section-tint">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
             <FAQ />
           </AnimatedSection>
@@ -114,7 +114,7 @@ export default function Home() {
       <SectionDivider />
       {/* Row 6: Eligibility Form */}
       <section id="lead-form" className="w-full bg-[#FFF1E8]">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
             <EligibilityForm />
           </AnimatedSection>

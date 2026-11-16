@@ -34,7 +34,7 @@ export default function CalculatorsPage() {
     <div className="min-h-screen bg-white">
       <div className="h-[84px]" aria-hidden="true" />
       <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Calculators" }]} />
-      <section className="bg-white">
+      <section className="section-tint">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-20">
           <h1 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A] max-w-2xl">
             Loan and EMI calculators.

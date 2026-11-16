@@ -8,7 +8,7 @@ const nevers = [
 export function ScamProtection() {
   return (
     <section className="w-full bg-[#0A0A0A] text-white">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[32px] sm:text-[48px] md:text-[56px] leading-[1.02] tracking-[-0.035em] font-bold max-w-4xl">
           Loan scams are everywhere. So here&apos;s what we will never do:
         </h2>

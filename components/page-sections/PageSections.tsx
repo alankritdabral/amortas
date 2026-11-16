@@ -31,7 +31,7 @@ export function BenefitCards({ page }: { page: PageKey }) {
   const { heading, intro, benefits } = pageContent[page];
   return (
     <section className="bg-[#FFF1E8] text-[#0A0A0A]">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <div className="max-w-2xl">
           <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">{heading}</h2>
           <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#404040]">{intro}</p>
@@ -57,8 +57,8 @@ export function BenefitCards({ page }: { page: PageKey }) {
 
 export function Testimonials() {
   return (
-    <section className="bg-white text-[#0A0A0A]">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+    <section className="section-tint text-[#0A0A0A]">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold max-w-2xl">
           What people say.
         </h2>
@@ -79,12 +79,12 @@ export function Testimonials() {
 export function PageFAQ({ page }: { page: PageKey }) {
   const { faqs } = pageContent[page];
   return (
-    <section className="bg-white text-[#0A0A0A]">
+    <section className="section-tint text-[#0A0A0A]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(pageFaqSchema(faqs)) }}
       />
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 lg:gap-16">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 lg:gap-16">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold lg:sticky lg:top-28 self-start">
           Common questions.
         </h2>

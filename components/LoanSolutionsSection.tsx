@@ -127,8 +127,8 @@ export const LoanSolutionsSection = () => {
   };
 
   return (
-    <section className="w-full bg-white">
-      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+    <section className="w-full section-tint">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         {/* Header: title + action on the left, description on the right (Stripe's section-header) */}
         <header className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 lg:items-start">
           <div className="lg:col-span-5">
