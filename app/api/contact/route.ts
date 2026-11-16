@@ -1,21 +1,7 @@
 import { adminDb } from "@/lib/firebaseAdmin";
-import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { sanitizeAttribution } from "@/lib/analytics/sanitizeAttribution";
 import { writeLeadAnalytics } from "@/lib/analytics/leadAnalytics";
-
-// Using process.env.RESEND_API_KEY. For development without the key, we'll instantiate it but sending will fail if empty.
-const resend = new Resend(process.env.RESEND_API_KEY || "missing_key");
-
-const escapeHtml = (unsafe: string) => {
-  return (unsafe || "")
-    .toString()
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-};
 
 export async function POST(request: Request) {
   try {
@@ -50,10 +36,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Ongoing EMI cannot be greater than 80% of net salary." }, { status: 400 });
     }
 
-    // 1. Save to Firestore (Server-Side using Admin SDK to bypass client security rules)
+    // Save to Firestore (server-side with the Admin SDK). The staff dashboard
+    // reads this collection: admins assign each lead to one employee, and
+    // employees only see the leads assigned to them. There is no email
+    // fallback any more, so a failed save must fail the request — otherwise
+    // the customer would see "success" for a lead nobody can ever see.
     const safeAttribution = sanitizeAttribution(attribution);
+    let leadId: string;
     try {
-      await adminDb.collection("leads").add({
+      const docRef = await adminDb.collection("leads").add({
         name,
         phone,
         requirement,
@@ -68,11 +59,17 @@ export async function POST(request: Request) {
         attribution: safeAttribution,
         source: "Credit Expert India Contact Form",
         status: "NEW",
+        // Unassigned until an admin hands it to an employee in the dashboard.
+        assignedToEmail: null,
         createdAt: new Date(),
       });
+      leadId = docRef.id;
     } catch (dbError) {
       console.error("Firestore Admin save error:", dbError);
-      // We log but continue, so we can still try to send the email if DB fails
+      return NextResponse.json(
+        { error: "We could not save your request. Please try again." },
+        { status: 500 }
+      );
     }
 
     // A PII-free copy, safe to export to BigQuery and join against GA4
@@ -84,62 +81,9 @@ export async function POST(request: Request) {
       consent: { contact: true, shareWithLenders: !!consent.shareWithLenders, noticeVersion: consent.noticeVersion },
     });
 
-    const { data, error } = await resend.emails.send({
-      from: "alankrit.dabral@creditexpertindia.com",
-      to: ["btyagi419@gmail.com"],
-      subject: `New Lead — ${name} — ${requirement}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
-          <h2>New Credit Expert India Lead</h2>
-          <hr />
-          <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Name:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;">${escapeHtml(name)}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Mobile:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;">${escapeHtml(phone)}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Net Salary:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;">₹${escapeHtml(String(netSalary))}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Ongoing EMI:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;">₹${escapeHtml(String(ongoingEmi))}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;"><strong>Requirement:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #eee;">${escapeHtml(requirement)}</td>
-            </tr>
-          </table>
-
-          <div style="margin-top: 25px; display: flex; gap: 10px;">
-            <a href="tel:+91${escapeHtml(phone).replace(/[^0-9]/g, '')}" style="background-color: #0F172A; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">📞 Call Customer</a>
-            <a href="https://wa.me/91${escapeHtml(phone).replace(/[^0-9]/g, '')}" style="background-color: #25D366; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">💬 WhatsApp Customer</a>
-          </div>
-
-          <hr style="margin-top: 30px;" />
-          <p style="color: #666; font-size: 12px;">
-            <strong>Source:</strong> Credit Expert India Contact Form<br/>
-            Please contact this customer as soon as possible.
-          </p>
-        </div>
-      `,
-    });
-
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json(
-        { error: "Failed to send email." },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({
       success: true,
-      messageId: data?.id,
+      leadId,
       leadRef,
     });
   } catch (error) {
