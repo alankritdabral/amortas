@@ -7,7 +7,7 @@ import { contact } from "@/lib/config";
 export const metadata: Metadata = buildMetadata({
   title: "Contact Us",
   description:
-    "Get in touch with Credit Expert India debt specialists for assistance with personal loans and debt consolidation.",
+    "Get in touch with Amortas debt specialists for assistance with personal loans and debt consolidation.",
   path: "/contact",
 });
 
@@ -15,7 +15,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@graph": contact.addresses.map((addr) => ({
     "@type": "FinancialService",
-    "name": `Credit Expert India - ${addr.city} Branch`,
+    "name": `Amortas - ${addr.city} Branch`,
     "description": "Debt consolidation, balance transfer and personal loan advisory services.",
     "telephone": contact.whatsapp,
     "email": contact.email,
@@ -47,7 +47,7 @@ export default function ContactPage() {
         body="Questions about your loans or consolidation options? Call, message or fill in the form and one of our credit specialists will get back to you."
         cta="Leave my details"
         image="/contact.png"
-        imageAlt="A Credit Expert India specialist available to answer questions by phone or WhatsApp"
+        imageAlt="A Amortas specialist available to answer questions by phone or WhatsApp"
         points={["Offices in Dehradun, Delhi and Rudrapur", "Usually a reply within 24 hours", "Free to ask"]}
         href="#contact-form"
       />

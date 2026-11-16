@@ -714,7 +714,7 @@ export function EligibilityForm() {
                 />
                 <span className="text-xs text-brand-black/70 leading-relaxed">
                   <strong>Consent</strong><br />
-                  I confirm I am 21 or older and I consent and authorize Credit Expert India to securely retrieve my credit report from the credit bureau, to contact me about this enquiry, and to share my details with partner lenders (see{" "}
+                  I confirm I am 21 or older and I consent and authorize Amortas to securely retrieve my credit report from the credit bureau, to contact me about this enquiry, and to share my details with partner lenders (see{" "}
                   <Link href="/partner-disclosures" className="underline">partner disclosures</Link>).
                 </span>
               </label>

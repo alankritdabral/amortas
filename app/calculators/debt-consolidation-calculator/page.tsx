@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Free debt consolidation calculator for Indian borrowers. Combine personal loans, credit card dues and app loans into one lower EMI.",
   alternates: { canonical: "/calculators/debt-consolidation-calculator" },
   openGraph: {
-    title: "Debt Consolidation Calculator India | Credit Expert India",
+    title: "Debt Consolidation Calculator India | Amortas",
     description: "Combine multiple loan and credit card EMIs into one single lower monthly payment. Check your potential monthly savings instantly.",
     url: `${siteConfig.url}/calculators/debt-consolidation-calculator`,
     siteName: siteConfig.name,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Debt Consolidation Calculator India | Credit Expert India",
+    title: "Debt Consolidation Calculator India | Amortas",
     description: "Combine multiple loan and credit card EMIs into one single lower monthly payment.",
     images: ["/opengraph-image"],
   },
@@ -371,7 +371,7 @@ export default function DebtConsolidationCalculatorPage() {
               Ready to Explore Your Real Options?
             </h3>
             <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
-              Get an unpressured, confidential assessment from Credit Expert India's senior debt advisors. We work with 13 RBI-regulated lenders to find the optimal consolidation structure for your profile.
+              Get an unpressured, confidential assessment from Amortas's senior debt advisors. We work with 13 RBI-regulated lenders to find the optimal consolidation structure for your profile.
             </p>
             <div className="pt-2 flex flex-col sm:flex-row justify-center gap-3">
               <Link

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/public/img/logo.webp";
+import { Logo } from "@/components/Logo";
 import { ArrowRight, X, Mail, ShieldCheck, ChevronDown, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
@@ -391,16 +391,7 @@ export function Navbar() {
 
           {/* The bar */}
           <div className="relative z-10 flex items-center justify-between h-full">
-            <Link href="/" className="flex items-center gap-2 group shrink-0">
-              <Image
-                src={logo}
-                alt="Credit Expert India"
-                width={160}
-                height={40}
-                className="h-[34px] sm:h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
-                priority
-              />
-            </Link>
+            <Logo />
 
             <nav className="hidden lg:flex flex-1 items-center ml-10" aria-label="Main">
               <ul className="flex items-center gap-1">
@@ -499,9 +490,7 @@ export function Navbar() {
             >
               {/* Header */}
               <div className="h-[60px] shrink-0 sticky top-0 z-10 bg-white px-4 md:px-6 flex items-center justify-between">
-                <Link href="/" onClick={() => setOpen(false)}>
-                  <Image src={logo} alt="Credit Expert India" className="h-[34px] sm:h-10 w-auto object-contain" priority />
-                </Link>
+                <Logo onClick={() => setOpen(false)} />
                 <button
                   type="button"
                   aria-label="Close menu"

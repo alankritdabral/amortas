@@ -1,8 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
-import logoWithName from '@/public/img/logo_with_name.webp';
+import { Logo } from '@/components/Logo';
 import { siteConfig, contact } from '@/lib/config';
 import { MessageCircle, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { clearConsent } from '@/lib/consent';
@@ -113,20 +112,7 @@ export function Footer() {
         {/* Brand + nav columns */}
         <div className="flex flex-wrap gap-12 py-14">
           <div className="flex-1 min-w-[260px] max-w-[320px] flex flex-col gap-6">
-            <Link href="/" aria-label={`${siteConfig.name} home`} className="inline-flex items-center gap-3 text-white">
-              <Image
-                src={logoWithName}
-                alt={siteConfig.name}
-                width={44}
-                height={44}
-                className="h-11 w-auto object-contain"
-                style={{ width: 'auto', height: 'auto' }}
-              />
-              <span className="flex flex-col leading-tight">
-                <span className="text-lg font-extrabold tracking-tight">Credit Expert</span>
-                <span className="text-sm font-semibold text-[#FF9A5C]">India</span>
-              </span>
-            </Link>
+            <Logo variant="dark" />
             <p className="text-sm leading-relaxed text-[#D4D4D4]">
               A loan facilitator helping salaried borrowers compare lenders, cut EMIs and consolidate debt.
             </p>

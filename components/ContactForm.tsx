@@ -3,8 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Loader2, ArrowRight, CheckCircle2, AlertCircle, ChevronDown, Lock, Check, CheckCheck } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import logo from "@/public/img/logo.webp";
+import { LogoMark } from "@/components/Logo";
 import { contact } from "@/lib/config";
 import { NOTICE_VERSION } from "@/lib/consent";
 import { track, setJourneyStage } from "@/lib/analytics/track";
@@ -156,7 +155,7 @@ export function ContactForm() {
           </div>
           <h3 className="text-2xl font-bold text-emerald-900 mb-2">Successfully Submitted</h3>
           <p className="text-emerald-700 mb-8">
-            Thank you for contacting Credit Expert India.
+            Thank you for contacting Amortas.
             <br />
             Our team will contact you shortly.
           </p>
@@ -315,7 +314,7 @@ export function ContactForm() {
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
               <span className="text-sm text-[#404040] group-hover:text-[#0A0A0A] transition-colors">
-                I agree that Credit Expert India, and its partner lenders (see{" "}
+                I agree that Amortas, and its partner lenders (see{" "}
                 <Link href="/partner-disclosures" className="underline">partner disclosures</Link>), may contact me regarding this enquiry. <span className="text-red-500">*</span>
               </span>
             </label>
@@ -363,10 +362,10 @@ export function ContactForm() {
           <div className="mt-9 max-w-md overflow-hidden rounded-2xl card-elevated bg-[#efeae2]">
             <div className="flex items-center gap-3 bg-[#008069] px-4 py-3 text-white">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
-                <Image src={logo} alt="" className="h-[18px] w-auto object-contain" />
+                <LogoMark className="h-[14px] w-auto text-[#FF5A00]" />
               </div>
               <div className="leading-tight">
-                <p className="text-[15px] font-semibold">Credit Expert India</p>
+                <p className="text-[15px] font-semibold">Amortas</p>
                 <p className="text-xs text-white/80">online</p>
               </div>
             </div>

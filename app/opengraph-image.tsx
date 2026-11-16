@@ -25,8 +25,7 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          backgroundColor: "#E04F00",
-          backgroundImage: "linear-gradient(135deg, #E04F00 0%, #0A0A0A 100%)",
+          backgroundColor: "#0A0A0A",
         }}
       >
         <div
@@ -34,16 +33,21 @@ export default function Image() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 72,
-            height: 72,
-            borderRadius: 16,
-            backgroundColor: "#ffffff",
-            fontSize: 36,
-            fontWeight: 700,
-            color: "#E04F00",
+            width: 96,
+            height: 96,
+            borderRadius: 20,
+            backgroundColor: "#FF5A00",
           }}
         >
-          CE
+          <svg width="64" height="40" viewBox="56 36 734 458" fill="none">
+            <path
+              d="M262 378 C215 455 116 462 98 376 C90 304 155 260 228 262 C335 280 450 425 644 437 C752 442 756 345 711 267 C676 199 627 66 543 77 C488 86 452 145 386 238"
+              stroke="#ffffff"
+              strokeWidth="64"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
         <div style={{ display: "flex", marginTop: 48, fontSize: 56, fontWeight: 700, color: "#ffffff", lineHeight: 1.15, maxWidth: 1000 }}>
           Debt Consolidation & Personal Loans for Salaried Professionals
