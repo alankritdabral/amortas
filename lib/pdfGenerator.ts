@@ -129,7 +129,7 @@ const drawCoverPage = async (doc: any, bureau: string, cibilData: any, formData:
   try {
     const logoBase64 = await fetchImageAsBase64('/img/logo_with_name.png');
     if (logoBase64) {
-      doc.addImage(logoBase64, 'PNG', (pageWidth - 95) / 2, currentY - 10, 95, 50);
+      doc.addImage(logoBase64, 'PNG', (pageWidth - 95) / 2, currentY, 95, 28.5);
     }
   } catch(e) {}
   currentY += 70;
@@ -337,7 +337,7 @@ const addHeaderToAllPages = async (doc: any, bureauColor: [number, number, numbe
     doc.setPage(i);
     
     if (logoBase64) {
-      doc.addImage(logoBase64, 'PNG', 40, 15, 75, 40);
+      doc.addImage(logoBase64, 'PNG', 40, 22, 75, 22.5);
     }
     
     doc.setDrawColor(226, 232, 240);
