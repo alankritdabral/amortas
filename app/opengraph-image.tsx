@@ -25,8 +25,8 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          backgroundColor: "#0052CC",
-          backgroundImage: "linear-gradient(135deg, #0052CC 0%, #0A2540 100%)",
+          backgroundColor: "#E04F00",
+          backgroundImage: "linear-gradient(135deg, #E04F00 0%, #0A0A0A 100%)",
         }}
       >
         <div
@@ -40,7 +40,7 @@ export default function Image() {
             backgroundColor: "#ffffff",
             fontSize: 36,
             fontWeight: 700,
-            color: "#0052CC",
+            color: "#E04F00",
           }}
         >
           CE
@@ -48,7 +48,7 @@ export default function Image() {
         <div style={{ display: "flex", marginTop: 48, fontSize: 56, fontWeight: 700, color: "#ffffff", lineHeight: 1.15, maxWidth: 1000 }}>
           Debt Consolidation & Personal Loans for Salaried Professionals
         </div>
-        <div style={{ display: "flex", marginTop: 32, fontSize: 28, color: "#BFDBFE" }}>
+        <div style={{ display: "flex", marginTop: 32, fontSize: 28, color: "#FFD2B8" }}>
           {siteConfig.name}
         </div>
       </div>

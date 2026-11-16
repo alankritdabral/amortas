@@ -119,7 +119,7 @@ export default function DebtConsolidationCalculatorPage() {
       <section className="relative w-full pt-32 pb-16 lg:pt-36 lg:pb-20 bg-background overflow-hidden border-b border-icy-blue">
         <div className="absolute inset-0 -z-10 h-full w-full">
           <AnimatedMeshBackground />
-          <div className="absolute top-0 right-0 w-full h-full max-w-[60%] transform origin-top-right -skew-y-12 bg-gradient-to-bl from-[#E2E8F0]/40 to-transparent pointer-events-none" />
+          <div className="absolute top-0 right-0 w-full h-full max-w-[60%] transform origin-top-right -skew-y-12 bg-gradient-to-bl from-[#E5E5E5]/40 to-transparent pointer-events-none" />
         </div>
 
         <div className="container-narrow text-center relative z-10 px-4">

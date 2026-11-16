@@ -76,7 +76,7 @@ export const AnimatedCreditCard = () => {
       >
         <motion.div style={{ rotateX, rotateY }} transition={springTransition} className="w-full">
           <motion.div
-            className="relative w-full aspect-[1.58] max-w-[320px] mx-auto overflow-hidden rounded-[20px] bg-gradient-to-br from-[#0A2540] to-[#0066FF] p-5 shadow-[0_15px_40px_rgba(45,140,255,0.3)] flex flex-col justify-between"
+            className="relative w-full aspect-[1.58] max-w-[320px] mx-auto overflow-hidden rounded-[20px] bg-gradient-to-br from-[#0A0A0A] to-[#FF5A00] p-5 shadow-[0_15px_40px_rgba(255, 90, 0,0.3)] flex flex-col justify-between"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

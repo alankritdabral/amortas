@@ -1,36 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --icy-blue: #add7f6;
-  --navy-electric: #090c9b;
-  --baby-blue-ice: #87bfff;
-  --blue-energy: #3f8efc;
-  --black: #000001;
+  --icy-blue: #FFD2B8;
+  --navy-electric: #E04F00;
+  --baby-blue-ice: #FF9A5C;
+  --blue-energy: #FF5A00;
+  --black: #0A0A0A;
   --white: #ffffff;
-  --surface-alternate: #f6f9fc;
-  --surface-tint: #e5edf5;
-  --ink-deep: #0a2540;
-  --ink-secondary: #061b31;
-  --body-slate: #3c4f69;
-  --muted-slate: #64748d;
+  --surface-alternate: #FAFAFA;
+  --surface-tint: #F7E0D4;
+  --ink-deep: #0A0A0A;
+  --ink-secondary: #171717;
+  --body-slate: #404040;
+  --muted-slate: #737373;
 
   /* Brand / Action Colors */
-  --primary-brand: #0066ff;
-  --primary-strong: #1a75ff;
-  --primary-hover: #0052cc;
-  --secondary-border: #bfdbfe;
+  --primary-brand: #FF5A00;
+  --primary-strong: #FF7A2E;
+  --primary-hover: #E04F00;
+  --secondary-border: #FFD2B8;
 
   /* Accent / Status Colors */
-  --success-green: #15803D;
-  --warning-lemon: #9b6829;
-  --error-ruby: #df1b41;
-  --magenta-midpoint: #f96bee;
+  --success-green: #10B981;
+  --warning-lemon: #F59E0B;
+  --error-ruby: #EF4444;
+  --magenta-midpoint: #FFDA00;
   
   /* Shadows */
   --shadow-level-1: rgba(23,23,23,0.06) 0px 3px 6px;
-  --shadow-level-2: rgba(50,50,93,0.25) 0 13px 27px -5px, rgba(0,0,0,0.3) 0 8px 16px -8px;
-  --shadow-level-3: rgba(50,50,93,0.25) 0 30px 60px -12px, rgba(0,0,0,0.3) 0 18px 36px -18px;
-  --shadow-level-4: rgba(3,3,39,0.25) 0 14px 21px -14px, rgba(0,0,0,0.1) 0 8px 17px -8px;
+  --shadow-level-2: rgba(10, 10, 10,0.25) 0 13px 27px -5px, rgba(0,0,0,0.3) 0 8px 16px -8px;
+  --shadow-level-3: rgba(10, 10, 10,0.25) 0 30px 60px -12px, rgba(0,0,0,0.3) 0 18px 36px -18px;
+  --shadow-level-4: rgba(10, 10, 10,0.25) 0 14px 21px -14px, rgba(0,0,0,0.1) 0 8px 17px -8px;
 }
 
 @theme inline {
@@ -77,6 +77,11 @@
   /* Force hardcoded legacy colors in components to map to Stripe CIELAB colors globally */
   --color-slate-900: var(--ink-deep);
   --color-slate-800: var(--ink-secondary);
+  --color-blue-50: #FFF1E8;
+  --color-blue-100: #FFE0CC;
+  --color-blue-200: #FFD2B8;
+  --color-blue-300: #FFB285;
+  --color-blue-400: #FF8A47;
   --color-blue-500: var(--primary-strong);
   --color-blue-600: var(--primary-brand);
   --color-blue-700: var(--primary-hover);
@@ -101,7 +106,7 @@
 }
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-color: #D4D4D4 transparent;
 }
 
 html {
@@ -231,7 +236,7 @@ input[type="range"] {
   width: 100%;
   height: 6px;
   border-radius: 999px;
-  background: #E2E8F0;
+  background: #E5E5E5;
   outline: none;
   cursor: pointer;
 }
@@ -245,14 +250,14 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   background: var(--blue-energy);
   border: 3px solid white;
-  box-shadow: 0 2px 8px rgba(63, 142, 252, 0.35), 0 0 0 1px rgba(63, 142, 252, 0.1);
+  box-shadow: 0 2px 8px rgba(255, 90, 0, 0.35), 0 0 0 1px rgba(255, 90, 0, 0.1);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 3px 12px rgba(63, 142, 252, 0.45), 0 0 0 1px rgba(63, 142, 252, 0.15);
+  box-shadow: 0 3px 12px rgba(255, 90, 0, 0.45), 0 0 0 1px rgba(255, 90, 0, 0.15);
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
@@ -265,14 +270,14 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
   background: var(--blue-energy);
   border: 3px solid white;
-  box-shadow: 0 2px 8px rgba(63, 142, 252, 0.35), 0 0 0 1px rgba(63, 142, 252, 0.1);
+  box-shadow: 0 2px 8px rgba(255, 90, 0, 0.35), 0 0 0 1px rgba(255, 90, 0, 0.1);
   cursor: pointer;
 }
 
 input[type="range"]::-moz-range-track {
   height: 6px;
   border-radius: 999px;
-  background: #E2E8F0;
+  background: #E5E5E5;
 }
 
 /* Filled track for webkit */
@@ -405,15 +410,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 /* Stripe-style layered card elevation: tight contact shadow + soft blue-tinted ambient lift */
 :root {
   --shadow-card:
-    0 0 0 1px rgba(10, 37, 64, 0.04),
-    0 2px 5px rgba(10, 37, 64, 0.05),
-    0 12px 28px -10px rgba(50, 50, 93, 0.16),
-    0 30px 60px -30px rgba(50, 50, 93, 0.14);
+    0 0 0 1px rgba(10, 10, 10, 0.04),
+    0 2px 5px rgba(10, 10, 10, 0.05),
+    0 12px 28px -10px rgba(10, 10, 10, 0.16),
+    0 30px 60px -30px rgba(10, 10, 10, 0.14);
   --shadow-card-hover:
-    0 0 0 1px rgba(10, 37, 64, 0.05),
-    0 4px 8px rgba(10, 37, 64, 0.06),
-    0 20px 40px -12px rgba(50, 50, 93, 0.22),
-    0 40px 80px -32px rgba(50, 50, 93, 0.2);
+    0 0 0 1px rgba(10, 10, 10, 0.05),
+    0 4px 8px rgba(10, 10, 10, 0.06),
+    0 20px 40px -12px rgba(10, 10, 10, 0.22),
+    0 40px 80px -32px rgba(10, 10, 10, 0.2);
 }
 
 .card-elevated {

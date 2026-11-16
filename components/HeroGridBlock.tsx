@@ -19,8 +19,8 @@ import hdfcLogo from '@/public/logos/hdfc.webp';
 
 export function HeroGridBlock() {
   const words = [
-    { text: "reduce", color: "#0066FF" },
-    { text: "manage", color: "#0066FF" },
+    { text: "reduce", color: "#FF5A00" },
+    { text: "manage", color: "#FF5A00" },
     { text: "clear", color: "#15803D" }
   ];
   const [wordIndex, setWordIndex] = React.useState(0);
@@ -69,7 +69,7 @@ export function HeroGridBlock() {
             href="#check-eligibility"
             data-analytics-cta="hero_check_eligibility"
             data-analytics-location="hero"
-            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-[#0052CC] text-white rounded text-base font-semibold hover:bg-[#0A2540] transition-all items-center justify-center gap-2 group shadow-sm"
+            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-[#E04F00] text-white rounded text-base font-semibold hover:bg-[#0A0A0A] transition-all items-center justify-center gap-2 group shadow-sm"
           >
             Check My Eligibility
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

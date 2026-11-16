@@ -50,7 +50,7 @@ const socials = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/credit-expert-india/home/', Icon: Linkedin },
 ];
 
-const linkClass = 'text-sm text-[#B4C3E0] hover:text-white transition-colors';
+const linkClass = 'text-sm text-[#D4D4D4] hover:text-white transition-colors';
 const headingClass = 'text-xs font-bold uppercase tracking-wider text-white mb-4';
 
 export function Footer() {
@@ -64,7 +64,7 @@ export function Footer() {
         <div className="flex flex-wrap items-end justify-between gap-8 py-14 lg:py-16 border-b border-white/10">
           <div className="flex-1 min-w-[280px] max-w-[520px]">
             <h2 className="text-3xl font-extrabold tracking-tight text-white">Talk to a credit advisor</h2>
-            <p className="mt-3 text-base leading-relaxed text-[#B4C3E0]">
+            <p className="mt-3 text-base leading-relaxed text-[#D4D4D4]">
               We&apos;re not a bank. We&apos;re your credit-side guide to finding clearer options on personal loans, EMIs and debt.
             </p>
           </div>
@@ -87,11 +87,11 @@ export function Footer() {
               href={`tel:+${whatsappDigits}`}
               data-analytics-cta="footer_call"
               data-analytics-location="footer"
-              className="flex flex-1 min-w-[200px] items-center gap-3 rounded-2xl bg-[#12306B] border border-white/10 px-5 py-3 text-white hover:bg-[#163a82] transition-colors"
+              className="flex flex-1 min-w-[200px] items-center gap-3 rounded-2xl bg-[#171717] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
             >
               <Phone className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">
-                <span className="text-xs text-[#B4C3E0]">Call us</span>
+                <span className="text-xs text-[#D4D4D4]">Call us</span>
                 <span className="text-base font-bold">{contact.whatsapp}</span>
               </span>
             </a>
@@ -99,11 +99,11 @@ export function Footer() {
               href={`mailto:${contact.email}`}
               data-analytics-cta="footer_email"
               data-analytics-location="footer"
-              className="flex flex-1 min-w-[260px] items-center gap-3 rounded-2xl bg-[#12306B] border border-white/10 px-5 py-3 text-white hover:bg-[#163a82] transition-colors"
+              className="flex flex-1 min-w-[260px] items-center gap-3 rounded-2xl bg-[#171717] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
             >
               <Mail className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">
-                <span className="text-xs text-[#B4C3E0]">Email</span>
+                <span className="text-xs text-[#D4D4D4]">Email</span>
                 <span className="text-base font-bold">{contact.email}</span>
               </span>
             </a>
@@ -124,10 +124,10 @@ export function Footer() {
               />
               <span className="flex flex-col leading-tight">
                 <span className="text-lg font-extrabold tracking-tight">Credit Expert</span>
-                <span className="text-sm font-semibold text-[#7FB2FF]">India</span>
+                <span className="text-sm font-semibold text-[#FF9A5C]">India</span>
               </span>
             </Link>
-            <p className="text-sm leading-relaxed text-[#B4C3E0]">
+            <p className="text-sm leading-relaxed text-[#D4D4D4]">
               A loan facilitator helping salaried borrowers compare lenders, cut EMIs and consolidate debt.
             </p>
             <div className="flex items-center gap-2.5">
@@ -138,7 +138,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-[#B4C3E0] hover:text-white hover:border-white/40 transition-colors"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-[#D4D4D4] hover:text-white hover:border-white/40 transition-colors"
                 >
                   <Icon className="w-[18px] h-[18px]" />
                 </a>
@@ -182,7 +182,7 @@ export function Footer() {
                   <li key={link.href}><Link href={link.href} className={linkClass}>{link.label}</Link></li>
                 ))}
               </ul>
-              <Link href="/learning-center" className="inline-flex items-center mt-3 text-sm font-bold text-[#7FB2FF] hover:text-white transition-colors">
+              <Link href="/learning-center" className="inline-flex items-center mt-3 text-sm font-bold text-[#FF9A5C] hover:text-white transition-colors">
                 Visit the learning center
               </Link>
             </nav>
@@ -195,10 +195,10 @@ export function Footer() {
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {contact.addresses.map((addr) => (
               <address key={addr.city} className="not-italic flex gap-3.5 p-5 rounded-2xl bg-white/5">
-                <MapPin className="w-5 h-5 mt-0.5 shrink-0 text-[#7FB2FF]" />
+                <MapPin className="w-5 h-5 mt-0.5 shrink-0 text-[#FF9A5C]" />
                 <span className="flex flex-col gap-1.5">
                   <strong className="text-base text-white">{addr.city}</strong>
-                  <span className="text-sm leading-relaxed text-[#B4C3E0]">{addr.fullAddress}</span>
+                  <span className="text-sm leading-relaxed text-[#D4D4D4]">{addr.fullAddress}</span>
                 </span>
               </address>
             ))}
@@ -207,20 +207,20 @@ export function Footer() {
 
         {/* Legal */}
         <div className="border-t border-white/10 py-7 lg:pb-9 flex flex-col gap-6">
-          <p className="text-xs leading-relaxed text-[#93A6CB] max-w-4xl">
+          <p className="text-xs leading-relaxed text-[#A3A3A3] max-w-4xl">
             {contact.legalName} is a loan facilitator, not a bank or NBFC. Final loan approval, interest rate and loan terms are determined by the respective lender based on its policies and eligibility criteria. We do not guarantee loan approval or specific rates.
           </p>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <p className="text-sm text-[#93A6CB]">© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+            <p className="text-sm text-[#A3A3A3]">© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
             <nav aria-label="Legal">
               <ul role="list" className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                 {legalLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-[#B4C3E0] hover:text-white transition-colors">{link.label}</Link>
+                    <Link href={link.href} className="text-[#D4D4D4] hover:text-white transition-colors">{link.label}</Link>
                   </li>
                 ))}
                 <li>
-                  <button type="button" onClick={() => clearConsent()} className="text-[#B4C3E0] hover:text-white transition-colors">
+                  <button type="button" onClick={() => clearConsent()} className="text-[#D4D4D4] hover:text-white transition-colors">
                     Cookie settings
                   </button>
                 </li>

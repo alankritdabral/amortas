@@ -36,7 +36,7 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       
-      <section id="contact-form" className="bg-[#EAF3FF]">
+      <section id="contact-form" className="bg-[#FFF1E8]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
           <ContactForm />
         </div>
@@ -54,23 +54,23 @@ export default function ContactPage() {
 
       <section className="bg-white">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24 grid gap-12 lg:grid-cols-[5fr_7fr]">
-          <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A2540]">
+          <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A]">
             Or come and see us.
           </h2>
-          <div className="grid gap-10 sm:grid-cols-2 text-[#0A2540]">
+          <div className="grid gap-10 sm:grid-cols-2 text-[#0A0A0A]">
             {contact.addresses.map((addr, idx) => (
               <div key={idx}>
                 <h3 className="text-2xl font-bold tracking-[-0.02em]">{addr.city}</h3>
-                <p className="mt-2 text-lg leading-relaxed text-[#3C4F69]">{addr.fullAddress}</p>
+                <p className="mt-2 text-lg leading-relaxed text-[#404040]">{addr.fullAddress}</p>
               </div>
             ))}
             <div>
               <h3 className="text-2xl font-bold tracking-[-0.02em]">Call or WhatsApp</h3>
-              <p className="mt-2 text-lg text-[#3C4F69]">{contact.whatsapp}</p>
+              <p className="mt-2 text-lg text-[#404040]">{contact.whatsapp}</p>
             </div>
             <div>
               <h3 className="text-2xl font-bold tracking-[-0.02em]">Email</h3>
-              <p className="mt-2 text-lg text-[#3C4F69] break-all">{contact.email}</p>
+              <p className="mt-2 text-lg text-[#404040] break-all">{contact.email}</p>
             </div>
           </div>
         </div>

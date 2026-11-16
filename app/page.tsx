@@ -64,7 +64,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 1.6: Contact Form */}
-      <section className="w-full bg-[#EAF3FF] py-16 md:py-24">
+      <section className="w-full bg-[#FFF1E8] py-16 md:py-24">
         <div className="max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <ContactForm />
@@ -112,7 +112,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 6: Eligibility Form */}
-      <section id="lead-form" className="w-full bg-[#EAF3FF]">
+      <section id="lead-form" className="w-full bg-[#FFF1E8]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
           <AnimatedSection>
             <EligibilityForm />

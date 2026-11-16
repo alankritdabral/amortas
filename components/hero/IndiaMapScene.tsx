@@ -36,8 +36,8 @@ function SceneContent({ activeCity, highlightedCity, transaction, isReducedMotio
       {/* Lights */}
       <ambientLight intensity={0.8} color="#f0f5ff" />
       <directionalLight position={[5, 10, 5]} intensity={1.5} color="#ffffff" />
-      <directionalLight position={[-5, 5, 2]} intensity={0.5} color="#0066FF" />
-      <pointLight position={[0, 0, 2]} intensity={0.5} color="#0066FF" />
+      <directionalLight position={[-5, 5, 2]} intensity={0.5} color="#FF5A00" />
+      <pointLight position={[0, 0, 2]} intensity={0.5} color="#FF5A00" />
       
       <Center>
         {/* We tilt the map to give an isometric/3D feel */}

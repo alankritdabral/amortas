@@ -23,18 +23,18 @@ export default function Page() {
         imageAlt="An Indian city skyline, representing Credit Expert India's nationwide service"
         points={["Written for salaried borrowers", "General information, not advice", "Free to read"]}
       />
-      <section className="bg-white text-[#0A2540]">
+      <section className="bg-white text-[#0A0A0A]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
           {articles.map((a, n) => (
             <Link
               key={a.slug}
               href={`/learning-center/${a.slug}`}
-              className={`group grid gap-4 md:grid-cols-[7fr_5fr] md:gap-12 px-5 md:px-7 py-8 items-center ${n % 2 === 0 ? "bg-[#EAF3FF]" : ""}`}
+              className={`group grid gap-4 md:grid-cols-[7fr_5fr] md:gap-12 px-5 md:px-7 py-8 items-center ${n % 2 === 0 ? "bg-[#FFF1E8]" : ""}`}
             >
-              <h2 className="text-[32px] md:text-[36px] leading-[1.08] tracking-[-0.03em] font-bold group-hover:text-[#0052CC] transition-colors">
+              <h2 className="text-[32px] md:text-[36px] leading-[1.08] tracking-[-0.03em] font-bold group-hover:text-[#E04F00] transition-colors">
                 {a.title}
               </h2>
-              <p className="text-lg text-[#3C4F69] leading-relaxed">{a.summary}</p>
+              <p className="text-lg text-[#404040] leading-relaxed">{a.summary}</p>
             </Link>
           ))}
         </div>

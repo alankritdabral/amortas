@@ -175,7 +175,7 @@ export function ContactForm() {
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"
               data-analytics-location="contact_form_success"
-              className="flex-1 px-6 py-3 bg-[#0052CC] text-white hover:bg-[#0052CC]/90 rounded font-bold transition-all shadow-md shadow-[#0052CC]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-[#E04F00] text-white hover:bg-[#E04F00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Check Eligibility
             </Link>
@@ -195,10 +195,10 @@ export function ContactForm() {
       <div className="bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated" id="contact-form-card">
         <div className="mb-6 md:mb-8 shrink-0">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-2">
-            <h2 className="text-[32px] font-bold tracking-[-0.02em] text-[#0A2540]">Leave your details</h2>
+            <h2 className="text-[32px] font-bold tracking-[-0.02em] text-[#0A0A0A]">Leave your details</h2>
 
           </div>
-          <p className="text-[#3C4F69] text-sm -mt-1 sm:mt-0">We&apos;ll call you back, usually within 24 hours.</p>
+          <p className="text-[#404040] text-sm -mt-1 sm:mt-0">We&apos;ll call you back, usually within 24 hours.</p>
         </div>
 
         {status === "error" && (
@@ -211,7 +211,7 @@ export function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="name" className="text-sm font-bold text-[#0A0A0A]">
                 Full Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -221,12 +221,12 @@ export function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Rahul Sharma"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="phone" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="phone" className="text-sm font-bold text-[#0A0A0A]">
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <input
@@ -236,14 +236,14 @@ export function ContactForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="e.g. 9876543210"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="requirement" className="text-sm font-bold text-[#0A2540]">
+            <label htmlFor="requirement" className="text-sm font-bold text-[#0A0A0A]">
               What can we help you with? <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -252,7 +252,7 @@ export function ContactForm() {
                 name="requirement"
                 value={formData.requirement}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none pr-10"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none pr-10"
                 required
               >
                 <option value="" disabled>Select an option</option>
@@ -262,7 +262,7 @@ export function ContactForm() {
                   </option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#3C4F69]">
+              <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#404040]">
                 <ChevronDown className="w-4 h-4" />
               </div>
             </div>
@@ -270,7 +270,7 @@ export function ContactForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="netSalary" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="netSalary" className="text-sm font-bold text-[#0A0A0A]">
                 Net Monthly Salary (₹) <span className="text-red-500">*</span>
               </label>
               <input
@@ -280,12 +280,12 @@ export function ContactForm() {
                 value={formData.netSalary}
                 onChange={handleChange}
                 placeholder="e.g. 50000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="ongoingEmi" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="ongoingEmi" className="text-sm font-bold text-[#0A0A0A]">
                 Ongoing EMI (₹) <span className="text-red-500">*</span>
               </label>
               <input
@@ -295,7 +295,7 @@ export function ContactForm() {
                 value={formData.ongoingEmi}
                 onChange={handleChange}
                 placeholder="e.g. 15000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
                 required
               />
             </div>
@@ -309,12 +309,12 @@ export function ContactForm() {
                   name="consentContact"
                   checked={formData.consentContact}
                   onChange={handleChange}
-                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#0052CC] checked:border-[#0052CC] transition-colors cursor-pointer"
+                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#E04F00] checked:border-[#E04F00] transition-colors cursor-pointer"
                   required
                 />
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
-              <span className="text-sm text-[#3C4F69] group-hover:text-[#0A2540] transition-colors">
+              <span className="text-sm text-[#404040] group-hover:text-[#0A0A0A] transition-colors">
                 I agree that Credit Expert India, and its partner lenders (see{" "}
                 <Link href="/partner-disclosures" className="underline">partner disclosures</Link>), may contact me regarding this enquiry. <span className="text-red-500">*</span>
               </span>
@@ -323,7 +323,7 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-[#0052CC] text-white py-[18px] rounded font-bold shadow-xl shadow-[#0052CC]/20 hover:shadow-2xl hover:shadow-[#0052CC]/30 hover:bg-[#0052CC]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
+              className="w-full bg-[#E04F00] text-white py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#E04F00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
             >
               {status === "loading" ? (
                 <>
@@ -338,7 +338,7 @@ export function ContactForm() {
               )}
             </button>
             
-            <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#3C4F69]">
+            <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#404040]">
               <Lock className="w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400" />
               <p className="text-[11px] sm:text-xs text-slate-400">Your information is secure and will only be used to contact you.</p>
             </div>
@@ -352,10 +352,10 @@ export function ContactForm() {
     <div className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-10 lg:gap-16 items-start">
         <div className="order-2 lg:order-1 lg:sticky lg:top-28">
-          <h2 className="text-[40px] sm:text-[56px] lg:text-[58px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A2540]">
+          <h2 className="text-[40px] sm:text-[56px] lg:text-[58px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A]">
             Rather have someone call you?
           </h2>
-          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#0A2540] max-w-md">
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#0A0A0A] max-w-md">
             Leave your number and tell us what you need help with. A credit expert will ring you
             back and walk through it with you.
           </p>
@@ -394,7 +394,7 @@ export function ContactForm() {
             </div>
           </div>
 
-          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-[#0A2540] max-w-md">
+          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-[#0A0A0A] max-w-md">
             <li>Your data is encrypted.</li>
             <li>Never shared with third parties.</li>
             <li>Verified loan experts.</li>
