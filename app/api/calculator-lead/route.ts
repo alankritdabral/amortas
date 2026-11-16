@@ -1,4 +1,4 @@
-import { adminDb } from "@/lib/firebaseAdmin";
+import { saveWebsiteLead } from "@/lib/websiteLeads";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { sanitizeAttribution } from "@/lib/analytics/sanitizeAttribution";
@@ -57,36 +57,36 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Save to Firestore leads collection
+    // 1. Save to the backend (RDS) so staff see it in the dashboard, grouped with the same
+    // customer's other enquiries and credit reports.
     const safeAttribution = sanitizeAttribution(attribution);
     let leadRefId = "";
     try {
-      const docRef = await adminDb.collection("leads").add({
+      leadRefId = await saveWebsiteLead({
         name,
         phone,
         city: city || "Not provided",
-        netSalary: salary,
-        totalDebt: Number(totalDebt) || 0,
-        currentMonthlyEMI: Number(currentMonthlyEMI) || 0,
-        estimatedNewEMI: Number(estimatedNewEMI) || 0,
-        estimatedMonthlySavings: Number(estimatedMonthlySavings) || 0,
-        debtsCount: Number(debtsCount) || 1,
-        debtsSummary: debtsSummary || "",
+        netSalary: Math.round(salary),
         requirement: "Debt Consolidation Calculator Assessment",
         consent: {
           contact: true,
           shareWithLenders: !!consent.shareWithLenders,
           noticeVersion: consent.noticeVersion || null,
-          recordedAt: new Date(),
+          recordedAt: new Date().toISOString(),
         },
         attribution: safeAttribution,
         source: "Debt Consolidation Calculator",
-        status: "NEW",
-        createdAt: new Date(),
+        extra: {
+          totalDebt: Number(totalDebt) || 0,
+          currentMonthlyEMI: Number(currentMonthlyEMI) || 0,
+          estimatedNewEMI: Number(estimatedNewEMI) || 0,
+          estimatedMonthlySavings: Number(estimatedMonthlySavings) || 0,
+          debtsCount: Number(debtsCount) || 1,
+          debtsSummary: debtsSummary || "",
+        },
       });
-      leadRefId = docRef.id;
     } catch (dbError) {
-      console.error("Firestore calculator lead save error:", dbError);
+      console.error("Backend calculator lead save error:", dbError);
     }
 
     // A PII-free copy, safe to export to BigQuery (plans/01-…/Phase 5 and 7).
