@@ -3,6 +3,7 @@ import Image from "next/image";
 import { HeroGridBlock, HeroLogos } from "@/components/HeroGridBlock";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { LoanSolutionsSection } from "@/components/LoanSolutionsSection";
+import { MarqueeBand, CtaBand } from "@/components/home/Bands";
 import { SectionRules, SectionDivider } from "@/components/SectionRules";
 import {
   HeroVisualBlock,
@@ -58,7 +59,7 @@ export default function Home() {
         </div>
       </section>
 
-      <SectionDivider />
+      <MarqueeBand />
       {/* Row 1.5: Loan Solutions Section (New) */}
       <LoanSolutionsSection />
 
@@ -120,6 +121,7 @@ export default function Home() {
         </div>
       </section>
 
+      <CtaBand />
     </SectionRules>
   );
 }

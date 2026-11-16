@@ -41,7 +41,7 @@ export function BenefitCards({ page }: { page: PageKey }) {
             const Icon = icons[b.icon] ?? CheckCircle2;
             return (
               <div key={b.title} className="rounded-2xl bg-white p-6 shadow-sm border border-[#E04F00]/10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E04F00] text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF5A00] text-white">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{b.title}</h3>

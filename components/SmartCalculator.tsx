@@ -94,7 +94,7 @@ export function SmartCalculator() {
   return (
     <div id="calculator" className="w-full grid grid-cols-1 lg:grid-cols-[5fr_7fr] text-[#0A0A0A]">
       {/* Left: the human part */}
-      <div className="bg-[#E04F00] text-white px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 py-14 md:py-20">
+      <div className="bg-[#FF5A00] text-white px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 py-14 md:py-20">
         <h2 className="text-[40px] sm:text-[56px] lg:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">
           What would your EMI look like?
         </h2>
@@ -110,7 +110,7 @@ export function SmartCalculator() {
         >
           Talk to us instead <ArrowRight className="w-5 h-5" />
         </a>
-        <p className="mt-10 text-sm text-[#b8ccff] max-w-sm leading-relaxed">
+        <p className="mt-10 text-sm text-[#FFD2B8] max-w-sm leading-relaxed">
           These are estimates only. Your actual EMI and rate depend on the lender and on your
           eligibility.
         </p>

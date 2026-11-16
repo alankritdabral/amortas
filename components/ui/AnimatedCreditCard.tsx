@@ -145,7 +145,7 @@ export const AnimatedCreditCard = () => {
                 }}
               >
                 <span>VISA</span>
-                <div className="w-2 h-2 rounded-full bg-[#15803D] shadow-[0_0_8px_rgba(18,184,120,0.8)]" />
+                <div className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(18,184,120,0.8)]" />
               </motion.div>
             </div>
           </motion.div>

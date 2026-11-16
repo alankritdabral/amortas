@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-const RULE = "bg-[#d8dee8]";
+const RULE = "bg-[#0A0A0A]";
 const EDGE = "max(0px, calc(50% - 610px))";
 
 /** Wraps a page so two faint vertical rails run down the container edges (desktop only). */

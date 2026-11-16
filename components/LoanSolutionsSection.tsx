@@ -139,7 +139,7 @@ export const LoanSolutionsSection = () => {
               href="/eligibility"
               data-analytics-cta="loan_solutions_check_eligibility"
               data-analytics-location="loan_solutions"
-              className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#E04F00] px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#0A0A0A]"
+              className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#FF5A00] px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#0A0A0A]"
             >
               Check your eligibility <ChevronRight className="w-4 h-4" />
             </Link>
@@ -161,7 +161,7 @@ export const LoanSolutionsSection = () => {
                 className="sticky top-[var(--slot)] bg-white border-t border-dashed border-[#E5E5E5] first:border-t-0 shadow-[0_-6px_10px_-8px_rgba(10, 10, 10,0.22)]"
               >
                 <div onClick={() => bringForward(idx)} className="flex items-center gap-0 py-2 cursor-pointer group">
-                  <span aria-hidden className="w-10 h-10 shrink-0 rounded-md flex items-center justify-center bg-[#E04F00] text-white">
+                  <span aria-hidden className="w-10 h-10 shrink-0 rounded-md flex items-center justify-center bg-[#FF5A00] text-white">
                     <Icon className="w-5 h-5" />
                   </span>
 

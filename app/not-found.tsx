@@ -34,7 +34,7 @@ export default function NotFound() {
             href="/"
             data-analytics-cta="not_found_home"
             data-analytics-location="not_found"
-            className="inline-flex items-center gap-2 rounded bg-[#E04F00] text-white font-semibold text-base px-[22px] h-[48px] hover:bg-[#0A0A0A] transition-colors"
+            className="inline-flex items-center gap-2 rounded bg-[#FF5A00] text-white font-semibold text-base px-[22px] h-[48px] hover:bg-[#0A0A0A] transition-colors"
           >
             Back to home
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

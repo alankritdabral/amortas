@@ -71,8 +71,8 @@ export function DebtConsolidation() {
               onClick={() => setActiveScenario(s)}
               className={`rounded px-5 py-3 text-base font-semibold transition-colors cursor-pointer ${
                 activeScenario.id === s.id
-                  ? "bg-[#E04F00] text-white"
-                  : "bg-[#FFF1E8] text-[#0A0A0A] hover:bg-[#d6e4fa]"
+                  ? "bg-[#FF5A00] text-white"
+                  : "bg-[#FFF1E8] text-[#0A0A0A] hover:bg-[#D4D4D4]"
               }`}
             >
               {s.name}
@@ -123,7 +123,7 @@ export function DebtConsolidation() {
             href="#lead-form"
             data-analytics-cta="debt_consolidation_check_options"
             data-analytics-location="debt_consolidation_scenarios"
-            className="inline-flex items-center justify-center gap-2 rounded bg-[#E04F00] hover:bg-[#0A0A0A] transition-colors text-white font-bold text-lg px-7 py-4"
+            className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5A00] hover:bg-[#0A0A0A] transition-colors text-white font-bold text-lg px-7 py-4"
           >
             Check my options <ArrowRight className="h-5 w-5" />
           </a>

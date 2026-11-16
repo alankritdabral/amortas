@@ -51,7 +51,7 @@ export default function CalculatorsPage() {
                 data-analytics-location="calculators_hub"
                 className="group flex flex-col rounded-2xl border border-[#E04F00]/10 bg-[#FFF1E8] p-6 hover:border-[#E04F00]/30 transition-colors"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E04F00] text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF5A00] text-white">
                   <Calculator className="h-6 w-6" />
                 </div>
                 <h2 className="mt-5 text-xl font-bold tracking-[-0.02em] text-[#0A0A0A]">{c.title}</h2>

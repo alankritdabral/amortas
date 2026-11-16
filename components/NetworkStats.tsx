@@ -290,7 +290,7 @@ export function NetworkStats() {
     <section className="relative w-full overflow-hidden bg-[#FAFAFA]">
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(1500px_1000px_at_50%_calc(100%+60px),#FF5A00_1%,#60A5FA_16%,#FFD2B8_34%,#FFF1E8_47%,#FAFAFA_62%)] opacity-90"
+        className="absolute inset-0 pointer-events-none bg-[#FFF1E8]"
       />
 
       <div className="relative max-w-[1220px] mx-auto ">
@@ -298,7 +298,7 @@ export function NetworkStats() {
           The backbone of smarter debt repayment
         </h2>
 
-        <div onMouseLeave={() => setHovered(null)} className="relative grid grid-cols-2 lg:grid-cols-4 border-y border-[#FFD2B8] bg-[#FAFAFA]/60 backdrop-blur-[2px]">
+        <div onMouseLeave={() => setHovered(null)} className="relative grid grid-cols-2 lg:grid-cols-4 border-y border-[#FFD2B8] bg-white">
           {/* Active indicator: a glowing hairline that slides to the selected column (desktop) */}
           {[0, 1].map((edge) => (
             <span
@@ -320,7 +320,7 @@ export function NetworkStats() {
                 onMouseEnter={() => setHovered(i)}
                 onFocus={() => setHovered(i)}
                 onBlur={() => setHovered(null)}
-                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#E04F00] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#0A0A0A] max-lg:bg-[#E04F00]/[0.06]" : "text-[#7A8BA6] hover:text-[#4A5C78]"}`}
+                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#E04F00] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#0A0A0A] max-lg:bg-[#FF5A00]/[0.06]" : "text-[#A3A3A3] hover:text-[#737373]"}`}
               >
                 <span className="text-[34px] md:text-[48px] leading-none tracking-[-0.03em] font-medium tabular-nums">
                   <AnimatedNumber

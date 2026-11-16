@@ -35,7 +35,7 @@ const INJECTED_STYLES = `
   .ambient-gradient {
       background: 
           radial-gradient(circle at 70% 25%, rgba(255, 90, 0, 0.25), transparent 45%),
-          linear-gradient(180deg, #0A0A0A 0%, #0c2b69 55%, #0A0A0A 100%);
+          linear-gradient(180deg, #0A0A0A 0%, #0A0A0A 55%, #0A0A0A 100%);
   }
 
   .phone-screen {
@@ -269,9 +269,9 @@ export function AnimatedPhoneMockup({ className }: { className?: string }) {
                   <p ref={newRef} className="ui-slide-right text-[32px] font-bold text-white leading-none">₹0</p>
                   <p className="ui-fade-up text-sm text-white/[0.55] font-normal mt-1">per month</p>
                 </div>
-                <div className="ui-scale-in bg-[rgba(18,184,120,0.20)] border border-[rgba(18,184,120,0.50)] text-[#15803D] px-2.5 py-1.5 rounded-[12px] flex flex-col items-center">
+                <div className="ui-scale-in bg-[rgba(18,184,120,0.20)] border border-[rgba(18,184,120,0.50)] text-[#10B981] px-2.5 py-1.5 rounded-[12px] flex flex-col items-center">
                   <span className="text-sm font-semibold leading-none mb-0.5">9.99%</span>
-                  <span className="text-[11px] font-medium leading-none text-[#15803D]">interest rate</span>
+                  <span className="text-[11px] font-medium leading-none text-[#10B981]">interest rate</span>
                 </div>
               </div>
             </div>

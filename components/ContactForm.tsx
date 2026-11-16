@@ -175,7 +175,7 @@ export function ContactForm() {
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"
               data-analytics-location="contact_form_success"
-              className="flex-1 px-6 py-3 bg-[#E04F00] text-white hover:bg-[#E04F00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-[#FF5A00] text-white hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Check Eligibility
             </Link>
@@ -309,7 +309,7 @@ export function ContactForm() {
                   name="consentContact"
                   checked={formData.consentContact}
                   onChange={handleChange}
-                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#E04F00] checked:border-[#E04F00] transition-colors cursor-pointer"
+                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#FF5A00] checked:border-[#E04F00] transition-colors cursor-pointer"
                   required
                 />
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
@@ -323,7 +323,7 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-[#E04F00] text-white py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#E04F00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
+              className="w-full bg-[#FF5A00] text-white py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
             >
               {status === "loading" ? (
                 <>

@@ -129,7 +129,7 @@ export async function POST(request: Request) {
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Total Debt Balance:</strong></td>
-                  <td style="padding: 6px 0; font-weight: bold; color: #2563EB;">₹${Number(totalDebt).toLocaleString('en-IN')}</td>
+                  <td style="padding: 6px 0; font-weight: bold; color: #FF5A00;">₹${Number(totalDebt).toLocaleString('en-IN')}</td>
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Current Total Monthly EMI:</strong></td>

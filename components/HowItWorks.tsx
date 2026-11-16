@@ -38,7 +38,7 @@ export function HowItWorks() {
                 i % 2 === 1 ? "bg-[#FFF1E8]" : ""
               }`}
             >
-              <span className="text-[56px] md:text-[96px] leading-none font-bold tracking-[-0.05em] text-[#2d6af0]">
+              <span className="text-[56px] md:text-[96px] leading-none font-bold tracking-[-0.05em] text-[#FF5A00]">
                 {i + 1}
               </span>
               <div>

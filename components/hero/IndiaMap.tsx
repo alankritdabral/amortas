@@ -34,7 +34,7 @@ function StateShape({ shape, id, isActive, isHighlighted, isPrimary, splitX, spl
       materialRef.current.emissiveIntensity = THREE.MathUtils.lerp(materialRef.current.emissiveIntensity, isHighlighted ? 0.6 : 0.2, delta * 5);
     }
     if (lineMaterialRef.current) {
-      const targetColor = new THREE.Color(isHighlighted ? "#60A5FA" : "#FF5A00"); // Bright border
+      const targetColor = new THREE.Color(isHighlighted ? "#FF9A5C" : "#FF5A00"); // Bright border
       lineMaterialRef.current.color.lerp(targetColor, delta * 5);
       lineMaterialRef.current.opacity = THREE.MathUtils.lerp(lineMaterialRef.current.opacity, isHighlighted ? 0.9 : 0.4, delta * 5);
     }

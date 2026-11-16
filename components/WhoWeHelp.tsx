@@ -17,7 +17,7 @@ export function WhoWeHelp() {
             href="#credit-profile"
             data-analytics-cta="who_we_help_check_eligibility"
             data-analytics-location="who_we_help"
-            className="mt-8 inline-flex items-center rounded bg-[#E04F00] hover:bg-[#0A0A0A] transition-colors text-white font-bold text-lg px-7 py-4"
+            className="mt-8 inline-flex items-center rounded bg-[#FF5A00] hover:bg-[#0A0A0A] transition-colors text-white font-bold text-lg px-7 py-4"
           >
             Check my eligibility
           </a>

@@ -57,7 +57,7 @@ export function Footer() {
   const whatsappDigits = contact.whatsapp.replace(/[^0-9]/g, '');
 
   return (
-    <footer className="bg-[#0A2150] text-[#E6ECF7]">
+    <footer className="bg-[#0A0A0A] text-[#E6ECF7]">
       <div className="mx-auto max-w-[1220px] px-4 sm:px-6 lg:px-8">
 
         {/* Talk to an advisor */}

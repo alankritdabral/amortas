@@ -91,7 +91,7 @@ export function CityLoanPage({ city }: { city: City }) {
                 <li key={c.slug}>
                   <Link
                     href={`/personal-loan-in-${c.slug}`}
-                    className="inline-block rounded bg-white hover:bg-[#E04F00] hover:text-white transition-colors px-5 py-3 text-base font-semibold"
+                    className="inline-block rounded bg-white hover:bg-[#FF5A00] hover:text-white transition-colors px-5 py-3 text-base font-semibold"
                   >
                     {c.name}
                   </Link>

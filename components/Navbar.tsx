@@ -22,7 +22,7 @@ type Menu = {
 
 const G1 = "linear-gradient(90deg,#E04F00,#FFD2B8 55%,#ff9a3c)";
 const G2 = "linear-gradient(90deg,#E04F00,#FFD2B8 55%,#ffd24d)";
-const G3 = "linear-gradient(90deg,#E04F00,#a98bff 60%,#ff6fb5)";
+const G3 = "linear-gradient(90deg,#E04F00,#FFDA00 60%,#ff6fb5)";
 
 const promoAssessment = {
   img: "/img/multipleloans.webp",
@@ -448,7 +448,7 @@ export function Navbar() {
                 href={assessmentHref}
                 data-analytics-cta="navbar_get_assessment"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center gap-1 text-base font-medium text-white bg-[#E04F00] hover:bg-[#1741b3] rounded transition-colors"
+                className="h-10 px-5 inline-flex items-center gap-1 text-base font-medium text-white bg-[#FF5A00] hover:bg-[#FF5A00] rounded transition-colors"
               >
                 Get assessment <ChevronRight className="h-4 w-4" />
               </Link>
@@ -460,7 +460,7 @@ export function Navbar() {
               aria-label="Open menu"
               aria-expanded={open}
               onClick={() => setOpen(!open)}
-              className="relative w-[44px] h-[44px] rounded-md bg-[#E04F00] hover:bg-[#0A0A0A] flex items-center justify-center cursor-pointer lg:hidden z-50 transition-colors shadow-sm"
+              className="relative w-[44px] h-[44px] rounded-md bg-[#FF5A00] hover:bg-[#0A0A0A] flex items-center justify-center cursor-pointer lg:hidden z-50 transition-colors shadow-sm"
             >
               <div className="relative w-5 h-[14px] flex flex-col justify-between items-center">
                 <span className={`block h-[2px] w-5 bg-white transition-transform duration-300 ${open ? "rotate-45 translate-y-[6px]" : ""}`}></span>
@@ -506,7 +506,7 @@ export function Navbar() {
                   type="button"
                   aria-label="Close menu"
                   onClick={() => setOpen(false)}
-                  className="relative w-[44px] h-[44px] rounded-md bg-[#E04F00] hover:bg-[#0A0A0A] flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                  className="relative w-[44px] h-[44px] rounded-md bg-[#FF5A00] hover:bg-[#0A0A0A] flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                 >
                   <X className="w-5 h-5 text-white" />
                 </button>
@@ -592,7 +592,7 @@ export function Navbar() {
                   href={pathname === "/" ? "#lead-form" : pathname === "/eligibility" ? "#credit-profile" : "/eligibility#credit-profile"}
                   onClick={() => setOpen(false)}
                   className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-white active:scale-[0.98] transition-transform shadow-lg shadow-blue-900/20"
-                  style={{ background: 'linear-gradient(135deg, #0B5ED7, #0751C9)' }}
+                  style={{ background: 'linear-gradient(135deg, #FF5A00, #E04F00)' }}
                 >
                   <span className="text-base font-semibold pl-2">Get Free Assessment</span>
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">

@@ -151,7 +151,7 @@ export function LoanNotification({ transaction, align = 'right', vAlign = 'top' 
             {transaction.amount}
           </div>
           <div className="flex items-center gap-1.5 text-xs md:text-sm text-[#404040] font-medium whitespace-nowrap">
-            <span className="w-2 h-2 rounded-full bg-[#15803D] shadow-[0_0_6px_rgba(16,185,129,0.5)]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,0.5)]"></span>
             {transaction.status || 'Loan Disbursed'}
           </div>
         </div>

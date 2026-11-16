@@ -141,7 +141,7 @@ function RateCard({ rate, active, y, instant }: { rate: StageRate; active: boole
         </div>
         <ArrowRight className="w-6 h-6 text-[#E04F00]" strokeWidth={1.5} />
         <div className="text-right">
-          <p className="text-[32px] font-bold text-[#15803D] leading-none mb-1 tabular-nums">
+          <p className="text-[32px] font-bold text-[#10B981] leading-none mb-1 tabular-nums">
             <AnimatedNumber value={rate.to} format={fmtFor(rate.to)} instant={instant} />
           </p>
           <p className="text-sm text-[#0A0A0A] opacity-70 font-medium">Potential rate*</p>
@@ -205,7 +205,7 @@ export function LoanStage({ scene, className, style, still }: { scene: StageScen
     <div
       aria-hidden="true"
       style={style}
-      className={`relative rounded-md bg-[linear-gradient(160deg,#FFF1E8,#f7fbff_55%,#dcebff)] border border-[#E5E5E5] overflow-hidden flex items-center justify-center h-[340px] sm:h-[420px] ${className ?? ""}`}
+      className={`relative rounded-md bg-[linear-gradient(160deg,#FFF1E8,#f7fbff_55%,#FFE0CC)] border border-[#E5E5E5] overflow-hidden flex items-center justify-center h-[340px] sm:h-[420px] ${className ?? ""}`}
     >
       <motion.div
         initial={false}

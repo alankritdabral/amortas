@@ -109,7 +109,7 @@ export function ConsentBanner() {
             <button
               type="button"
               onClick={() => choice(draft.analytics ? "granted" : "denied", draft.recordings ? "granted" : "denied")}
-              className="order-1 rounded-lg bg-[#E04F00] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#E04F00]/90 sm:order-3"
+              className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#FF5A00]/90 sm:order-3"
             >
               {consentNotice.saveLabel}
             </button>
@@ -125,7 +125,7 @@ export function ConsentBanner() {
               <button
                 type="button"
                 onClick={() => choice("granted", "granted")}
-                className="order-1 rounded-lg bg-[#E04F00] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#E04F00]/90 sm:order-3"
+                className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#FF5A00]/90 sm:order-3"
               >
                 {consentNotice.acceptLabel}
               </button>
