@@ -1,4 +1,4 @@
-import { adminDb } from "@/lib/firebaseAdmin";
+import { saveWebsiteLead } from "@/lib/websiteLeads";
 import { NextResponse } from "next/server";
 import { sanitizeAttribution } from "@/lib/analytics/sanitizeAttribution";
 import { writeLeadAnalytics } from "@/lib/analytics/leadAnalytics";
@@ -36,36 +36,30 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Ongoing EMI cannot be greater than 80% of net salary." }, { status: 400 });
     }
 
-    // Save to Firestore (server-side with the Admin SDK). The staff dashboard
-    // reads this collection: admins assign each lead to one employee, and
-    // employees only see the leads assigned to them. There is no email
-    // fallback any more, so a failed save must fail the request — otherwise
-    // the customer would see "success" for a lead nobody can ever see.
+    // Save to the backend (RDS). The staff dashboard reads it from there: admins assign each
+    // customer to one employee, and employees only see customers assigned to them. There is no
+    // email fallback, so a failed save must fail the request — otherwise the customer would see
+    // "success" for a lead nobody can ever see.
     const safeAttribution = sanitizeAttribution(attribution);
     let leadId: string;
     try {
-      const docRef = await adminDb.collection("leads").add({
+      leadId = await saveWebsiteLead({
         name,
         phone,
         requirement,
-        netSalary: salary,
-        ongoingEmi: emi,
+        netSalary: Math.round(salary),
+        ongoingEmi: Math.round(emi),
         consent: {
           contact: true,
           shareWithLenders: !!consent.shareWithLenders,
           noticeVersion: consent.noticeVersion || null,
-          recordedAt: new Date(),
+          recordedAt: new Date().toISOString(),
         },
         attribution: safeAttribution,
         source: "Credit Expert India Contact Form",
-        status: "NEW",
-        // Unassigned until an admin hands it to an employee in the dashboard.
-        assignedToEmail: null,
-        createdAt: new Date(),
       });
-      leadId = docRef.id;
     } catch (dbError) {
-      console.error("Firestore Admin save error:", dbError);
+      console.error("Backend lead save error:", dbError);
       return NextResponse.json(
         { error: "We could not save your request. Please try again." },
         { status: 500 }
