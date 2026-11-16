@@ -133,13 +133,13 @@ export const LoanSolutionsSection = () => {
         <header className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 lg:items-start">
           <div className="lg:col-span-5">
             <h2 className="text-[32px] sm:text-[44px] leading-[1.08] tracking-[-0.03em] font-semibold text-[#0A0A0A]">
-              Bring your eligible loans <span className="text-[#E04F00]">together</span>
+              Bring your eligible loans <span className="bg-[#FFDA00] px-2 -mx-1 box-decoration-clone">together</span>
             </h2>
             <Link
               href="/eligibility"
               data-analytics-cta="loan_solutions_check_eligibility"
               data-analytics-location="loan_solutions"
-              className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#FF5A00] px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#0A0A0A]"
+              className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#FF5A00] px-5 py-2.5 text-base font-semibold text-[#0A0A0A] hover:text-white transition-colors hover:bg-[#0A0A0A]"
             >
               Check your eligibility <ChevronRight className="w-4 h-4" />
             </Link>
@@ -170,7 +170,7 @@ export const LoanSolutionsSection = () => {
                     id={`sol-btn-${s.id}`}
                     className="flex-1 min-w-0 px-4 text-left bg-transparent border-0 appearance-none cursor-pointer focus-visible:outline-none"
                   >
-                    <h3 className="text-base sm:text-lg leading-10 font-semibold text-[#E04F00] transition-colors group-hover:text-[#0A0A0A]">{s.label}</h3>
+                    <h3 className="text-base sm:text-lg leading-10 font-semibold text-[#0A0A0A] transition-colors group-hover:text-[#0A0A0A]">{s.label}</h3>
                   </button>
 
                   <Link
@@ -179,7 +179,7 @@ export const LoanSolutionsSection = () => {
                     onClick={(e) => e.stopPropagation()}
                     data-analytics-cta={`loan_solutions_${s.id}`}
                     data-analytics-location="loan_solutions"
-                    className="ml-auto shrink-0 inline-flex h-10 items-center gap-1 rounded-md border border-[#FFD2B8] bg-white px-3 sm:px-4 text-sm sm:text-base font-semibold text-[#E04F00] transition-colors hover:border-[#E04F00]"
+                    className="ml-auto shrink-0 inline-flex h-10 items-center gap-1 rounded-md border border-[#FFD2B8] bg-white px-3 sm:px-4 text-sm sm:text-base font-semibold text-[#0A0A0A] transition-colors hover:border-[#E04F00]"
                   >
                     <span className="sm:hidden">Explore</span>
                     <span className="hidden sm:inline">Learn more</span>

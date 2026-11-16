@@ -18,7 +18,7 @@ export function ProductHero({ title, body, cta, image, imageAlt = "", points = [
   return (
     <>
     <div className="h-[84px] bg-white" aria-hidden="true" />
-    <section className="w-full grid grid-cols-1 lg:grid-cols-[6fr_5fr] bg-[#FF5A00] text-white">
+    <section className="w-full grid grid-cols-1 lg:grid-cols-[6fr_5fr] bg-[#FF5A00] text-[#0A0A0A]">
       <div className="px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 pt-14 pb-14 lg:pt-24 lg:pb-24">
         <h1 className="hero-title text-[clamp(36px,10vw,44px)] sm:text-5xl lg:text-[56px] leading-[1.02] tracking-[-0.04em] font-medium max-w-2xl">
           {title}
@@ -28,7 +28,7 @@ export function ProductHero({ title, body, cta, image, imageAlt = "", points = [
           href={href}
           data-analytics-cta={`hero_${cta.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")}`}
           data-analytics-location="product_hero"
-          className="mt-9 inline-flex items-center gap-2 rounded bg-white text-[#E04F00] font-semibold text-base px-[22px] h-[48px] hover:bg-[#0A0A0A] hover:text-white transition-colors"
+          className="mt-9 inline-flex items-center gap-2 rounded bg-white text-[#0A0A0A] font-semibold text-base px-[22px] h-[48px] hover:bg-[#0A0A0A] hover:text-white transition-colors"
         >
           {cta} <ArrowRight className="w-5 h-5" />
         </a>

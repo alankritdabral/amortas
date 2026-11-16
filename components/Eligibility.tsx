@@ -29,7 +29,7 @@ export function Eligibility() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-[#FFF1E8] p-7 md:p-8">
+          <div className="bg-[#F7E0D4] p-7 md:p-8">
             <h3 className="text-2xl font-bold tracking-[-0.02em] text-[#0A0A0A]">They usually check</h3>
             <ul className="mt-5 space-y-3 text-lg leading-snug text-[#0A0A0A]">
               {eligibility.map((e) => (

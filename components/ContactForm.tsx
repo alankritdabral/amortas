@@ -174,7 +174,7 @@ export function ContactForm() {
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"
               data-analytics-location="contact_form_success"
-              className="flex-1 px-6 py-3 bg-[#FF5A00] text-white hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-[#FF5A00] text-[#0A0A0A] hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Check Eligibility
             </Link>
@@ -322,7 +322,7 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-[#FF5A00] text-white py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
+              className="w-full bg-[#FF5A00] text-[#0A0A0A] py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
             >
               {status === "loading" ? (
                 <>
@@ -362,7 +362,7 @@ export function ContactForm() {
           <div className="mt-9 max-w-md overflow-hidden rounded-2xl card-elevated bg-[#efeae2]">
             <div className="flex items-center gap-3 bg-[#008069] px-4 py-3 text-white">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
-                <LogoMark className="h-[14px] w-auto text-[#FF5A00]" />
+                <LogoMark className="h-[14px] w-auto text-[#0A0A0A]" />
               </div>
               <div className="leading-tight">
                 <p className="text-[15px] font-semibold">Amortas</p>

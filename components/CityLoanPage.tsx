@@ -52,7 +52,7 @@ export function CityLoanPage({ city }: { city: City }) {
               { t: "One EMI instead of many", d: "Combine personal loans, card dues and app loans if it genuinely lowers your cost." },
               { t: "A cheaper rate on a loan you already have", d: "See whether moving your balance to a partner bank would save you money." },
             ].map((i, n) => (
-              <div key={i.t} className={`px-5 md:px-7 py-7 ${n % 2 === 0 ? "bg-[#FFF1E8]" : ""}`}>
+              <div key={i.t} className={`px-5 md:px-7 py-7 ${n % 2 === 0 ? "bg-[#F7E0D4]" : ""}`}>
                 <h3 className="text-2xl md:text-[32px] leading-tight tracking-[-0.02em] font-bold">{i.t}</h3>
                 <p className="mt-2 text-lg text-[#404040] leading-relaxed max-w-lg">{i.d}</p>
               </div>
@@ -81,7 +81,7 @@ export function CityLoanPage({ city }: { city: City }) {
       <LeadForm />
 
       {others.length > 0 && (
-        <section className="bg-[#FFF1E8] text-[#0A0A0A]">
+        <section className="bg-[#F7E0D4] text-[#0A0A0A]">
           <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-14 md:py-20">
             <h2 className="text-[32px] md:text-[40px] leading-[1.05] tracking-[-0.03em] font-bold">
               Personal loans in other cities
@@ -91,7 +91,7 @@ export function CityLoanPage({ city }: { city: City }) {
                 <li key={c.slug}>
                   <Link
                     href={`/personal-loan-in-${c.slug}`}
-                    className="inline-block rounded bg-white hover:bg-[#FF5A00] hover:text-white transition-colors px-5 py-3 text-base font-semibold"
+                    className="inline-block rounded bg-white hover:bg-[#FF5A00] hover:text-[#0A0A0A] transition-colors px-5 py-3 text-base font-semibold"
                   >
                     {c.name}
                   </Link>

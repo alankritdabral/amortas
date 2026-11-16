@@ -71,8 +71,8 @@ export function DebtConsolidation() {
               onClick={() => setActiveScenario(s)}
               className={`rounded px-5 py-3 text-base font-semibold transition-colors cursor-pointer ${
                 activeScenario.id === s.id
-                  ? "bg-[#FF5A00] text-white"
-                  : "bg-[#FFF1E8] text-[#0A0A0A] hover:bg-[#D4D4D4]"
+                  ? "bg-[#FF5A00] text-[#0A0A0A]"
+                  : "bg-[#F7E0D4] text-[#0A0A0A] hover:bg-[#D4D4D4]"
               }`}
             >
               {s.name}
@@ -81,7 +81,7 @@ export function DebtConsolidation() {
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
-          <div className="bg-[#FFF1E8] p-7 md:p-9">
+          <div className="bg-[#F7E0D4] p-7 md:p-9">
             <h3 className="text-2xl md:text-[32px] font-bold tracking-[-0.02em]">Today, you juggle:</h3>
             <ul className="mt-6 divide-y divide-[#E5E5E5]">
               {activeScenario.before.map((item) => (
@@ -123,7 +123,7 @@ export function DebtConsolidation() {
             href="#lead-form"
             data-analytics-cta="debt_consolidation_check_options"
             data-analytics-location="debt_consolidation_scenarios"
-            className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5A00] hover:bg-[#0A0A0A] transition-colors text-white font-bold text-lg px-7 py-4"
+            className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5A00] hover:bg-[#0A0A0A] transition-colors text-[#0A0A0A] hover:text-white font-bold text-lg px-7 py-4"
           >
             Check my options <ArrowRight className="h-5 w-5" />
           </a>

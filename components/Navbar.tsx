@@ -336,7 +336,7 @@ export function Navbar() {
                               {col.links.map((l) => (
                                 <li key={l.href + l.label}>
                                   <Link href={l.href} className="group block">
-                                    <span className="block text-base font-bold text-[#FF5A00] group-hover:text-[#0A0A0A] transition-colors font-bold">{l.label}</span>
+                                    <span className="block text-base font-bold text-[#0A0A0A] group-hover:text-[#0A0A0A] transition-colors font-bold">{l.label}</span>
                                     {l.desc && <span className="block text-sm leading-snug text-[#404040] mt-0.5">{l.desc}</span>}
                                   </Link>
                                 </li>
@@ -347,7 +347,7 @@ export function Navbar() {
                       </div>
                       {renderMenu.footer && (
                         <div className="-mx-12 px-12 py-5 border-t border-[#E5E5E5]">
-                          <Link href={renderMenu.footer.href} className="text-base font-bold text-[#FF5A00] hover:text-[#0A0A0A] inline-flex items-center gap-1">
+                          <Link href={renderMenu.footer.href} className="text-base font-bold text-[#0A0A0A] hover:text-[#0A0A0A] inline-flex items-center gap-1">
                             {renderMenu.footer.label} <ChevronRight className="h-4 w-4" />
                           </Link>
                         </div>
@@ -361,7 +361,7 @@ export function Navbar() {
                           {renderMenu.sidebar.links.map((l) => (
                             <li key={l.href}>
                               <Link href={l.href} className="group block">
-                                <span className="block text-base font-bold text-[#FF5A00] group-hover:text-[#0A0A0A] transition-colors font-bold">{l.label}</span>
+                                <span className="block text-base font-bold text-[#0A0A0A] group-hover:text-[#0A0A0A] transition-colors font-bold">{l.label}</span>
                                 {l.desc && <span className="block text-sm text-[#404040] mt-0.5">{l.desc}</span>}
                               </Link>
                             </li>
@@ -375,7 +375,7 @@ export function Navbar() {
                             <div className="p-4">
                               <p className="text-base font-medium text-[#0A0A0A]">{renderMenu.sidebar.promo.title}</p>
                               <p className="mt-1 text-sm leading-snug text-[#404040]">{renderMenu.sidebar.promo.text}</p>
-                              <p className="mt-3 text-base font-bold text-[#FF5A00] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                              <p className="mt-3 text-base font-bold text-[#0A0A0A] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                                 {renderMenu.sidebar.promo.cta} <ChevronRight className="h-4 w-4" />
                               </p>
                             </div>
@@ -431,7 +431,7 @@ export function Navbar() {
                 href="/eligibility"
                 data-analytics-cta="navbar_eligibility"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center text-base font-bold text-[#0A0A0A] bg-white border-2 border-[#0A0A0A] rounded hover:bg-[#FFF1E8] transition-colors"
+                className="h-10 px-5 inline-flex items-center text-base font-bold text-[#0A0A0A] bg-white border-2 border-[#0A0A0A] rounded hover:bg-[#F7E0D4] transition-colors"
               >
                 Eligibility
               </Link>
@@ -439,7 +439,7 @@ export function Navbar() {
                 href={assessmentHref}
                 data-analytics-cta="navbar_get_assessment"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center gap-1 text-base font-bold text-white bg-[#FF5A00] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] hover:bg-[#0A0A0A] rounded transition-colors"
+                className="h-10 px-5 inline-flex items-center gap-1 text-base font-bold text-[#0A0A0A] hover:text-white bg-[#FF5A00] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] hover:bg-[#0A0A0A] rounded transition-colors"
               >
                 Get assessment <ChevronRight className="h-4 w-4" />
               </Link>
@@ -549,7 +549,7 @@ export function Navbar() {
                                       {g.links.map((l) => (
                                         <li key={l.href + l.label}>
                                           <Link href={l.href} onClick={() => setOpen(false)} className="block">
-                                            <span className="block text-base font-bold text-[#FF5A00]">{l.label}</span>
+                                            <span className="block text-base font-bold text-[#0A0A0A]">{l.label}</span>
                                             {l.desc && <span className="block text-sm text-[#404040]">{l.desc}</span>}
                                           </Link>
                                         </li>
@@ -580,7 +580,7 @@ export function Navbar() {
                 <Link
                   href={pathname === "/" ? "#lead-form" : pathname === "/eligibility" ? "#credit-profile" : "/eligibility#credit-profile"}
                   onClick={() => setOpen(false)}
-                  className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-white active:scale-[0.98] transition-transform border-2 border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] bg-[#FF5A00]"
+                  className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-[#0A0A0A] active:scale-[0.98] transition-transform border-2 border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] bg-[#FF5A00]"
                 >
                   <span className="text-base font-semibold pl-2">Get Free Assessment</span>
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">

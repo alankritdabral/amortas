@@ -290,7 +290,7 @@ export function NetworkStats() {
     <section className="relative w-full overflow-hidden bg-[#FAFAFA]">
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none bg-[#FFF1E8]"
+        className="absolute inset-0 pointer-events-none bg-[#F7E0D4]"
       />
 
       <div className="relative max-w-[1220px] mx-auto ">

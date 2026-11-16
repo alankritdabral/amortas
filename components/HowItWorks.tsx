@@ -35,7 +35,7 @@ export function HowItWorks() {
             <li
               key={s.title}
               className={`grid grid-cols-[72px_1fr] md:grid-cols-[120px_1fr] items-center gap-2 py-6 md:py-8 px-4 md:px-6 mb-4 rounded-xl border-2 border-[#0A0A0A] ${
-                i % 2 === 1 ? "bg-[#FFF1E8]" : "bg-white"
+                i % 2 === 1 ? "bg-[#F7E0D4]" : "bg-white"
               }`}
             >
               <span className="text-[56px] md:text-[96px] leading-none font-bold tracking-[-0.05em] text-[#FF5A00]">

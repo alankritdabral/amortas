@@ -94,11 +94,11 @@ export function SmartCalculator() {
   return (
     <div id="calculator" className="w-full grid grid-cols-1 lg:grid-cols-[5fr_7fr] text-[#0A0A0A]">
       {/* Left: the human part */}
-      <div className="bg-[#FF5A00] text-white px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 py-14 md:py-20">
+      <div className="bg-[#FF5A00] text-[#0A0A0A] px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 py-14 md:py-20">
         <h2 className="text-[40px] sm:text-[56px] lg:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">
           What would your EMI look like?
         </h2>
-        <p className="mt-6 text-lg md:text-xl leading-relaxed text-white max-w-md">
+        <p className="mt-6 text-lg md:text-xl leading-relaxed text-[#0A0A0A] max-w-md">
           Move the sliders until it matches your loan. This is the same quick maths we do ourselves
           before we ever pick up the phone.
         </p>
@@ -106,18 +106,18 @@ export function SmartCalculator() {
           href="#lead-form"
           data-analytics-cta="smart_calculator_talk_to_us"
           data-analytics-location="smart_calculator"
-          className="mt-9 inline-flex items-center gap-2 rounded bg-white text-[#E04F00] font-bold text-lg px-7 py-4 hover:bg-[#0A0A0A] hover:text-white transition-colors"
+          className="mt-9 inline-flex items-center gap-2 rounded bg-white text-[#0A0A0A] font-bold text-lg px-7 py-4 hover:bg-[#0A0A0A] hover:text-white transition-colors"
         >
           Talk to us instead <ArrowRight className="w-5 h-5" />
         </a>
-        <p className="mt-10 text-sm text-white max-w-sm leading-relaxed">
+        <p className="mt-10 text-sm text-[#0A0A0A] max-w-sm leading-relaxed">
           These are estimates only. Your actual EMI and rate depend on the lender and on your
           eligibility.
         </p>
       </div>
 
       {/* Right: sliders and the answer */}
-      <div className="bg-[#FFF1E8] px-4 md:px-10 lg:pr-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pl-14 py-14 md:py-20">
+      <div className="bg-[#F7E0D4] px-4 md:px-10 lg:pr-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pl-14 py-14 md:py-20">
         {field(
           "How much is the loan?",
           inr(principal),

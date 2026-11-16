@@ -28,7 +28,7 @@ export default function Home() {
       {/* Row 1: Hero & Visual/Video Block */}
       <section className="relative w-full overflow-hidden pt-[40px] sm:pt-[76px] min-h-[400px] sm:h-auto sm:min-h-0 flex flex-col">
         {/* Background Image */}
-        <div className="hero-skyline pointer-events-none bg-[#FFF1E8]">
+        <div className="hero-skyline pointer-events-none bg-[#F7E0D4]">
           <Image
             src="/Misty India Skyline with Orbital Arcs.webp"
             alt=""
@@ -65,7 +65,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 1.6: Contact Form */}
-      <section className="w-full bg-[#FFF1E8] py-12 md:py-[72px]">
+      <section className="w-full bg-[#F7E0D4] py-12 md:py-[72px]">
         <div className="max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <ContactForm />
@@ -113,7 +113,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 6: Eligibility Form */}
-      <section id="lead-form" className="w-full bg-[#FFF1E8]">
+      <section id="lead-form" className="w-full bg-[#F7E0D4]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
             <EligibilityForm />

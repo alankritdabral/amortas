@@ -77,15 +77,16 @@
   --shadow-2xl: var(--shadow-level-4);
 
   /* Bold studio weights */
-  --font-weight-semibold: 600;
+  --font-weight-semibold: 700;
+  --font-weight-medium: 400;
   --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
-  --font-weight-black: 900;
+  --font-weight-extrabold: 700;
+  --font-weight-black: 700;
 
   /* Force hardcoded legacy colors in components to map to Stripe CIELAB colors globally */
   --color-slate-900: var(--ink-deep);
   --color-slate-800: var(--ink-secondary);
-  --color-blue-50: #FFF1E8;
+  --color-blue-50: #F7E0D4;
   --color-blue-100: #FFE0CC;
   --color-blue-200: #FFD2B8;
   --color-blue-300: #FFB285;
@@ -148,7 +149,7 @@ body {
 }
 
 .bg-mesh-gradient {
-  background: #FFF1E8;
+  background: #F7E0D4;
 }
 
 .bg-mesh-gradient-dark {
@@ -305,7 +306,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .hero-title {
   font-family: var(--font-inter), sans-serif;
   font-size: clamp(40px, 7vw, 64px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 0.98;
   letter-spacing: -0.05em;
   max-width: 900px;
@@ -322,7 +323,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .section-title {
   font-family: var(--font-inter), sans-serif;
   font-size: clamp(28px, 4vw, 42px);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.02;
   letter-spacing: -0.045em;
   max-width: 700px;
@@ -436,7 +437,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 ::selection { background: #FF5A00; color: #fff; }
 h1, h2, h3 { text-wrap: balance; }
 .orange-marquee { background: #FF5A00; color: #fff; border-block: 2px solid #0A0A0A; }
-.eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #FF5A00; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FF5A00; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
   outline: 3px solid #FF5A00; outline-offset: 2px;
 }

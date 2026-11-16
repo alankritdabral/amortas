@@ -29,7 +29,7 @@ export default function Page() {
             <Link
               key={a.slug}
               href={`/learning-center/${a.slug}`}
-              className={`group grid gap-4 md:grid-cols-[7fr_5fr] md:gap-12 px-5 md:px-7 py-8 items-center ${n % 2 === 0 ? "bg-[#FFF1E8]" : ""}`}
+              className={`group grid gap-4 md:grid-cols-[7fr_5fr] md:gap-12 px-5 md:px-7 py-8 items-center ${n % 2 === 0 ? "bg-[#F7E0D4]" : ""}`}
             >
               <h2 className="text-[32px] md:text-[36px] leading-[1.08] tracking-[-0.03em] font-bold group-hover:text-[#E04F00] transition-colors">
                 {a.title}

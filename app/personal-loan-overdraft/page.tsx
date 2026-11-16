@@ -40,7 +40,7 @@ export default function Page() {
           </h2>
           <div>
             {points.map((i, n) => (
-              <div key={i.t} className={`px-5 md:px-7 py-7 ${n % 2 === 0 ? "bg-[#FFF1E8]" : ""}`}>
+              <div key={i.t} className={`px-5 md:px-7 py-7 ${n % 2 === 0 ? "bg-[#F7E0D4]" : ""}`}>
                 <h3 className="text-2xl md:text-[32px] leading-tight tracking-[-0.02em] font-bold">{i.t}</h3>
                 <p className="mt-2 text-lg text-[#404040] leading-relaxed max-w-lg">{i.d}</p>
               </div>

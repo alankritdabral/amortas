@@ -30,7 +30,7 @@ export function TrustStrip() {
 export function BenefitCards({ page }: { page: PageKey }) {
   const { heading, intro, benefits } = pageContent[page];
   return (
-    <section className="bg-[#FFF1E8] text-[#0A0A0A]">
+    <section className="bg-[#F7E0D4] text-[#0A0A0A]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <div className="max-w-2xl">
           <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">{heading}</h2>
@@ -41,7 +41,7 @@ export function BenefitCards({ page }: { page: PageKey }) {
             const Icon = icons[b.icon] ?? CheckCircle2;
             return (
               <div key={b.title} className="rounded-2xl bg-white p-6 shadow-sm border border-[#E04F00]/10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF5A00] text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF5A00] text-[#0A0A0A]">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{b.title}</h3>
@@ -64,7 +64,7 @@ export function Testimonials() {
         </h2>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map((t) => (
-            <figure key={t.quote} className="rounded-2xl bg-[#FFF1E8] p-7 flex flex-col">
+            <figure key={t.quote} className="rounded-2xl bg-[#F7E0D4] p-7 flex flex-col">
               <Quote className="h-8 w-8 text-[#E04F00]" />
               <blockquote className="mt-4 text-lg leading-relaxed flex-1">{t.quote}</blockquote>
               <figcaption className="mt-6 text-sm font-semibold text-[#404040]">{t.who}</figcaption>
@@ -90,7 +90,7 @@ export function PageFAQ({ page }: { page: PageKey }) {
         </h2>
         <TrackedAccordion faqSet={`page:${page}`} type="single" collapsible className="w-full">
           {faqs.map((f, i) => (
-            <AccordionItem value={`f-${i}`} key={f.q} className="border-b-0 mb-2 px-4 md:px-6 data-[state=open]:bg-[#FFF1E8] transition-colors">
+            <AccordionItem value={`f-${i}`} key={f.q} className="border-b-0 mb-2 px-4 md:px-6 data-[state=open]:bg-[#F7E0D4] transition-colors">
               <AccordionTrigger className="hover:no-underline text-left gap-6 py-5">
                 <span className="text-xl md:text-2xl leading-snug font-semibold tracking-[-0.015em]">{f.q}</span>
               </AccordionTrigger>

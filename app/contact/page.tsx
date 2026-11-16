@@ -36,7 +36,7 @@ export default function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       
-      <section id="contact-form" className="bg-[#FFF1E8]">
+      <section id="contact-form" className="bg-[#F7E0D4]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 pt-28 md:pt-36 pb-16 md:pb-24">
           <ContactForm />
         </div>

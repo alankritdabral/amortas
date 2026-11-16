@@ -50,7 +50,7 @@ export function LoanCalculator() {
   }, [totalPrincipal, illustrativeRate, tenure, diff, cc]);
 
   return (
-    <section id="calculator" className="bg-[#FFF1E8]">
+    <section id="calculator" className="bg-[#F7E0D4]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A] max-w-3xl">
           How much could you stop paying every month?
@@ -71,10 +71,10 @@ export function LoanCalculator() {
             <Slider label="Your current interest rate" value={currentRate} min={8} max={36} step={0.5} onChange={(v) => { setCurrentRate(v); trackChange(); }} display={`${currentRate}%`} />
             <Slider label="Time left to repay" value={tenure} min={12} max={84} step={12} onChange={(v) => { setTenure(v); trackChange(); }} display={`${tenure / 12} years`} />
 
-            <div className="bg-[#FFF1E8] p-5">
+            <div className="bg-[#F7E0D4] p-5">
               <div className="flex items-center justify-between gap-4">
                 <span className="text-base font-semibold text-[#0A0A0A]">Rate you might get*</span>
-                <span className="text-xl font-bold text-[#E04F00]">{illustrativeRate}%</span>
+                <span className="text-xl font-bold text-[#0A0A0A]">{illustrativeRate}%</span>
               </div>
               <input
                 type="range"

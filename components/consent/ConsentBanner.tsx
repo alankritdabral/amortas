@@ -70,7 +70,7 @@ export function ConsentBanner() {
           <p className="text-sm font-bold text-[#0A0A0A]">{consentNotice.heading}</p>
           <p className="mt-1 text-sm leading-relaxed text-[#404040]">
             {consentNotice.body}{" "}
-            <Link href={consentNotice.privacyPolicyHref} className="font-semibold text-[#E04F00] underline">
+            <Link href={consentNotice.privacyPolicyHref} className="font-semibold text-[#0A0A0A] underline">
               {consentNotice.privacyPolicyLabel}
             </Link>
           </p>
@@ -100,7 +100,7 @@ export function ConsentBanner() {
             <button
               type="button"
               onClick={() => setExpanded(true)}
-              className="order-3 text-sm font-semibold text-[#E04F00] underline sm:order-1 sm:mr-auto"
+              className="order-3 text-sm font-semibold text-[#0A0A0A] underline sm:order-1 sm:mr-auto"
             >
               {consentNotice.chooseLabel}
             </button>
@@ -109,7 +109,7 @@ export function ConsentBanner() {
             <button
               type="button"
               onClick={() => choice(draft.analytics ? "granted" : "denied", draft.recordings ? "granted" : "denied")}
-              className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#FF5A00]/90 sm:order-3"
+              className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-[#0A0A0A] hover:bg-[#FF5A00]/90 sm:order-3"
             >
               {consentNotice.saveLabel}
             </button>
@@ -125,7 +125,7 @@ export function ConsentBanner() {
               <button
                 type="button"
                 onClick={() => choice("granted", "granted")}
-                className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#FF5A00]/90 sm:order-3"
+                className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-[#0A0A0A] hover:bg-[#FF5A00]/90 sm:order-3"
               >
                 {consentNotice.acceptLabel}
               </button>

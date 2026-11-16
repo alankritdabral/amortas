@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         ]}
       />
       <article className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-20">
-        <Link href="/learning-center" className="text-base font-semibold text-[#E04F00] hover:underline">
+        <Link href="/learning-center" className="text-base font-semibold text-[#0A0A0A] hover:underline">
           ← Learning center
         </Link>
         <h1 className="mt-6 text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold max-w-4xl">

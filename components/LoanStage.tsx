@@ -82,7 +82,7 @@ function StageChipCard({ chip, index, active, focal, instant }: { chip: StageChi
       className="absolute rounded-xl bg-white border border-[#FF5A00]/15 shadow-sm flex items-center px-3"
       style={{ left: CHIP_LEFT, top, width: CHIP_W, height: ROW_H }}
     >
-      <div className="relative w-8 h-8 shrink-0 rounded-lg bg-[#FFF1E8] border border-[#FF5A00]/20 text-[#E04F00]">
+      <div className="relative w-8 h-8 shrink-0 rounded-lg bg-[#F7E0D4] border border-[#FF5A00]/20 text-[#E04F00]">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={chip.name}
@@ -205,7 +205,7 @@ export function LoanStage({ scene, className, style, still }: { scene: StageScen
     <div
       aria-hidden="true"
       style={style}
-      className={`relative rounded-md bg-[linear-gradient(160deg,#FFF1E8,#FFFFFF_55%,#FFE0CC)] border border-[#E5E5E5] overflow-hidden flex items-center justify-center h-[340px] sm:h-[420px] ${className ?? ""}`}
+      className={`relative rounded-md bg-[linear-gradient(160deg,#F7E0D4,#FFFFFF_55%,#FFE0CC)] border border-[#E5E5E5] overflow-hidden flex items-center justify-center h-[340px] sm:h-[420px] ${className ?? ""}`}
     >
       <motion.div
         initial={false}

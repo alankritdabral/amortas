@@ -22,7 +22,7 @@ export default function NotFound() {
     <div className="bg-white text-[#0A0A0A]">
       <div className="h-[84px]" aria-hidden="true" />
       <section className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-20 md:py-32">
-        <p className="text-base font-semibold text-[#E04F00]">Error 404</p>
+        <p className="text-base font-semibold text-[#0A0A0A]">Error 404</p>
         <h1 className="mt-4 text-[clamp(36px,8vw,56px)] leading-[1.02] tracking-[-0.04em] font-bold max-w-3xl">
           We couldn&apos;t find that page.
         </h1>
@@ -34,7 +34,7 @@ export default function NotFound() {
             href="/"
             data-analytics-cta="not_found_home"
             data-analytics-location="not_found"
-            className="inline-flex items-center gap-2 rounded bg-[#FF5A00] text-white font-semibold text-base px-[22px] h-[48px] hover:bg-[#0A0A0A] transition-colors"
+            className="inline-flex items-center gap-2 rounded bg-[#FF5A00] text-[#0A0A0A] hover:text-white font-semibold text-base px-[22px] h-[48px] hover:bg-[#0A0A0A] transition-colors"
           >
             Back to home
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -51,7 +51,7 @@ export default function NotFound() {
         <ul className="mt-14 grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3 max-w-xl">
           {suggestions.map((s) => (
             <li key={s.href}>
-              <Link href={s.href} className="text-base font-semibold text-[#E04F00] hover:underline">
+              <Link href={s.href} className="text-base font-semibold text-[#0A0A0A] hover:underline">
                 {s.label}
               </Link>
             </li>

@@ -55,7 +55,7 @@ export function HeroGridBlock() {
                 </motion.span>
               </AnimatePresence>
             </motion.span>
-            <motion.span layout transition={{ type: "spring", stiffness: 400, damping: 30 }} className="text-brand-black">your debt.</motion.span>
+            <motion.span layout transition={{ type: "spring", stiffness: 400, damping: 30 }} className="text-brand-black"><span className="bg-[#FFDA00] px-2 -mx-1">your debt.</span></motion.span>
           </span>
         </h1>
 
@@ -69,7 +69,7 @@ export function HeroGridBlock() {
             href="#check-eligibility"
             data-analytics-cta="hero_check_eligibility"
             data-analytics-location="hero"
-            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-[#FF5A00] text-white rounded text-base font-semibold hover:bg-[#0A0A0A] transition-all items-center justify-center gap-2 group border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] font-bold"
+            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-[#FF5A00] text-[#0A0A0A] hover:text-white rounded text-base font-semibold hover:bg-[#0A0A0A] transition-all items-center justify-center gap-2 group border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] font-bold"
           >
             Check My Eligibility
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -78,7 +78,7 @@ export function HeroGridBlock() {
             href="#calculator"
             data-analytics-cta="hero_see_savings"
             data-analytics-location="hero"
-            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-white text-brand-black border-2 border-[#0A0A0A] rounded text-base font-bold hover:bg-[#FFF1E8] transition-all items-center justify-center gap-2 group shadow-[3px_3px_0_0_#0A0A0A]"
+            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-white text-brand-black border-2 border-[#0A0A0A] rounded text-base font-bold hover:bg-[#F7E0D4] transition-all items-center justify-center gap-2 group shadow-[3px_3px_0_0_#0A0A0A]"
           >
             <Calculator className="w-4 h-4 text-slate-600" />
             See Potential Savings
