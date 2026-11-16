@@ -33,7 +33,6 @@ export function ContactForm() {
     netSalary: "",
     ongoingEmi: "",
     consentContact: false,
-    consentShareWithLenders: false,
   });
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -113,7 +112,7 @@ export function ContactForm() {
           ...formData,
           consent: {
             contact: formData.consentContact,
-            shareWithLenders: formData.consentShareWithLenders,
+            shareWithLenders: formData.consentContact,
             noticeVersion: NOTICE_VERSION,
           },
           attribution,
@@ -135,7 +134,6 @@ export function ContactForm() {
             netSalary: "",
         ongoingEmi: "",
         consentContact: false,
-        consentShareWithLenders: false,
       });
       track({ name: "generate_lead", params: { lead_source: "contact", currency: "INR" } });
       setJourneyStage("lead");
@@ -304,7 +302,7 @@ export function ContactForm() {
           </div>
 
           <div className="mt-4 pt-4 shrink-0">
-            <label className="flex items-start gap-3 py-1 rounded-xl cursor-pointer group mb-3">
+            <label className="flex items-start gap-3 py-1 rounded-xl cursor-pointer group mb-4">
               <div className="relative flex items-center justify-center mt-0.5">
                 <input
                   type="checkbox"
@@ -317,24 +315,8 @@ export function ContactForm() {
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
               <span className="text-sm text-[#3C4F69] group-hover:text-[#0A2540] transition-colors">
-                I agree that Credit Expert India may contact me regarding this enquiry. <span className="text-red-500">*</span>
-              </span>
-            </label>
-
-            <label className="flex items-start gap-3 py-1 rounded-xl cursor-pointer group mb-4">
-              <div className="relative flex items-center justify-center mt-0.5">
-                <input
-                  type="checkbox"
-                  name="consentShareWithLenders"
-                  checked={formData.consentShareWithLenders}
-                  onChange={handleChange}
-                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#0052CC] checked:border-[#0052CC] transition-colors cursor-pointer"
-                />
-                <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
-              </div>
-              <span className="text-sm text-[#3C4F69] group-hover:text-[#0A2540] transition-colors">
-                I'm also open to being contacted by Credit Expert India's partner lenders (see{" "}
-                <Link href="/partner-disclosures" className="underline">partner disclosures</Link>). Optional.
+                I agree that Credit Expert India, and its partner lenders (see{" "}
+                <Link href="/partner-disclosures" className="underline">partner disclosures</Link>), may contact me regarding this enquiry. <span className="text-red-500">*</span>
               </span>
             </label>
 
