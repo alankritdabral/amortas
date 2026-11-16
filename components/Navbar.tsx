@@ -297,7 +297,7 @@ export function Navbar() {
             aria-hidden
             className={`hidden lg:block absolute -inset-x-5 inset-y-[8px] rounded-xl border transition-[background-color,box-shadow,border-color] duration-200 ${
               barHover || active
-                ? "bg-white border-[#E5E5E5] shadow-[0_8px_24px_-12px_rgba(10, 10, 10,0.25)]"
+                ? "bg-white border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A]"
                 : "bg-transparent border-transparent"
             }`}
           />
@@ -319,7 +319,7 @@ export function Navbar() {
                 transition:
                   "clip-path 0.2s cubic-bezier(0.45,0.05,0.55,0.95), height 0.28s cubic-bezier(0.45,0.05,0.55,0.95), width 0.28s cubic-bezier(0.45,0.05,0.55,0.95)",
               }}
-              className="hidden lg:block absolute left-[-28px] top-[6px] z-0 bg-white rounded-md border border-[#E5E5E5] overflow-hidden shadow-[0_18px_36px_-18px_rgba(0,0,0,0.1),0_30px_45px_-30px_rgba(10, 10, 10,0.25)]"
+              className="hidden lg:block absolute left-[-28px] top-[6px] z-0 bg-white rounded-md border-2 border-[#0A0A0A] overflow-hidden shadow-[6px_6px_0_0_#FF5A00]"
             >
               <div ref={panelInner}>
                 <motion.div key={renderMenu.key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.16 }}>
@@ -336,7 +336,7 @@ export function Navbar() {
                               {col.links.map((l) => (
                                 <li key={l.href + l.label}>
                                   <Link href={l.href} className="group block">
-                                    <span className="block text-base font-medium text-[#E04F00] group-hover:text-[#0A0A0A] transition-colors">{l.label}</span>
+                                    <span className="block text-base font-bold text-[#FF5A00] group-hover:text-[#0A0A0A] transition-colors font-bold">{l.label}</span>
                                     {l.desc && <span className="block text-sm leading-snug text-[#404040] mt-0.5">{l.desc}</span>}
                                   </Link>
                                 </li>
@@ -347,7 +347,7 @@ export function Navbar() {
                       </div>
                       {renderMenu.footer && (
                         <div className="-mx-12 px-12 py-5 border-t border-[#E5E5E5]">
-                          <Link href={renderMenu.footer.href} className="text-base font-medium text-[#E04F00] hover:text-[#0A0A0A] inline-flex items-center gap-1">
+                          <Link href={renderMenu.footer.href} className="text-base font-bold text-[#FF5A00] hover:text-[#0A0A0A] inline-flex items-center gap-1">
                             {renderMenu.footer.label} <ChevronRight className="h-4 w-4" />
                           </Link>
                         </div>
@@ -361,7 +361,7 @@ export function Navbar() {
                           {renderMenu.sidebar.links.map((l) => (
                             <li key={l.href}>
                               <Link href={l.href} className="group block">
-                                <span className="block text-base font-medium text-[#E04F00] group-hover:text-[#0A0A0A] transition-colors">{l.label}</span>
+                                <span className="block text-base font-bold text-[#FF5A00] group-hover:text-[#0A0A0A] transition-colors font-bold">{l.label}</span>
                                 {l.desc && <span className="block text-sm text-[#404040] mt-0.5">{l.desc}</span>}
                               </Link>
                             </li>
@@ -375,7 +375,7 @@ export function Navbar() {
                             <div className="p-4">
                               <p className="text-base font-medium text-[#0A0A0A]">{renderMenu.sidebar.promo.title}</p>
                               <p className="mt-1 text-sm leading-snug text-[#404040]">{renderMenu.sidebar.promo.text}</p>
-                              <p className="mt-3 text-base font-medium text-[#E04F00] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                              <p className="mt-3 text-base font-bold text-[#FF5A00] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                                 {renderMenu.sidebar.promo.cta} <ChevronRight className="h-4 w-4" />
                               </p>
                             </div>
@@ -422,7 +422,7 @@ export function Navbar() {
                         }}
                         onFocus={() => openMenu(m.key, true)}
                         onClick={() => (isOpen ? hidePanel() : openMenu(m.key, true))}
-                        className={`h-10 px-3 text-base flex items-center gap-1 rounded transition-colors duration-200 cursor-pointer ${
+                        className={`h-10 px-3 text-base font-bold flex items-center gap-1 rounded transition-colors duration-200 cursor-pointer hover:text-[#FF5A00] ${
                           dim ? "text-[#737373]" : "text-[#0A0A0A]"
                         }`}
                       >
@@ -440,7 +440,7 @@ export function Navbar() {
                 href="/eligibility"
                 data-analytics-cta="navbar_eligibility"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center text-base font-medium text-[#E04F00] bg-white border border-[#E5E5E5] rounded hover:bg-[#FAFAFA] transition-colors"
+                className="h-10 px-5 inline-flex items-center text-base font-bold text-[#0A0A0A] bg-white border-2 border-[#0A0A0A] rounded hover:bg-[#FFF1E8] transition-colors"
               >
                 Eligibility
               </Link>
@@ -448,7 +448,7 @@ export function Navbar() {
                 href={assessmentHref}
                 data-analytics-cta="navbar_get_assessment"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center gap-1 text-base font-medium text-white bg-[#FF5A00] hover:bg-[#FF5A00] rounded transition-colors"
+                className="h-10 px-5 inline-flex items-center gap-1 text-base font-bold text-white bg-[#FF5A00] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] hover:bg-[#0A0A0A] rounded transition-colors"
               >
                 Get assessment <ChevronRight className="h-4 w-4" />
               </Link>
@@ -482,7 +482,7 @@ export function Navbar() {
               initial="initial"
               animate="enter"
               exit="exit"
-              className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+              className="absolute inset-0 bg-[#0A0A0A]/60"
               onClick={() => setOpen(false)}
             />
 
@@ -495,7 +495,7 @@ export function Navbar() {
               role="dialog"
               aria-modal="true"
               aria-label="Menu"
-              className="absolute top-0 right-0 h-[100dvh] w-full bg-white shadow-2xl overflow-y-auto overscroll-contain flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+              className="absolute top-0 right-0 h-[100dvh] w-full bg-white border-l-2 border-[#0A0A0A] overflow-y-auto overscroll-contain flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {/* Header */}
               <div className="h-[60px] shrink-0 sticky top-0 z-10 bg-white px-4 md:px-6 flex items-center justify-between">
@@ -560,7 +560,7 @@ export function Navbar() {
                                       {g.links.map((l) => (
                                         <li key={l.href + l.label}>
                                           <Link href={l.href} onClick={() => setOpen(false)} className="block">
-                                            <span className="block text-base font-medium text-[#E04F00]">{l.label}</span>
+                                            <span className="block text-base font-bold text-[#FF5A00]">{l.label}</span>
                                             {l.desc && <span className="block text-sm text-[#404040]">{l.desc}</span>}
                                           </Link>
                                         </li>
@@ -591,8 +591,7 @@ export function Navbar() {
                 <Link
                   href={pathname === "/" ? "#lead-form" : pathname === "/eligibility" ? "#credit-profile" : "/eligibility#credit-profile"}
                   onClick={() => setOpen(false)}
-                  className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-white active:scale-[0.98] transition-transform shadow-lg shadow-blue-900/20"
-                  style={{ background: 'linear-gradient(135deg, #FF5A00, #E04F00)' }}
+                  className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-white active:scale-[0.98] transition-transform border-2 border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] bg-[#FF5A00]"
                 >
                   <span className="text-base font-semibold pl-2">Get Free Assessment</span>
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
