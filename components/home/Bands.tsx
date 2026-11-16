@@ -6,7 +6,7 @@ const WORDS = ["One EMI", "Lower rates", "13 partner lenders", "No hidden fees",
 /** Full-bleed orange ticker band — the loud divider under the hero. */
 export function MarqueeBand() {
   return (
-    <div aria-hidden className="orange-marquee overflow-hidden py-3 sm:py-4">
+    <div aria-hidden className="orange-marquee relative z-40 overflow-hidden py-3 sm:py-4">
       <div className="flex w-max animate-marquee">
         {[0, 1].map((k) => (
           <div key={k} className="flex shrink-0 items-center">

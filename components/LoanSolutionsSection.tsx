@@ -29,7 +29,7 @@ const SOLUTIONS: Solution[] = [
       { lead: "No obligation", text: "to proceed after you see your options" },
     ],
     cta: { label: "Check your EMI options", href: "#calculator" },
-    scene: { kind: "phone", tint: "rgba(0,102,255,0.08)" },
+    scene: { kind: "phone", tint: "rgba(255, 90, 0,0.08)" },
   },
   {
     id: "credit-card",
@@ -42,7 +42,7 @@ const SOLUTIONS: Solution[] = [
       { lead: "One fixed EMI", text: "instead of a revolving balance" },
     ],
     cta: { label: "Explore card debt options", href: "/credit-card-debt" },
-    scene: { kind: "card", tint: "rgba(0,102,255,0.06)", rate: { from: 45, to: 11 } },
+    scene: { kind: "card", tint: "rgba(255, 90, 0,0.06)", rate: { from: 45, to: 11 } },
   },
   {
     id: "app-loans",
@@ -57,7 +57,7 @@ const SOLUTIONS: Solution[] = [
     cta: { label: "See app loan options", href: "/app-loan" },
     scene: {
       kind: "merge",
-      tint: "rgba(0,102,255,0.12)",
+      tint: "rgba(255, 90, 0,0.12)",
       emi: 15999,
       chips: [
         { amount: 8000, name: "App loan A", icon: Smartphone },
@@ -80,7 +80,7 @@ const SOLUTIONS: Solution[] = [
     cta: { label: "Explore debt consolidation", href: "/debt-consolidation" },
     scene: {
       kind: "merge",
-      tint: "rgba(0,82,204,0.14)",
+      tint: "rgba(224, 79, 0,0.14)",
       emi: 24999,
       chips: [
         { amount: 12500, name: "Personal Loan", icon: Banknote },
@@ -101,7 +101,7 @@ const SOLUTIONS: Solution[] = [
       { lead: "See what you may qualify for", text: "before you decide" },
     ],
     cta: { label: "Check overdraft options", href: "/personal-loan-overdraft" },
-    scene: { kind: "rate", tint: "rgba(15,118,110,0.07)", rate: { from: 14, to: 11.75 } },
+    scene: { kind: "rate", tint: "rgba(255, 218, 0,0.07)", rate: { from: 14, to: 11.75 } },
   },
 ];
 

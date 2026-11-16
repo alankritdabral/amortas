@@ -28,13 +28,13 @@ export default function Home() {
       {/* Row 1: Hero & Visual/Video Block */}
       <section className="relative w-full overflow-hidden pt-[40px] sm:pt-[76px] min-h-[400px] sm:h-auto sm:min-h-0 flex flex-col">
         {/* Background Image */}
-        <div className="hero-skyline pointer-events-none">
+        <div className="hero-skyline pointer-events-none bg-[#FFF1E8]">
           <Image
             src="/Misty India Skyline with Orbital Arcs.webp"
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-bottom sm:object-center opacity-80"
+            className="object-cover object-bottom sm:object-center opacity-70 grayscale mix-blend-multiply"
             priority
           />
         </div>

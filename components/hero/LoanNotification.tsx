@@ -4,10 +4,10 @@ import { Building, Home, GitMerge, TrendingDown, CreditCard, Percent, ArrowRight
 
 const typeConfig = {
   home: { icon: Home, color: "from-blue-800 to-blue-500", shadow: "rgba(255, 90, 0,0.4)" },
-  merge: { icon: GitMerge, color: "from-purple-800 to-purple-500", shadow: "rgba(168,85,247,0.4)" },
+  merge: { icon: GitMerge, color: "from-purple-800 to-purple-500", shadow: "rgba(255, 90, 0,0.4)" },
   reduce: { icon: TrendingDown, color: "from-green-800 to-green-500", shadow: "rgba(34,197,94,0.4)" },
   card: { icon: CreditCard, color: "from-orange-800 to-orange-500", shadow: "rgba(249,115,22,0.4)" },
-  percent: { icon: Percent, color: "from-teal-800 to-teal-500", shadow: "rgba(20,184,166,0.4)" },
+  percent: { icon: Percent, color: "from-teal-800 to-teal-500", shadow: "rgba(255, 218, 0,0.4)" },
   transfer: { icon: ArrowRightLeft, color: "from-blue-800 to-blue-500", shadow: "rgba(255, 90, 0,0.4)" },
   bank: { icon: Landmark, color: "from-rose-800 to-rose-500", shadow: "rgba(244,63,94,0.4)" },
   save: { icon: PiggyBank, color: "from-emerald-800 to-emerald-500", shadow: "rgba(16,185,129,0.4)" },
@@ -132,7 +132,7 @@ export function LoanNotification({ transaction, align = 'right', vAlign = 'top' 
           backdropFilter: 'blur(18px)',
           WebkitBackdropFilter: 'blur(18px)',
           border: '1px solid rgba(255,255,255,0.5)',
-          boxShadow: '0 8px 32px rgba(36, 63, 145, 0.15), 0 0 15px rgba(255, 90, 0, 0.1), inset 0 0 0 1px rgba(255,255,255,0.5)',
+          boxShadow: '0 8px 32px rgba(10, 10, 10, 0.15), 0 0 15px rgba(255, 90, 0, 0.1), inset 0 0 0 1px rgba(255,255,255,0.5)',
           borderRadius: '16px',
           transformOrigin: `${isTop ? 'bottom' : 'top'} ${isLeft ? 'right' : 'left'}`
         }}

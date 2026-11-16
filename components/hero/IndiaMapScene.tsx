@@ -34,7 +34,7 @@ function SceneContent({ activeCity, highlightedCity, transaction, isReducedMotio
   return (
     <group ref={groupRef}>
       {/* Lights */}
-      <ambientLight intensity={0.8} color="#f0f5ff" />
+      <ambientLight intensity={0.8} color="#FFF1E8" />
       <directionalLight position={[5, 10, 5]} intensity={1.5} color="#ffffff" />
       <directionalLight position={[-5, 5, 2]} intensity={0.5} color="#FF5A00" />
       <pointLight position={[0, 0, 2]} intensity={0.5} color="#FF5A00" />

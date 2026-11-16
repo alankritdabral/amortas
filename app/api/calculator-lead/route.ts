@@ -147,7 +147,7 @@ export async function POST(request: Request) {
 
               <div style="margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; font-size: 13px;">
                 <strong>Debts Breakdown:</strong><br/>
-                <span style="color: #475569;">${escapeHtml(debtsSummary)}</span>
+                <span style="color: #404040;">${escapeHtml(debtsSummary)}</span>
               </div>
 
               <div style="margin-top: 24px; display: flex; gap: 12px;">
