@@ -13,17 +13,17 @@ if (typeof window !== "undefined") {
 const INJECTED_STYLES = `
   /* Realistic iPhone Mockup Hardware */
   .iphone-bezel {
-      background-color: #0A0A0A;
+      background-color: #2E2E2E;
       box-shadow: 
-          inset 0 0 0 2px #0A0A0A, 
-          inset 0 0 0 7px #0A0A0A, 
+          inset 0 0 0 2px #2E2E2E, 
+          inset 0 0 0 7px #2E2E2E, 
           0 40px 80px -15px rgba(10, 10, 10,0.5),
           0 15px 25px -5px rgba(10, 10, 10,0.4);
       transform-style: preserve-3d;
   }
 
   .hardware-btn {
-      background: linear-gradient(90deg, #404040 0%, #171717 100%);
+      background: linear-gradient(90deg, #575757 0%, #3A3A3A 100%);
       box-shadow: 
           -2px 0 5px rgba(0,0,0,0.8),
           inset -1px 0 1px rgba(255,255,255,0.15),
@@ -35,7 +35,7 @@ const INJECTED_STYLES = `
   .ambient-gradient {
       background: 
           radial-gradient(circle at 70% 25%, rgba(255, 90, 0, 0.25), transparent 45%),
-          linear-gradient(180deg, #0A0A0A 0%, #0A0A0A 55%, #0A0A0A 100%);
+          linear-gradient(180deg, #2E2E2E 0%, #2E2E2E 55%, #2E2E2E 100%);
   }
 
   .phone-screen {

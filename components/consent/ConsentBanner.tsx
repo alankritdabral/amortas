@@ -67,10 +67,10 @@ export function ConsentBanner() {
     >
       <div className="mx-auto flex max-w-[1220px] flex-col gap-4">
         <div>
-          <p className="text-sm font-bold text-[#0A0A0A]">{consentNotice.heading}</p>
-          <p className="mt-1 text-sm leading-relaxed text-[#404040]">
+          <p className="text-sm font-bold text-[#2E2E2E]">{consentNotice.heading}</p>
+          <p className="mt-1 text-sm leading-relaxed text-[#575757]">
             {consentNotice.body}{" "}
-            <Link href={consentNotice.privacyPolicyHref} className="font-semibold text-[#0A0A0A] underline">
+            <Link href={consentNotice.privacyPolicyHref} className="font-semibold text-[#2E2E2E] underline">
               {consentNotice.privacyPolicyLabel}
             </Link>
           </p>
@@ -87,8 +87,8 @@ export function ConsentBanner() {
                   className="mt-1 h-4 w-4 shrink-0 accent-[#E04F00]"
                 />
                 <span>
-                  <span className="block text-sm font-semibold text-[#0A0A0A]">{item.label}</span>
-                  <span className="block text-xs text-[#404040]">{item.description}</span>
+                  <span className="block text-sm font-semibold text-[#2E2E2E]">{item.label}</span>
+                  <span className="block text-xs text-[#575757]">{item.description}</span>
                 </span>
               </label>
             ))}
@@ -100,7 +100,7 @@ export function ConsentBanner() {
             <button
               type="button"
               onClick={() => setExpanded(true)}
-              className="order-3 text-sm font-semibold text-[#0A0A0A] underline sm:order-1 sm:mr-auto"
+              className="order-3 text-sm font-semibold text-[#2E2E2E] underline sm:order-1 sm:mr-auto"
             >
               {consentNotice.chooseLabel}
             </button>
@@ -109,7 +109,7 @@ export function ConsentBanner() {
             <button
               type="button"
               onClick={() => choice(draft.analytics ? "granted" : "denied", draft.recordings ? "granted" : "denied")}
-              className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-[#0A0A0A] hover:bg-[#FF5A00]/90 sm:order-3"
+              className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-[#2E2E2E] hover:bg-[#FF5A00]/90 sm:order-3"
             >
               {consentNotice.saveLabel}
             </button>
@@ -118,14 +118,14 @@ export function ConsentBanner() {
               <button
                 type="button"
                 onClick={() => choice("denied", "denied")}
-                className="order-2 rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-bold text-[#0A0A0A] hover:border-slate-400 sm:order-2"
+                className="order-2 rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-bold text-[#2E2E2E] hover:border-slate-400 sm:order-2"
               >
                 {consentNotice.rejectLabel}
               </button>
               <button
                 type="button"
                 onClick={() => choice("granted", "granted")}
-                className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-[#0A0A0A] hover:bg-[#FF5A00]/90 sm:order-3"
+                className="order-1 rounded-lg bg-[#FF5A00] px-5 py-2.5 text-sm font-bold text-[#2E2E2E] hover:bg-[#FF5A00]/90 sm:order-3"
               >
                 {consentNotice.acceptLabel}
               </button>

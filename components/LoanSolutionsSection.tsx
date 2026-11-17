@@ -132,19 +132,19 @@ export const LoanSolutionsSection = () => {
         {/* Header: title + action on the left, description on the right (Stripe's section-header) */}
         <header className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 lg:items-start">
           <div className="lg:col-span-5">
-            <h2 className="text-[32px] sm:text-[44px] leading-[1.08] tracking-[-0.03em] font-semibold text-[#0A0A0A]">
+            <h2 className="text-[32px] sm:text-[44px] leading-[1.08] tracking-[-0.03em] font-semibold text-[#2E2E2E]">
               Bring your eligible loans <span className="bg-[#FFDA00] px-2 -mx-1 box-decoration-clone">together</span>
             </h2>
             <Link
               href="/eligibility"
               data-analytics-cta="loan_solutions_check_eligibility"
               data-analytics-location="loan_solutions"
-              className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#FF5A00] px-5 py-2.5 text-base font-semibold text-[#0A0A0A] hover:text-white transition-colors hover:bg-[#0A0A0A]"
+              className="mt-6 inline-flex items-center gap-1.5 rounded-full bg-[#FF5A00] px-5 py-2.5 text-base font-semibold text-[#2E2E2E] hover:text-white transition-colors hover:bg-[#2E2E2E]"
             >
               Check your eligibility <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-          <p className="lg:col-span-6 lg:col-start-7 text-lg md:text-xl text-[#404040] lg:pt-2">
+          <p className="lg:col-span-6 lg:col-start-7 text-lg md:text-xl text-[#575757] lg:pt-2">
             One simpler way to manage multiple debts. Different debts. Different stories. One smarter way forward.
           </p>
         </header>
@@ -170,7 +170,7 @@ export const LoanSolutionsSection = () => {
                     id={`sol-btn-${s.id}`}
                     className="flex-1 min-w-0 px-4 text-left bg-transparent border-0 appearance-none cursor-pointer focus-visible:outline-none"
                   >
-                    <h3 className="text-base sm:text-lg leading-10 font-semibold text-[#0A0A0A] transition-colors group-hover:text-[#0A0A0A]">{s.label}</h3>
+                    <h3 className="text-base sm:text-lg leading-10 font-semibold text-[#2E2E2E] transition-colors group-hover:text-[#2E2E2E]">{s.label}</h3>
                   </button>
 
                   <Link
@@ -179,7 +179,7 @@ export const LoanSolutionsSection = () => {
                     onClick={(e) => e.stopPropagation()}
                     data-analytics-cta={`loan_solutions_${s.id}`}
                     data-analytics-location="loan_solutions"
-                    className="ml-auto shrink-0 inline-flex h-10 items-center gap-1 rounded-md border border-[#FFD2B8] bg-white px-3 sm:px-4 text-sm sm:text-base font-semibold text-[#0A0A0A] transition-colors hover:border-[#E04F00]"
+                    className="ml-auto shrink-0 inline-flex h-10 items-center gap-1 rounded-md border border-[#FFD2B8] bg-white px-3 sm:px-4 text-sm sm:text-base font-semibold text-[#2E2E2E] transition-colors hover:border-[#E04F00]"
                   >
                     <span className="sm:hidden">Explore</span>
                     <span className="hidden sm:inline">Learn more</span>
@@ -192,7 +192,7 @@ export const LoanSolutionsSection = () => {
                   id={`sol-panel-${s.id}`}
                   className="grid grid-cols-1 min-w-0 pt-1 pb-8 lg:grid-cols-[5fr_7fr] lg:gap-x-12 lg:grid-rows-[auto_auto_1fr] lg:pb-12"
                 >
-                  <p className="pb-3 text-[18px] lg:text-[32px] leading-[1.3] lg:leading-[1.15] tracking-[-0.01em] lg:tracking-[-0.02em] lg:font-semibold text-[#0A0A0A] lg:col-start-1 lg:row-start-1 lg:pt-4">
+                  <p className="pb-3 text-[18px] lg:text-[32px] leading-[1.3] lg:leading-[1.15] tracking-[-0.01em] lg:tracking-[-0.02em] lg:font-semibold text-[#2E2E2E] lg:col-start-1 lg:row-start-1 lg:pt-4">
                     {s.headline}
                   </p>
 
@@ -202,8 +202,8 @@ export const LoanSolutionsSection = () => {
 
                   <div className="grid gap-4 pt-4 pb-2 lg:col-start-1 lg:row-start-2 lg:pt-6">
                     {s.stats.map((st) => (
-                      <p key={st.lead} className="text-base text-[#404040] [text-wrap:pretty]">
-                        <strong className="font-semibold text-[#0A0A0A]">{st.lead}</strong> {st.text}
+                      <p key={st.lead} className="text-base text-[#575757] [text-wrap:pretty]">
+                        <strong className="font-semibold text-[#2E2E2E]">{st.lead}</strong> {st.text}
                       </p>
                     ))}
                   </div>
@@ -213,7 +213,7 @@ export const LoanSolutionsSection = () => {
           })}
         </div>
 
-        <p className="mt-8 text-sm text-[#404040]">*Illustrative figures only. Final rates and terms are set by partner lenders after checking your profile.</p>
+        <p className="mt-8 text-sm text-[#575757]">*Illustrative figures only. Final rates and terms are set by partner lenders after checking your profile.</p>
       </div>
     </section>
   );

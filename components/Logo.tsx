@@ -41,7 +41,7 @@ export function Logo({
       <LogoMark className="h-7 sm:h-8 w-auto text-[#FF5A00]" />
       <span
         className={`text-[22px] sm:text-2xl font-extrabold tracking-[-0.04em] leading-none ${
-          variant === "dark" ? "text-white" : "text-[#0A0A0A]"
+          variant === "dark" ? "text-white" : "text-[#2E2E2E]"
         }`}
       >
         Amortas

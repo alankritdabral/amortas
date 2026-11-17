@@ -30,7 +30,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           justifyContent: "space-between",
           padding: "80px",
           backgroundColor: "#E04F00",
-          backgroundImage: "linear-gradient(135deg, #E04F00 0%, #0A0A0A 100%)",
+          backgroundImage: "linear-gradient(135deg, #E04F00 0%, #2E2E2E 100%)",
         }}
       >
         <div style={{ display: "flex", fontSize: 24, fontWeight: 600, color: "#FFD2B8" }}>

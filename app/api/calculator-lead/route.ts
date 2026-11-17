@@ -106,26 +106,26 @@ export async function POST(request: Request) {
           subject: `🔥 High-Intent Calculator Lead: ${name} (Debt: ₹${totalDebt?.toLocaleString('en-IN')})`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #E5E5E5; border-radius: 12px; padding: 24px;">
-              <h2 style="color: #171717; margin-top: 0;">New Debt Consolidation Calculator Lead</h2>
+              <h2 style="color: #3A3A3A; margin-top: 0;">New Debt Consolidation Calculator Lead</h2>
               <p style="color: #737373; font-size: 14px;">A borrower calculated their single EMI and requested pre-approval review.</p>
               <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
               
               <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Customer Name:</strong></td>
-                  <td style="padding: 6px 0; font-weight: bold; color: #171717;">${escapeHtml(name)}</td>
+                  <td style="padding: 6px 0; font-weight: bold; color: #3A3A3A;">${escapeHtml(name)}</td>
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Mobile Number:</strong></td>
-                  <td style="padding: 6px 0; font-weight: bold; color: #171717;">${escapeHtml(phone)}</td>
+                  <td style="padding: 6px 0; font-weight: bold; color: #3A3A3A;">${escapeHtml(phone)}</td>
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>City:</strong></td>
-                  <td style="padding: 6px 0; color: #171717;">${escapeHtml(city) || "Not provided"}</td>
+                  <td style="padding: 6px 0; color: #3A3A3A;">${escapeHtml(city) || "Not provided"}</td>
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Monthly Net Salary:</strong></td>
-                  <td style="padding: 6px 0; color: #171717;">₹${Number(salary).toLocaleString('en-IN')}</td>
+                  <td style="padding: 6px 0; color: #3A3A3A;">₹${Number(salary).toLocaleString('en-IN')}</td>
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Total Debt Balance:</strong></td>
@@ -147,11 +147,11 @@ export async function POST(request: Request) {
 
               <div style="margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; font-size: 13px;">
                 <strong>Debts Breakdown:</strong><br/>
-                <span style="color: #404040;">${escapeHtml(debtsSummary)}</span>
+                <span style="color: #575757;">${escapeHtml(debtsSummary)}</span>
               </div>
 
               <div style="margin-top: 24px; display: flex; gap: 12px;">
-                <a href="tel:+91${escapeHtml(phone).replace(/[^0-9]/g, '')}" style="background-color: #171717; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: bold; display: inline-block;">📞 Call Customer</a>
+                <a href="tel:+91${escapeHtml(phone).replace(/[^0-9]/g, '')}" style="background-color: #3A3A3A; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: bold; display: inline-block;">📞 Call Customer</a>
                 <a href="https://wa.me/91${escapeHtml(phone).replace(/[^0-9]/g, '')}" style="background-color: #25D366; color: white; padding: 10px 18px; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: bold; display: inline-block;">💬 WhatsApp Customer</a>
               </div>
             </div>

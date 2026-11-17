@@ -54,23 +54,23 @@ export default function ContactPage() {
 
       <section className="section-tint">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid gap-12 lg:grid-cols-[5fr_7fr]">
-          <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A]">
+          <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#2E2E2E]">
             Or come and see us.
           </h2>
-          <div className="grid gap-10 sm:grid-cols-2 text-[#0A0A0A]">
+          <div className="grid gap-10 sm:grid-cols-2 text-[#2E2E2E]">
             {contact.addresses.map((addr, idx) => (
               <div key={idx}>
                 <h3 className="text-2xl font-bold tracking-[-0.02em]">{addr.city}</h3>
-                <p className="mt-2 text-lg leading-relaxed text-[#404040]">{addr.fullAddress}</p>
+                <p className="mt-2 text-lg leading-relaxed text-[#575757]">{addr.fullAddress}</p>
               </div>
             ))}
             <div>
               <h3 className="text-2xl font-bold tracking-[-0.02em]">Call or WhatsApp</h3>
-              <p className="mt-2 text-lg text-[#404040]">{contact.whatsapp}</p>
+              <p className="mt-2 text-lg text-[#575757]">{contact.whatsapp}</p>
             </div>
             <div>
               <h3 className="text-2xl font-bold tracking-[-0.02em]">Email</h3>
-              <p className="mt-2 text-lg text-[#404040] break-all">{contact.email}</p>
+              <p className="mt-2 text-lg text-[#575757] break-all">{contact.email}</p>
             </div>
           </div>
         </div>

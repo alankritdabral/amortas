@@ -97,7 +97,7 @@ function StageChipCard({ chip, index, active, focal, instant }: { chip: StageChi
         </AnimatePresence>
       </div>
       <div className="ml-2.5">
-        <p className="text-sm leading-tight font-bold text-[#0A0A0A] tabular-nums">
+        <p className="text-sm leading-tight font-bold text-[#2E2E2E] tabular-nums">
           <AnimatedNumber value={chip.amount} format={fmtMoney} instant={instant} />
         </p>
         <div className="relative h-[14px] w-[100px] mt-0.5">
@@ -108,7 +108,7 @@ function StageChipCard({ chip, index, active, focal, instant }: { chip: StageChi
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: instant ? 0 : 0.25 }}
-              className="text-[11px] leading-[14px] text-[#0A0A0A] opacity-70 whitespace-nowrap"
+              className="text-[11px] leading-[14px] text-[#2E2E2E] opacity-70 whitespace-nowrap"
             >
               {chip.name}
             </motion.p>
@@ -134,17 +134,17 @@ function RateCard({ rate, active, y, instant }: { rate: StageRate; active: boole
         style={{ width: RATE_W, height: RATE_H }}
       >
         <div>
-          <p className="text-[32px] font-bold text-[#0A0A0A] leading-none mb-1 tabular-nums">
+          <p className="text-[32px] font-bold text-[#2E2E2E] leading-none mb-1 tabular-nums">
             <AnimatedNumber value={rate.from} format={fmtFor(rate.from)} instant={instant} />
           </p>
-          <p className="text-sm text-[#0A0A0A] opacity-70 font-medium">Current rate</p>
+          <p className="text-sm text-[#2E2E2E] opacity-70 font-medium">Current rate</p>
         </div>
         <ArrowRight className="w-6 h-6 text-[#E04F00]" strokeWidth={1.5} />
         <div className="text-right">
           <p className="text-[32px] font-bold text-[#10B981] leading-none mb-1 tabular-nums">
             <AnimatedNumber value={rate.to} format={fmtFor(rate.to)} instant={instant} />
           </p>
-          <p className="text-sm text-[#0A0A0A] opacity-70 font-medium">Potential rate*</p>
+          <p className="text-sm text-[#2E2E2E] opacity-70 font-medium">Potential rate*</p>
         </div>
       </motion.div>
     </div>
@@ -260,7 +260,7 @@ export function LoanStage({ scene, className, style, still }: { scene: StageScen
             initial={false}
             animate={kind === "phone" || kind === "card" ? { ...shell, opacity: instant ? 0 : [1, 1, 0] } : shell}
             transition={instant ? { duration: 0 } : { duration: 0.55, ease: EASE, opacity: { duration: 0.3, ...(kind === "phone" || kind === "card" ? { duration: 1, times: [0, 0.6, 1] } : {}) } }}
-            className="bg-[#0A0A0A]"
+            className="bg-[#2E2E2E]"
           />
         </div>
 
@@ -280,7 +280,7 @@ export function LoanStage({ scene, className, style, still }: { scene: StageScen
           <motion.div
             animate={hubPulse}
             className="w-full h-full rounded-xl flex flex-col items-center justify-center text-white shadow-lg"
-            style={{ background: "linear-gradient(135deg, #0A0A0A 0%, #E04F00 100%)" }}
+            style={{ background: "linear-gradient(135deg, #2E2E2E 0%, #E04F00 100%)" }}
           >
             <p className="text-xs font-medium text-[#FFD2B8] mb-2">ONE EMI</p>
             <p className="text-[21px] font-bold mb-1.5 tabular-nums">

@@ -56,7 +56,7 @@ export function Footer() {
   const whatsappDigits = contact.whatsapp.replace(/[^0-9]/g, '');
 
   return (
-    <footer className="bg-[#0A0A0A] text-[#FAFAFA]">
+    <footer className="bg-[#2E2E2E] text-[#FAFAFA]">
       <div className="mx-auto max-w-[1220px] px-4 sm:px-6 lg:px-8">
 
         {/* Talk to an advisor */}
@@ -86,7 +86,7 @@ export function Footer() {
               href={`tel:+${whatsappDigits}`}
               data-analytics-cta="footer_call"
               data-analytics-location="footer"
-              className="flex flex-1 min-w-[200px] items-center gap-3 rounded-2xl bg-[#171717] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
+              className="flex flex-1 min-w-[200px] items-center gap-3 rounded-2xl bg-[#3A3A3A] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
             >
               <Phone className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">
@@ -98,7 +98,7 @@ export function Footer() {
               href={`mailto:${contact.email}`}
               data-analytics-cta="footer_email"
               data-analytics-location="footer"
-              className="flex flex-1 min-w-[260px] items-center gap-3 rounded-2xl bg-[#171717] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
+              className="flex flex-1 min-w-[260px] items-center gap-3 rounded-2xl bg-[#3A3A3A] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
             >
               <Mail className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">

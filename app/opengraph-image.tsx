@@ -36,7 +36,7 @@ export default function Image() {
             width: 96,
             height: 96,
             borderRadius: 20,
-            backgroundColor: "#0A0A0A",
+            backgroundColor: "#2E2E2E",
           }}
         >
           <svg width="64" height="40" viewBox="56 36 734 458" fill="none">
@@ -52,7 +52,7 @@ export default function Image() {
         <div style={{ display: "flex", marginTop: 48, fontSize: 64, fontWeight: 700, color: "#ffffff", lineHeight: 1.15, maxWidth: 1000 }}>
           Debt Consolidation & Personal Loans for Salaried Professionals
         </div>
-        <div style={{ display: "flex", marginTop: 32, fontSize: 32, fontWeight: 700, color: "#0A0A0A" }}>
+        <div style={{ display: "flex", marginTop: 32, fontSize: 32, fontWeight: 700, color: "#2E2E2E" }}>
           {siteConfig.name}
         </div>
       </div>

@@ -352,7 +352,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
           {/* CIBIL Dashboard */}
           <div className="mb-10">
             {isDownloadingSection === 'basic' && (
-              <h3 className="text-xl font-bold bg-[#0A0A0A] text-white p-3 rounded-lg mb-6 uppercase tracking-wider text-center">Section 1: Basic Details</h3>
+              <h3 className="text-xl font-bold bg-[#2E2E2E] text-white p-3 rounded-lg mb-6 uppercase tracking-wider text-center">Section 1: Basic Details</h3>
             )}
             {formData?.fallbackWarning && !isPreparingDownload && (
               <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
@@ -411,7 +411,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                     </div>
                   </>
                 )}
-                <span className="text-xs font-semibold px-3 py-1.5 bg-[#FAFAFA] text-[#0A0A0A] rounded-full">Updated: {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                <span className="text-xs font-semibold px-3 py-1.5 bg-[#FAFAFA] text-[#2E2E2E] rounded-full">Updated: {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
               </div>
             </div>
 
@@ -440,7 +440,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                     />
                   )}
                 </svg>
-                <span className="text-4xl font-extrabold text-[#0A0A0A] relative z-10">{score || "N/A"}</span>
+                <span className="text-4xl font-extrabold text-[#2E2E2E] relative z-10">{score || "N/A"}</span>
                 {score && <span className={`text-sm font-bold mt-1 ${scoreColor} relative z-10`}>{scoreLabel}</span>}
               </div>
 
@@ -450,7 +450,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                     {parsed.personalInfo.scoreName}
                   </span>
                   {parsed.personalInfo.scoreDescription && (
-                    <span className="text-xs font-bold text-[#0A0A0A] mt-2">
+                    <span className="text-xs font-bold text-[#2E2E2E] mt-2">
                       Grade: {parsed.personalInfo.scoreDescription}
                     </span>
                   )}
@@ -461,14 +461,14 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
             {/* Score Factors */}
             {parsed.personalInfo?.factors && parsed.personalInfo.factors.length > 0 && (
               <div className="bg-white border border-[#E5E5E5] rounded-3xl p-5 mb-6 card-elevated">
-                <h4 className="text-sm font-extrabold text-[#0A0A0A] mb-4">Credit Score Factors</h4>
+                <h4 className="text-sm font-extrabold text-[#2E2E2E] mb-4">Credit Score Factors</h4>
                 <div className="space-y-3">
                   {parsed.personalInfo.factors.map((factor: any, idx: number) => (
                     <div key={idx} className="flex items-start gap-3 bg-[#FAFAFA] p-3 rounded-xl border border-[#E5E5E5]">
                       <div className="bg-[#E5E5E5] text-[#737373] text-[11px] font-bold px-2 py-1 rounded">
                         {factor.TYPE}
                       </div>
-                      <p className="text-xs font-medium text-[#0A0A0A] leading-relaxed flex-1">
+                      <p className="text-xs font-medium text-[#2E2E2E] leading-relaxed flex-1">
                         {factor.DESC}
                       </p>
                     </div>
@@ -480,15 +480,15 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
 
             {/* Contact Information */}
             <div className="bg-white border border-[#E5E5E5] rounded-3xl p-5 mb-6 card-elevated">
-              <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Contact Information</h4>
+              <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Contact Information</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl p-4">
                   <p className="text-[#737373] text-xs font-semibold mb-1 uppercase tracking-wider">Latest Email</p>
-                  <p className="text-[#0A0A0A] font-medium text-sm break-all">{contactInfo.latestEmail}</p>
+                  <p className="text-[#2E2E2E] font-medium text-sm break-all">{contactInfo.latestEmail}</p>
                 </div>
                 <div className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl p-4">
                   <p className="text-[#737373] text-xs font-semibold mb-1 uppercase tracking-wider">Latest Address</p>
-                  <p className="text-[#0A0A0A] font-medium text-sm">{contactInfo.latestAddress}</p>
+                  <p className="text-[#2E2E2E] font-medium text-sm">{contactInfo.latestAddress}</p>
                 </div>
               </div>
             </div>
@@ -496,7 +496,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
             {/* Credit Overview */}
             {accountSummary && (
               <>
-                <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Credit Overview</h4>
+                <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Credit Overview</h4>
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   {[
                     { label: "Total Accounts", value: accountSummary?.totalAccounts || 0 },
@@ -508,7 +508,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                   ].map((stat, i) => (
                     <div key={i} className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl p-4">
                       <p className="text-[#737373] text-xs font-semibold mb-1">{stat.label}</p>
-                      <p className="text-[#0A0A0A] font-extrabold text-sm">{stat.value}</p>
+                      <p className="text-[#2E2E2E] font-extrabold text-sm">{stat.value}</p>
                     </div>
                   ))}
                 </div>
@@ -544,17 +544,17 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                 {/* Enquiries Summary */}
                 {inquirySummary && (
                   <div className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-3xl p-5 mb-6">
-                    <h4 className="text-sm font-extrabold text-[#0A0A0A] mb-4">Credit Enquiries</h4>
+                    <h4 className="text-sm font-extrabold text-[#2E2E2E] mb-4">Credit Enquiries</h4>
                     <div className="flex items-center justify-between gap-2 text-center border-b border-[#E5E5E5] pb-4 mb-4">
                       <div>
-                        <p className="text-xl font-bold text-[#0A0A0A]">{inquirySummary?.totalInquiry || 0}</p>
+                        <p className="text-xl font-bold text-[#2E2E2E]">{inquirySummary?.totalInquiry || 0}</p>
                         <p className="text-[11px] uppercase tracking-wider font-semibold text-[#737373]">Total</p>
                       </div>
                       {inquirySummary?.inquiryPast30Days !== undefined && (
                         <>
                           <div className="w-px h-8 bg-[#E5E5E5]"></div>
                           <div>
-                            <p className="text-xl font-bold text-[#0A0A0A]">{inquirySummary?.inquiryPast30Days || 0}</p>
+                            <p className="text-xl font-bold text-[#2E2E2E]">{inquirySummary?.inquiryPast30Days || 0}</p>
                             <p className="text-[11px] uppercase tracking-wider font-semibold text-[#737373]">30 Days</p>
                           </div>
                         </>
@@ -563,7 +563,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                         <>
                           <div className="w-px h-8 bg-[#E5E5E5]"></div>
                           <div>
-                            <p className="text-xl font-bold text-[#0A0A0A]">{inquirySummary?.inquiryPast12Months || 0}</p>
+                            <p className="text-xl font-bold text-[#2E2E2E]">{inquirySummary?.inquiryPast12Months || 0}</p>
                             <p className="text-[11px] uppercase tracking-wider font-semibold text-[#737373]">12 Mos</p>
                           </div>
                         </>
@@ -572,14 +572,14 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                         <>
                           <div className="w-px h-8 bg-[#E5E5E5]"></div>
                           <div>
-                            <p className="text-xl font-bold text-[#0A0A0A]">{inquirySummary?.inquiryPast24Months || 0}</p>
+                            <p className="text-xl font-bold text-[#2E2E2E]">{inquirySummary?.inquiryPast24Months || 0}</p>
                             <p className="text-[11px] uppercase tracking-wider font-semibold text-[#737373]">24 Mos</p>
                           </div>
                         </>
                       )}
                     </div>
                     <p className="text-[11px] text-[#737373] leading-relaxed">
-                      <span className="font-bold text-[#0A0A0A]">Note:</span> Frequent credit enquiries can be one factor considered in credit assessment. The impact depends on the overall credit profile.
+                      <span className="font-bold text-[#2E2E2E]">Note:</span> Frequent credit enquiries can be one factor considered in credit assessment. The impact depends on the overall credit profile.
                     </p>
                   </div>
                 )}
@@ -588,18 +588,18 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                 {/* Enquiries List */}
                 {enquiries && enquiries.length > 0 && (
                   <div className="mb-6">
-                    <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Recent Enquiries</h4>
+                    <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Recent Enquiries</h4>
                     <div className="space-y-3">
                       {enquiries.map((enq: any, i: number) => (
                         <div key={i} className="bg-white border border-[#E5E5E5] rounded-2xl p-4 card-elevated flex items-center justify-between">
                           <div className="text-left">
-                            <p className="text-sm font-bold text-[#0A0A0A]">{enq.memberShortName || 'Unknown Lender'}</p>
+                            <p className="text-sm font-bold text-[#2E2E2E]">{enq.memberShortName || 'Unknown Lender'}</p>
                             <p className="text-xs font-semibold text-[#737373] mt-0.5">Date: {enq.enquiryDate || 'N/A'}</p>
                           </div>
                           <div className="text-right">
                             {Number(enq.enquiryAmount) > 0 && (
                               <>
-                                <p className="text-sm font-bold text-[#0A0A0A]">₹{Number(enq.enquiryAmount).toLocaleString('en-IN')}</p>
+                                <p className="text-sm font-bold text-[#2E2E2E]">₹{Number(enq.enquiryAmount).toLocaleString('en-IN')}</p>
                                 <p className="text-[11px] font-semibold text-[#737373] uppercase tracking-wider mt-0.5">Amount</p>
                               </>
                             )}
@@ -621,7 +621,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                 {/* Accounts List */}
                 {activeAccounts && activeAccounts.length > 0 && (
                   <div>
-                    <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Ongoing Loans</h4>
+                    <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Ongoing Loans</h4>
                     <div className="space-y-3">
                       {activeAccounts.map((acc: any, i: number) => {
                         const isExpanded = expandedAccount === acc.accountNumber;
@@ -629,12 +629,12 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                           <div key={i} className="bg-white border border-[#E5E5E5] rounded-2xl overflow-hidden transition-all card-elevated">
                             <div className="w-full flex items-center justify-between p-4 bg-[#FAFAFA] border-b border-[#E5E5E5]">
                               <div className="text-left">
-                                <p className="text-sm font-bold text-[#0A0A0A]">{acc.memberShortName || 'Unknown Lender'}</p>
+                                <p className="text-sm font-bold text-[#2E2E2E]">{acc.memberShortName || 'Unknown Lender'}</p>
                                 <p className="text-xs font-semibold text-[#737373] mt-0.5">{acc.accountType || 'Unknown Type'}</p>
                               </div>
                               <div className="flex items-center gap-3">
                                 <div className="text-right">
-                                  <p className="text-sm font-bold text-[#0A0A0A]">₹{Number(acc.currentBalance || 0).toLocaleString('en-IN')}</p>
+                                  <p className="text-sm font-bold text-[#2E2E2E]">₹{Number(acc.currentBalance || 0).toLocaleString('en-IN')}</p>
                                   <p className="text-[11px] font-semibold text-[#737373] uppercase tracking-wider mt-0.5">Balance</p>
                                 </div>
                               </div>
@@ -643,27 +643,27 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div className="p-4 grid grid-cols-2 gap-y-4 gap-x-2 bg-white">
                               <div>
                                 <p className="text-[11px] font-bold text-[#737373] uppercase">Account Number</p>
-                                <p className="text-sm font-semibold text-[#0A0A0A]">{acc.accountNumber || 'N/A'}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E]">{acc.accountNumber || 'N/A'}</p>
                               </div>
                               <div>
                                 <p className="text-[11px] font-bold text-[#737373] uppercase">High Credit</p>
-                                <p className="text-sm font-semibold text-[#0A0A0A]">₹{Number(acc.highCreditAmount || 0).toLocaleString('en-IN')}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E]">₹{Number(acc.highCreditAmount || 0).toLocaleString('en-IN')}</p>
                               </div>
                               <div>
                                 <p className="text-[11px] font-bold text-[#737373] uppercase">EMI</p>
-                                <p className="text-sm font-semibold text-[#0A0A0A]">{acc.emiAmount ? `₹${Number(acc.emiAmount).toLocaleString('en-IN')}` : 'N/A'}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E]">{acc.emiAmount ? `₹${Number(acc.emiAmount).toLocaleString('en-IN')}` : 'N/A'}</p>
                               </div>
                               <div>
                                 <p className="text-[11px] font-bold text-[#737373] uppercase">Interest Rate</p>
-                                <p className="text-sm font-semibold text-[#0A0A0A]">{acc.interest_rate ? `${acc.interest_rate}%` : 'N/A'}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E]">{acc.interest_rate ? `${acc.interest_rate}%` : 'N/A'}</p>
                               </div>
                               <div>
                                 <p className="text-[11px] font-bold text-[#737373] uppercase">Date Opened</p>
-                                <p className="text-sm font-semibold text-[#0A0A0A]">{acc.dateOpened || 'N/A'}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E]">{acc.dateOpened || 'N/A'}</p>
                               </div>
                               <div>
                                 <p className="text-[11px] font-bold text-[#737373] uppercase">Date Reported</p>
-                                <p className="text-sm font-semibold text-[#0A0A0A]">{acc.dateReported || 'N/A'}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E]">{acc.dateReported || 'N/A'}</p>
                               </div>
                             </div>
                           </div>
@@ -687,7 +687,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                 {/* Accounts List */}
                 {closedAccounts && closedAccounts.length > 0 && (
                   <div>
-                    <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Closed Loans</h4>
+                    <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Closed Loans</h4>
                     <div className="space-y-3">
                       {closedAccounts.map((acc: any, i: number) => {
                         const isExpanded = expandedAccount === acc.accountNumber;
@@ -698,12 +698,12 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                               className="w-full flex items-center justify-between p-4 hover:bg-[#FAFAFA] transition-colors"
                             >
                               <div className="text-left">
-                                <p className="text-sm font-bold text-[#0A0A0A]">{acc.memberShortName || 'Unknown Lender'}</p>
+                                <p className="text-sm font-bold text-[#2E2E2E]">{acc.memberShortName || 'Unknown Lender'}</p>
                                 <p className="text-xs font-semibold text-[#737373] mt-0.5">{acc.accountType || 'Unknown Type'}</p>
                               </div>
                               <div className="flex items-center gap-3">
                                 <div className="text-right">
-                                  <p className="text-sm font-bold text-[#0A0A0A]">₹{Number(acc.currentBalance || 0).toLocaleString('en-IN')}</p>
+                                  <p className="text-sm font-bold text-[#2E2E2E]">₹{Number(acc.currentBalance || 0).toLocaleString('en-IN')}</p>
                                   <p className="text-[11px] font-semibold text-[#737373] uppercase tracking-wider mt-0.5">Balance</p>
                                 </div>
                                 {isExpanded ? <ChevronUp className="w-4 h-4 text-[#737373]" /> : <ChevronDown className="w-4 h-4 text-[#737373]" />}
@@ -721,27 +721,27 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                                   <div className="p-4 grid grid-cols-2 gap-y-4 gap-x-2 bg-[#FAFAFA]">
                                     <div>
                                       <p className="text-[11px] font-bold text-[#737373] uppercase">Account Number</p>
-                                      <p className="text-sm font-semibold text-[#0A0A0A]">{acc.accountNumber || 'N/A'}</p>
+                                      <p className="text-sm font-semibold text-[#2E2E2E]">{acc.accountNumber || 'N/A'}</p>
                                     </div>
                                     <div>
                                       <p className="text-[11px] font-bold text-[#737373] uppercase">High Credit</p>
-                                      <p className="text-sm font-semibold text-[#0A0A0A]">₹{Number(acc.highCreditAmount || 0).toLocaleString('en-IN')}</p>
+                                      <p className="text-sm font-semibold text-[#2E2E2E]">₹{Number(acc.highCreditAmount || 0).toLocaleString('en-IN')}</p>
                                     </div>
                                     <div>
                                       <p className="text-[11px] font-bold text-[#737373] uppercase">EMI</p>
-                                      <p className="text-sm font-semibold text-[#0A0A0A]">{acc.emiAmount ? `₹${Number(acc.emiAmount).toLocaleString('en-IN')}` : 'N/A'}</p>
+                                      <p className="text-sm font-semibold text-[#2E2E2E]">{acc.emiAmount ? `₹${Number(acc.emiAmount).toLocaleString('en-IN')}` : 'N/A'}</p>
                                     </div>
                                     <div>
                                       <p className="text-[11px] font-bold text-[#737373] uppercase">Interest Rate</p>
-                                      <p className="text-sm font-semibold text-[#0A0A0A]">{acc.interest_rate ? `${acc.interest_rate}%` : 'N/A'}</p>
+                                      <p className="text-sm font-semibold text-[#2E2E2E]">{acc.interest_rate ? `${acc.interest_rate}%` : 'N/A'}</p>
                                     </div>
                                     <div>
                                       <p className="text-[11px] font-bold text-[#737373] uppercase">Date Opened</p>
-                                      <p className="text-sm font-semibold text-[#0A0A0A]">{acc.dateOpened || 'N/A'}</p>
+                                      <p className="text-sm font-semibold text-[#2E2E2E]">{acc.dateOpened || 'N/A'}</p>
                                     </div>
                                     <div>
                                       <p className="text-[11px] font-bold text-[#737373] uppercase">Date Reported</p>
-                                      <p className="text-sm font-semibold text-[#0A0A0A]">{acc.dateReported || 'N/A'}</p>
+                                      <p className="text-sm font-semibold text-[#2E2E2E]">{acc.dateReported || 'N/A'}</p>
                                     </div>
                                   </div>
                                 </motion.div>
@@ -769,16 +769,16 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
               {/* Equifax Personal Info (Fallback) */}
               {(!isPreparingDownload || isDownloadingSection === 'eligibility') && (isEquifax || isCrif) && (
                 <div className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-3xl p-5 mb-6">
-                  <h4 className="text-sm font-extrabold text-[#0A0A0A] mb-4">{isEquifax ? 'Equifax' : 'CRIF'} Profile Data</h4>
+                  <h4 className="text-sm font-extrabold text-[#2E2E2E] mb-4">{isEquifax ? 'Equifax' : 'CRIF'} Profile Data</h4>
                   {equifaxPersonalInfo && (
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <div>
                         <p className="text-[11px] uppercase tracking-wider font-bold text-[#737373]">Name</p>
-                        <p className="text-sm font-bold text-[#0A0A0A]">{equifaxPersonalInfo.Name?.FullName || 'N/A'}</p>
+                        <p className="text-sm font-bold text-[#2E2E2E]">{equifaxPersonalInfo.Name?.FullName || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-[11px] uppercase tracking-wider font-bold text-[#737373]">Date of Birth</p>
-                        <p className="text-sm font-bold text-[#0A0A0A]">{equifaxPersonalInfo.DateOfBirth || 'N/A'}</p>
+                        <p className="text-sm font-bold text-[#2E2E2E]">{equifaxPersonalInfo.DateOfBirth || 'N/A'}</p>
                       </div>
                     </div>
                   )}
@@ -797,9 +797,9 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
               {(!isPreparingDownload || isDownloadingSection === 'loans') && (
                 <div ref={loansRef} className={`mb-6 ${isDownloadingSection === 'loans' ? 'bg-white p-4 mb-4' : ''}`}>
                   {isDownloadingSection === 'loans' && (
-                    <h3 className="text-xl font-bold bg-[#0A0A0A] text-white p-3 rounded-lg mt-8 mb-6 uppercase tracking-wider text-center">Section 2: Loans (Overrides)</h3>
+                    <h3 className="text-xl font-bold bg-[#2E2E2E] text-white p-3 rounded-lg mt-8 mb-6 uppercase tracking-wider text-center">Section 2: Loans (Overrides)</h3>
                   )}
-                  <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Complete Profile for Accurate Eligibility</h4>
+                  <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Complete Profile for Accurate Eligibility</h4>
 
                   <div className="bg-slate-50 border border-icy-blue rounded-2xl p-5 mb-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1129,7 +1129,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                     )}
                   </div>
 
-                  <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Review Open Loans</h4>
+                  <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Review Open Loans</h4>
                   <div className="space-y-4 mb-8">
                     {mappedAccounts.length === 0 && <p className="text-sm text-brand-black/70">No active loans found to evaluate.</p>}
                     {mappedAccounts.map((loan: any, idx: number) => {
@@ -1138,7 +1138,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                         <div key={`${loan.id}-${idx}`} className="bg-white border border-[#E5E5E5] rounded-2xl p-4 card-elevated">
                           <div className="flex justify-between items-center mb-3 border-b border-slate-100 pb-2">
                             <div className="flex items-center gap-2">
-                              <p className="font-bold text-sm text-[#0A0A0A]">Loan #{idx + 1} - {loan.originalType}</p>
+                              <p className="font-bold text-sm text-[#2E2E2E]">Loan #{idx + 1} - {loan.originalType}</p>
                               {loan.pastDueAmount > 0 && (
                                 <span className="bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-[11px] font-bold border border-red-200">
                                   Overdue: ₹{loan.pastDueAmount.toLocaleString('en-IN')}
@@ -1170,7 +1170,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">Bank / NBFC</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.bankName !== undefined ? l.bankName : (loan.bankName || "")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.bankName !== undefined ? l.bankName : (loan.bankName || "")}</p>
                               ) : (
                                 <input
                                   type="text"
@@ -1183,7 +1183,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">Type</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.type !== undefined ? l.type : (loan.type || "Personal Loan")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.type !== undefined ? l.type : (loan.type || "Personal Loan")}</p>
                               ) : (
                                 <select
                                   value={l.type !== undefined ? l.type : (loan.type || "Personal Loan")}
@@ -1203,7 +1203,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">{loan.type === 'Overdraft' ? 'Amount Drawn' : 'Orig. Amount'}</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.originalAmount !== undefined ? l.originalAmount : (loan.originalAmount || "")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.originalAmount !== undefined ? l.originalAmount : (loan.originalAmount || "")}</p>
                               ) : (
                                 <input
                                   type="number"
@@ -1216,7 +1216,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">Current Bal.</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.currentOutstanding !== undefined ? l.currentOutstanding : (loan.currentOutstanding || "")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.currentOutstanding !== undefined ? l.currentOutstanding : (loan.currentOutstanding || "")}</p>
                               ) : (
                                 <input
                                   type="number"
@@ -1229,7 +1229,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">Date Issue</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.dateOpened !== undefined ? l.dateOpened : (loan.dateOpened || "")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.dateOpened !== undefined ? l.dateOpened : (loan.dateOpened || "")}</p>
                               ) : (
                                 <input
                                   type="text"
@@ -1242,7 +1242,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">{loan.type === 'Overdraft' ? 'OD Plan' : 'Tenure (Mos)'}</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">
                                   {loan.type === 'Overdraft' ?
                                     (l.odPlan !== undefined ? l.odPlan : (loan.odPlan || "2yr"))
                                     : (l.tenure !== undefined ? l.tenure : (loan.tenure || ""))}
@@ -1270,7 +1270,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">EMI</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.emi !== undefined ? l.emi : (loan.emi || "")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.emi !== undefined ? l.emi : (loan.emi || "")}</p>
                               ) : (
                                 <input
                                   type="number"
@@ -1283,7 +1283,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div>
                               <label className="text-[11px] uppercase font-bold text-[#737373]">Rate %</label>
                               {isDownloadingSection === 'loans' ? (
-                                <p className="text-sm font-semibold text-[#0A0A0A] px-2 py-1.5">{l.rate !== undefined ? l.rate : (loan.rate || "")}</p>
+                                <p className="text-sm font-semibold text-[#2E2E2E] px-2 py-1.5">{l.rate !== undefined ? l.rate : (loan.rate || "")}</p>
                               ) : (
                                 <input
                                   type="number"
@@ -1313,9 +1313,9 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
               {(!isPreparingDownload || isDownloadingSection === 'eligibility') && (
                 <div ref={eligRef} className={`mb-6 ${isDownloadingSection === 'eligibility' ? 'bg-white p-4 mb-4' : ''}`}>
                   {isDownloadingSection === 'eligibility' && (
-                    <h3 className="text-xl font-bold bg-[#0A0A0A] text-white p-3 rounded-lg mt-8 mb-6 uppercase tracking-wider text-center">Section 3: Eligibility Results</h3>
+                    <h3 className="text-xl font-bold bg-[#2E2E2E] text-white p-3 rounded-lg mt-8 mb-6 uppercase tracking-wider text-center">Section 3: Eligibility Results</h3>
                   )}
-                  <h4 className="text-lg font-bold text-[#0A0A0A] mb-4">Eligible Consolidation Options</h4>
+                  <h4 className="text-lg font-bold text-[#2E2E2E] mb-4">Eligible Consolidation Options</h4>
                   {eligibleLenders.length > 0 ? (
                     <div className="space-y-4">
                       {(() => {
@@ -1375,7 +1375,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                         }
                         return (
                           <div className="bg-[#FAFAFA] border border-[#E5E5E5] rounded-2xl p-5 mb-2 shadow-sm">
-                            <h4 className="text-sm font-extrabold text-[#0A0A0A] mb-4 flex items-center justify-between">
+                            <h4 className="text-sm font-extrabold text-[#2E2E2E] mb-4 flex items-center justify-between">
                               <span>Consolidation Estimate (Best Option: {bestLender.name})</span>
                               <span className="text-xs font-semibold text-blue-energy bg-blue-50 px-2 py-1 rounded-md">{bestLender.headlineRate}% p.a.</span>
                             </h4>
@@ -1388,11 +1388,11 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                                   {catBLoans.map((l: any, idx: number) => (
                                     <div key={idx} className="flex justify-between items-center text-xs">
                                       <div className="flex items-center gap-2">
-                                        <span className="font-semibold text-[#0A0A0A]">{l.bankName || 'Lender'}</span>
+                                        <span className="font-semibold text-[#2E2E2E]">{l.bankName || 'Lender'}</span>
                                         <span className="text-slate-400">({l.type})</span>
                                       </div>
                                       <div className="text-right">
-                                        <span className="font-semibold text-[#0A0A0A]">₹{Number(l.currentOutstanding || 0).toLocaleString('en-IN')}</span>
+                                        <span className="font-semibold text-[#2E2E2E]">₹{Number(l.currentOutstanding || 0).toLocaleString('en-IN')}</span>
                                         <span className="text-slate-400 ml-2">EMI: ₹{Number(l.emi || 0).toLocaleString('en-IN')}</span>
                                       </div>
                                     </div>
@@ -1401,7 +1401,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                                 <div className="flex justify-between items-center pt-2 border-t border-slate-100">
                                   <span className="text-xs font-bold text-brand-black/90">Total</span>
                                   <div className="text-right text-xs">
-                                    <span className="font-bold text-[#0A0A0A]">₹{consolidationAmount.toLocaleString('en-IN')}</span>
+                                    <span className="font-bold text-[#2E2E2E]">₹{consolidationAmount.toLocaleString('en-IN')}</span>
                                     <span className="font-bold text-blue-energy ml-2">EMI: ₹{currentEmiToConsolidate.toLocaleString('en-IN')}</span>
                                   </div>
                                 </div>
@@ -1411,7 +1411,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                               <div className="bg-white border border-slate-100 p-3 rounded-xl relative">
                                 <p className="text-[11px] uppercase tracking-wider font-bold text-brand-black/70">Total New Loan</p>
-                                <p className="text-xl font-black text-[#0A0A0A] mt-1">
+                                <p className="text-xl font-black text-[#2E2E2E] mt-1">
                                   ₹{amountForEmi.toLocaleString('en-IN')}
                                 </p>
                                 {isCapped && (
@@ -1423,7 +1423,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
                               </div>
                               <div className="bg-white border border-slate-100 p-3 rounded-xl">
                                 <p className="text-[11px] uppercase tracking-wider font-bold text-brand-black/70">Est. New EMI</p>
-                                <p className="text-xl font-black text-[#0A0A0A] mt-1">₹{newEmi.toLocaleString('en-IN')}</p>
+                                <p className="text-xl font-black text-[#2E2E2E] mt-1">₹{newEmi.toLocaleString('en-IN')}</p>
                                 {hasTopUp && consolidationAmount > 0 && canFullyConsolidate && (
                                   <p className="text-[11px] text-brand-black/70 mt-1 font-semibold">
                                     Consolidation only: ₹{consolidationOnlyEmi.toLocaleString('en-IN')} ({tenureMonths}m)
@@ -1720,7 +1720,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
 
                   {ineligibleLenders.length > 0 && (
                     <div className="mt-8">
-                      <h4 className="text-sm font-bold text-[#0A0A0A] mb-3">Lenders Not Currently Eligible</h4>
+                      <h4 className="text-sm font-bold text-[#2E2E2E] mb-3">Lenders Not Currently Eligible</h4>
                       <div className="space-y-3">
                         {ineligibleLenders.map((lender: any, i: number) => (
                           <div key={i} className="bg-red-50/50 border border-red-100 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">

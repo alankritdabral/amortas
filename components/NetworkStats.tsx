@@ -294,7 +294,7 @@ export function NetworkStats() {
       />
 
       <div className="relative max-w-[1220px] mx-auto ">
-        <h2 className="mx-auto max-w-[20ch] text-center text-[36px] sm:text-[52px] leading-[1.05] tracking-[-0.03em] font-semibold text-[#0A0A0A] px-4 pt-16 pb-12 md:pt-24 md:pb-16">
+        <h2 className="mx-auto max-w-[20ch] text-center text-[36px] sm:text-[52px] leading-[1.05] tracking-[-0.03em] font-semibold text-[#2E2E2E] px-4 pt-16 pb-12 md:pt-24 md:pb-16">
           The backbone of smarter debt repayment
         </h2>
 
@@ -320,7 +320,7 @@ export function NetworkStats() {
                 onMouseEnter={() => setHovered(i)}
                 onFocus={() => setHovered(i)}
                 onBlur={() => setHovered(null)}
-                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#E04F00] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#0A0A0A] max-lg:bg-[#FF5A00]/[0.06]" : "text-[#A3A3A3] hover:text-[#737373]"}`}
+                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#E04F00] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#2E2E2E] max-lg:bg-[#FF5A00]/[0.06]" : "text-[#A3A3A3] hover:text-[#737373]"}`}
               >
                 <span className="text-[34px] md:text-[48px] leading-none tracking-[-0.03em] font-medium tabular-nums">
                   <AnimatedNumber
@@ -342,7 +342,7 @@ export function NetworkStats() {
         </div>
       </div>
 
-      <p className="relative max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 pt-3 pb-6 text-sm text-[#0A0A0A]/80">
+      <p className="relative max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 pt-3 pb-6 text-sm text-[#2E2E2E]/80">
         *Subject to lender policy, your credit profile and eligibility. Figures are maximums, not guaranteed offers.
       </p>
     </section>

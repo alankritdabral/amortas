@@ -12,7 +12,7 @@ const typeConfig = {
   bank: { icon: Landmark, color: "from-rose-800 to-rose-500", shadow: "rgba(244,63,94,0.4)" },
   save: { icon: PiggyBank, color: "from-emerald-800 to-emerald-500", shadow: "rgba(16,185,129,0.4)" },
   app: { icon: Smartphone, color: "from-cyan-800 to-cyan-500", shadow: "rgba(255, 218, 0,0.4)" },
-  default: { icon: Building, color: "from-[#0A0A0A] to-[#FF5A00]", shadow: "rgba(255, 90, 0,0.4)" }
+  default: { icon: Building, color: "from-[#2E2E2E] to-[#FF5A00]", shadow: "rgba(255, 90, 0,0.4)" }
 };
 
 export interface Transaction {
@@ -145,12 +145,12 @@ export function LoanNotification({ transaction, align = 'right', vAlign = 'top' 
         {/* Content */}
         <div className="flex-1 flex flex-col justify-center min-w-[100px]">
           <div className="flex justify-between items-center mb-0.5">
-            <span className="font-semibold text-[#0A0A0A] text-sm sm:text-sm md:text-base truncate max-w-[130px]">{transaction.title || transaction.city}</span>
+            <span className="font-semibold text-[#2E2E2E] text-sm sm:text-sm md:text-base truncate max-w-[130px]">{transaction.title || transaction.city}</span>
           </div>
-          <div className="text-base sm:text-lg md:text-lg font-bold text-[#0A0A0A] leading-none mb-1 md:mb-1.5 tracking-tight">
+          <div className="text-base sm:text-lg md:text-lg font-bold text-[#2E2E2E] leading-none mb-1 md:mb-1.5 tracking-tight">
             {transaction.amount}
           </div>
-          <div className="flex items-center gap-1.5 text-xs md:text-sm text-[#404040] font-medium whitespace-nowrap">
+          <div className="flex items-center gap-1.5 text-xs md:text-sm text-[#575757] font-medium whitespace-nowrap">
             <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_6px_rgba(16,185,129,0.5)]"></span>
             {transaction.status || 'Loan Disbursed'}
           </div>
@@ -158,7 +158,7 @@ export function LoanNotification({ transaction, align = 'right', vAlign = 'top' 
 
         {/* Right Arrow */}
         <div className="shrink-0 pl-1">
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#0A0A0A]/40" />
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#2E2E2E]/40" />
         </div>
       </motion.div>
     </motion.div>

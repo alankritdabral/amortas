@@ -69,7 +69,7 @@ export function HeroGridBlock() {
             href="#check-eligibility"
             data-analytics-cta="hero_check_eligibility"
             data-analytics-location="hero"
-            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-[#FF5A00] text-[#0A0A0A] hover:text-white rounded text-base font-semibold hover:bg-[#0A0A0A] transition-all items-center justify-center gap-2 group border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] font-bold"
+            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-[#FF5A00] text-[#2E2E2E] hover:text-white rounded text-base font-semibold hover:bg-[#2E2E2E] transition-all items-center justify-center gap-2 group border-2 border-[#2E2E2E] shadow-[3px_3px_0_0_#2E2E2E] font-bold"
           >
             Check My Eligibility
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -78,7 +78,7 @@ export function HeroGridBlock() {
             href="#calculator"
             data-analytics-cta="hero_see_savings"
             data-analytics-location="hero"
-            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-white text-brand-black border-2 border-[#0A0A0A] rounded text-base font-bold hover:bg-[#F7E0D4] transition-all items-center justify-center gap-2 group shadow-[3px_3px_0_0_#0A0A0A]"
+            className="flex w-full sm:w-auto px-[22px] h-[48px] bg-white text-brand-black border-2 border-[#2E2E2E] rounded text-base font-bold hover:bg-[#F7E0D4] transition-all items-center justify-center gap-2 group shadow-[3px_3px_0_0_#2E2E2E]"
           >
             <Calculator className="w-4 h-4 text-slate-600" />
             See Potential Savings
@@ -94,7 +94,7 @@ export function HeroGridBlock() {
 
 export function HeroLogos() {
   return (
-    <div className="w-full bg-white relative z-20 border-t-2 border-[#0A0A0A]">
+    <div className="w-full bg-white relative z-20 border-t-2 border-[#2E2E2E]">
       <div className="max-w-[1220px] mx-auto flex flex-col xl:flex-row xl:items-center py-4 sm:py-6 overflow-hidden">
 
         <div className="flex-1 flex items-center min-w-0 logo-strip">

@@ -23,7 +23,7 @@ export default function Page() {
         imageAlt="An Indian city skyline, representing Amortas's nationwide service"
         points={["Written for salaried borrowers", "General information, not advice", "Free to read"]}
       />
-      <section className="section-tint text-[#0A0A0A]">
+      <section className="section-tint text-[#2E2E2E]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           {articles.map((a, n) => (
             <Link
@@ -34,7 +34,7 @@ export default function Page() {
               <h2 className="text-[32px] md:text-[36px] leading-[1.08] tracking-[-0.03em] font-bold group-hover:text-[#E04F00] transition-colors">
                 {a.title}
               </h2>
-              <p className="text-lg text-[#404040] leading-relaxed">{a.summary}</p>
+              <p className="text-lg text-[#575757] leading-relaxed">{a.summary}</p>
             </Link>
           ))}
         </div>

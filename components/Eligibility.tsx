@@ -15,14 +15,14 @@ export function Eligibility() {
     <section className="section-tint">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-12 lg:gap-20">
         <div>
-          <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A]">
+          <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#2E2E2E]">
             What will lenders look at?
           </h2>
-          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#404040] max-w-md">
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#575757] max-w-md">
             Every bank has its own rules, but these are the usual things. Knowing them upfront saves
             you time.
           </p>
-          <p className="mt-6 text-base text-[#404040] max-w-md">
+          <p className="mt-6 text-base text-[#575757] max-w-md">
             Meeting these helps us shortlist options for you, but it isn&apos;t a guarantee of
             approval. The lender always makes the final call.
           </p>
@@ -30,14 +30,14 @@ export function Eligibility() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="bg-[#F7E0D4] p-7 md:p-8">
-            <h3 className="text-2xl font-bold tracking-[-0.02em] text-[#0A0A0A]">They usually check</h3>
-            <ul className="mt-5 space-y-3 text-lg leading-snug text-[#0A0A0A]">
+            <h3 className="text-2xl font-bold tracking-[-0.02em] text-[#2E2E2E]">They usually check</h3>
+            <ul className="mt-5 space-y-3 text-lg leading-snug text-[#2E2E2E]">
               {eligibility.map((e) => (
                 <li key={e}>{e}</li>
               ))}
             </ul>
           </div>
-          <div className="bg-[#0A0A0A] text-white p-7 md:p-8">
+          <div className="bg-[#2E2E2E] text-white p-7 md:p-8">
             <h3 className="text-2xl font-bold tracking-[-0.02em]">Keep these handy</h3>
             <ul className="mt-5 space-y-3 text-lg leading-snug text-[#FFD2B8]">
               {docs.map((d) => (

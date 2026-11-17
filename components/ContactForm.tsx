@@ -174,7 +174,7 @@ export function ContactForm() {
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"
               data-analytics-location="contact_form_success"
-              className="flex-1 px-6 py-3 bg-[#FF5A00] text-[#0A0A0A] hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-[#FF5A00] text-[#2E2E2E] hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Check Eligibility
             </Link>
@@ -194,10 +194,10 @@ export function ContactForm() {
       <div className="bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated" id="contact-form-card">
         <div className="mb-6 md:mb-8 shrink-0">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-2">
-            <h2 className="text-[32px] font-bold tracking-[-0.02em] text-[#0A0A0A]">Leave your details</h2>
+            <h2 className="text-[32px] font-bold tracking-[-0.02em] text-[#2E2E2E]">Leave your details</h2>
 
           </div>
-          <p className="text-[#404040] text-sm -mt-1 sm:mt-0">We&apos;ll call you back, usually within 24 hours.</p>
+          <p className="text-[#575757] text-sm -mt-1 sm:mt-0">We&apos;ll call you back, usually within 24 hours.</p>
         </div>
 
         {status === "error" && (
@@ -210,7 +210,7 @@ export function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-sm font-bold text-[#0A0A0A]">
+              <label htmlFor="name" className="text-sm font-bold text-[#2E2E2E]">
                 Full Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -220,12 +220,12 @@ export function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Rahul Sharma"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="phone" className="text-sm font-bold text-[#0A0A0A]">
+              <label htmlFor="phone" className="text-sm font-bold text-[#2E2E2E]">
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <input
@@ -235,14 +235,14 @@ export function ContactForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="e.g. 9876543210"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="requirement" className="text-sm font-bold text-[#0A0A0A]">
+            <label htmlFor="requirement" className="text-sm font-bold text-[#2E2E2E]">
               What can we help you with? <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -251,7 +251,7 @@ export function ContactForm() {
                 name="requirement"
                 value={formData.requirement}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none pr-10"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none pr-10"
                 required
               >
                 <option value="" disabled>Select an option</option>
@@ -261,7 +261,7 @@ export function ContactForm() {
                   </option>
                 ))}
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#404040]">
+              <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#575757]">
                 <ChevronDown className="w-4 h-4" />
               </div>
             </div>
@@ -269,7 +269,7 @@ export function ContactForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="netSalary" className="text-sm font-bold text-[#0A0A0A]">
+              <label htmlFor="netSalary" className="text-sm font-bold text-[#2E2E2E]">
                 Net Monthly Salary (₹) <span className="text-red-500">*</span>
               </label>
               <input
@@ -279,12 +279,12 @@ export function ContactForm() {
                 value={formData.netSalary}
                 onChange={handleChange}
                 placeholder="e.g. 50000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="ongoingEmi" className="text-sm font-bold text-[#0A0A0A]">
+              <label htmlFor="ongoingEmi" className="text-sm font-bold text-[#2E2E2E]">
                 Ongoing EMI (₹) <span className="text-red-500">*</span>
               </label>
               <input
@@ -294,7 +294,7 @@ export function ContactForm() {
                 value={formData.ongoingEmi}
                 onChange={handleChange}
                 placeholder="e.g. 15000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A0A0A] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#404040]/50"
+                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
                 required
               />
             </div>
@@ -313,7 +313,7 @@ export function ContactForm() {
                 />
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
-              <span className="text-sm text-[#404040] group-hover:text-[#0A0A0A] transition-colors">
+              <span className="text-sm text-[#575757] group-hover:text-[#2E2E2E] transition-colors">
                 I agree that Amortas, and its partner lenders (see{" "}
                 <Link href="/partner-disclosures" className="underline">partner disclosures</Link>), may contact me regarding this enquiry. <span className="text-red-500">*</span>
               </span>
@@ -322,7 +322,7 @@ export function ContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-[#FF5A00] text-[#0A0A0A] py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
+              className="w-full bg-[#FF5A00] text-[#2E2E2E] py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
             >
               {status === "loading" ? (
                 <>
@@ -337,7 +337,7 @@ export function ContactForm() {
               )}
             </button>
             
-            <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#404040]">
+            <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#575757]">
               <Lock className="w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400" />
               <p className="text-[11px] sm:text-xs text-slate-400">Your information is secure and will only be used to contact you.</p>
             </div>
@@ -351,10 +351,10 @@ export function ContactForm() {
     <div className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-10 lg:gap-16 items-start">
         <div className="order-2 lg:order-1 lg:sticky lg:top-28">
-          <h2 className="text-[40px] sm:text-[56px] lg:text-[58px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A]">
+          <h2 className="text-[40px] sm:text-[56px] lg:text-[58px] leading-[1.02] tracking-[-0.04em] font-bold text-[#2E2E2E]">
             Rather have someone call you?
           </h2>
-          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#0A0A0A] max-w-md">
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#2E2E2E] max-w-md">
             Leave your number and tell us what you need help with. A credit expert will ring you
             back and walk through it with you.
           </p>
@@ -362,7 +362,7 @@ export function ContactForm() {
           <div className="mt-9 max-w-md overflow-hidden rounded-2xl card-elevated bg-[#efeae2]">
             <div className="flex items-center gap-3 bg-[#008069] px-4 py-3 text-white">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
-                <LogoMark className="h-[14px] w-auto text-[#0A0A0A]" />
+                <LogoMark className="h-[14px] w-auto text-[#2E2E2E]" />
               </div>
               <div className="leading-tight">
                 <p className="text-[15px] font-semibold">Amortas</p>
@@ -393,7 +393,7 @@ export function ContactForm() {
             </div>
           </div>
 
-          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-[#0A0A0A] max-w-md">
+          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-[#2E2E2E] max-w-md">
             <li>Your data is encrypted.</li>
             <li>Never shared with third parties.</li>
             <li>Verified loan experts.</li>

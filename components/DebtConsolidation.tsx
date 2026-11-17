@@ -52,12 +52,12 @@ export function DebtConsolidation() {
   const [activeScenario, setActiveScenario] = useState(SCENARIOS[0]);
 
   return (
-    <section id="debt-consolidation" className="section-tint text-[#0A0A0A]">
+    <section id="debt-consolidation" className="section-tint text-[#2E2E2E]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold max-w-3xl">
           Here&apos;s what it could look like.
         </h2>
-        <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#404040] max-w-2xl">
+        <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#575757] max-w-2xl">
           Pick the situation closest to yours. These are examples, not offers, but they show how
           scattered payments can become one.
         </p>
@@ -71,8 +71,8 @@ export function DebtConsolidation() {
               onClick={() => setActiveScenario(s)}
               className={`rounded px-5 py-3 text-base font-semibold transition-colors cursor-pointer ${
                 activeScenario.id === s.id
-                  ? "bg-[#FF5A00] text-[#0A0A0A]"
-                  : "bg-[#F7E0D4] text-[#0A0A0A] hover:bg-[#D4D4D4]"
+                  ? "bg-[#FF5A00] text-[#2E2E2E]"
+                  : "bg-[#F7E0D4] text-[#2E2E2E] hover:bg-[#D4D4D4]"
               }`}
             >
               {s.name}
@@ -87,7 +87,7 @@ export function DebtConsolidation() {
               {activeScenario.before.map((item) => (
                 <li key={item.name} className="flex items-baseline justify-between gap-4 py-3.5">
                   <span className="text-lg">
-                    {item.name} <span className="text-[#404040]">({item.rate})</span>
+                    {item.name} <span className="text-[#575757]">({item.rate})</span>
                   </span>
                   <span className="text-lg font-bold">{item.emi}</span>
                 </li>
@@ -98,7 +98,7 @@ export function DebtConsolidation() {
             </p>
           </div>
 
-          <div className="bg-[#0A0A0A] text-white p-7 md:p-9">
+          <div className="bg-[#2E2E2E] text-white p-7 md:p-9">
             <h3 className="text-2xl md:text-[32px] font-bold tracking-[-0.02em]">As one loan, maybe:</h3>
             <p className="mt-6 text-[56px] md:text-[56px] font-bold tracking-[-0.04em] leading-none">
               {activeScenario.afterEmi}
@@ -116,14 +116,14 @@ export function DebtConsolidation() {
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-6 justify-between">
-          <p className="text-sm text-[#404040] max-w-xl">
+          <p className="text-sm text-[#575757] max-w-xl">
             Illustrative examples only. Final terms are set by partner lenders after checking your profile.
           </p>
           <a
             href="#lead-form"
             data-analytics-cta="debt_consolidation_check_options"
             data-analytics-location="debt_consolidation_scenarios"
-            className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5A00] hover:bg-[#0A0A0A] transition-colors text-[#0A0A0A] hover:text-white font-bold text-lg px-7 py-4"
+            className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5A00] hover:bg-[#2E2E2E] transition-colors text-[#2E2E2E] hover:text-white font-bold text-lg px-7 py-4"
           >
             Check my options <ArrowRight className="h-5 w-5" />
           </a>

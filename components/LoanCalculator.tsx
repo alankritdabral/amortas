@@ -52,17 +52,17 @@ export function LoanCalculator() {
   return (
     <section id="calculator" className="bg-[#F7E0D4]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
-        <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#0A0A0A] max-w-3xl">
+        <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold text-[#2E2E2E] max-w-3xl">
           How much could you stop paying every month?
         </h2>
-        <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#404040] max-w-2xl">
+        <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#575757] max-w-2xl">
           Put in what you pay now. We&apos;ll show what it might look like as one loan. It&apos;s only an
           estimate, but it&apos;s a good place to start the conversation.
         </p>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-start">
           <div className="bg-white p-6 sm:p-9 space-y-6">
-            <h3 className="text-2xl font-bold tracking-[-0.02em] text-[#0A0A0A]">
+            <h3 className="text-2xl font-bold tracking-[-0.02em] text-[#2E2E2E]">
               What do you owe right now?
             </h3>
             <Slider label="Total loan outstanding" value={existingLoan} min={50000} max={2000000} step={10000} onChange={(v) => { setExistingLoan(v); trackChange(); }} display={formatINR(existingLoan)} />
@@ -73,8 +73,8 @@ export function LoanCalculator() {
 
             <div className="bg-[#F7E0D4] p-5">
               <div className="flex items-center justify-between gap-4">
-                <span className="text-base font-semibold text-[#0A0A0A]">Rate you might get*</span>
-                <span className="text-xl font-bold text-[#0A0A0A]">{illustrativeRate}%</span>
+                <span className="text-base font-semibold text-[#2E2E2E]">Rate you might get*</span>
+                <span className="text-xl font-bold text-[#2E2E2E]">{illustrativeRate}%</span>
               </div>
               <input
                 type="range"
@@ -86,11 +86,11 @@ export function LoanCalculator() {
                 className="mt-3 w-full h-2 appearance-none bg-[#E5E5E5] accent-[#E04F00] cursor-pointer"
                 aria-label="Rate you might get"
               />
-              <p className="mt-2 text-sm text-[#404040]">Partner banks start from 9.99% p.a.* for eligible salaried applicants.</p>
+              <p className="mt-2 text-sm text-[#575757]">Partner banks start from 9.99% p.a.* for eligible salaried applicants.</p>
             </div>
           </div>
 
-          <div className="bg-[#0A0A0A] text-white p-6 sm:p-9" aria-live="polite">
+          <div className="bg-[#2E2E2E] text-white p-6 sm:p-9" aria-live="polite">
             <p className="text-[#FFD2B8] text-base">Today you pay</p>
             <p className="text-[32px] font-bold tracking-[-0.03em] line-through decoration-[#FFD2B8] decoration-2">
               {formatINR(currentEMI)} <span className="text-lg font-medium no-underline">a month</span>
@@ -114,7 +114,7 @@ export function LoanCalculator() {
               href="#lead-form"
               data-analytics-cta="loan_calculator_get_assessment"
               data-analytics-location="loan_calculator"
-              className="mt-8 inline-flex items-center gap-2 rounded bg-white text-[#0A0A0A] font-bold text-lg px-7 py-4 hover:bg-[#FFD2B8] transition-colors"
+              className="mt-8 inline-flex items-center gap-2 rounded bg-white text-[#2E2E2E] font-bold text-lg px-7 py-4 hover:bg-[#FFD2B8] transition-colors"
             >
               Get my free assessment <ArrowRight className="h-5 w-5" />
             </a>
@@ -149,8 +149,8 @@ function Slider({
   return (
     <label className="block">
       <div className="flex items-baseline justify-between gap-4">
-        <span className="text-base font-medium text-[#0A0A0A]">{label}</span>
-        <span className="text-xl font-bold tracking-[-0.02em] text-[#0A0A0A]">{display}</span>
+        <span className="text-base font-medium text-[#2E2E2E]">{label}</span>
+        <span className="text-xl font-bold tracking-[-0.02em] text-[#2E2E2E]">{display}</span>
       </div>
       <input
         type="range"

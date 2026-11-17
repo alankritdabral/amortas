@@ -14,7 +14,7 @@ const icons: Record<string, LucideIcon> = {
 
 export function TrustStrip() {
   return (
-    <section className="bg-[#0A0A0A] text-white">
+    <section className="bg-[#2E2E2E] text-white">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-16 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
         {stats.map((s) => (
           <div key={s.label}>
@@ -30,22 +30,22 @@ export function TrustStrip() {
 export function BenefitCards({ page }: { page: PageKey }) {
   const { heading, intro, benefits } = pageContent[page];
   return (
-    <section className="bg-[#F7E0D4] text-[#0A0A0A]">
+    <section className="bg-[#F7E0D4] text-[#2E2E2E]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <div className="max-w-2xl">
           <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">{heading}</h2>
-          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#404040]">{intro}</p>
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#575757]">{intro}</p>
         </div>
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {benefits.map((b) => {
             const Icon = icons[b.icon] ?? CheckCircle2;
             return (
               <div key={b.title} className="rounded-2xl bg-white p-6 shadow-sm border border-[#E04F00]/10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF5A00] text-[#0A0A0A]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF5A00] text-[#2E2E2E]">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">{b.title}</h3>
-                <p className="mt-2 text-base leading-relaxed text-[#404040]">{b.text}</p>
+                <p className="mt-2 text-base leading-relaxed text-[#575757]">{b.text}</p>
               </div>
             );
           })}
@@ -57,7 +57,7 @@ export function BenefitCards({ page }: { page: PageKey }) {
 
 export function Testimonials() {
   return (
-    <section className="section-tint text-[#0A0A0A]">
+    <section className="section-tint text-[#2E2E2E]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold max-w-2xl">
           What people say.
@@ -67,7 +67,7 @@ export function Testimonials() {
             <figure key={t.quote} className="rounded-2xl bg-[#F7E0D4] p-7 flex flex-col">
               <Quote className="h-8 w-8 text-[#E04F00]" />
               <blockquote className="mt-4 text-lg leading-relaxed flex-1">{t.quote}</blockquote>
-              <figcaption className="mt-6 text-sm font-semibold text-[#404040]">{t.who}</figcaption>
+              <figcaption className="mt-6 text-sm font-semibold text-[#575757]">{t.who}</figcaption>
             </figure>
           ))}
         </div>
@@ -79,7 +79,7 @@ export function Testimonials() {
 export function PageFAQ({ page }: { page: PageKey }) {
   const { faqs } = pageContent[page];
   return (
-    <section className="section-tint text-[#0A0A0A]">
+    <section className="section-tint text-[#2E2E2E]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(pageFaqSchema(faqs)) }}
