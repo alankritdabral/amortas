@@ -12,7 +12,6 @@ import { ClarityLoader } from "@/components/analytics/Clarity";
 import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { siteConfig } from "@/lib/config";
 import { GA_ID } from "@/lib/analytics/gaId";
-import { META_PIXEL_ID } from "@/lib/meta/client";
 import { jsonLd, organizationSchema, websiteSchema } from "@/lib/structuredData";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -135,32 +134,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
         />
-        {/*
-          Meta Pixel base code, inline like gtag above. Consent is revoked BEFORE init, so
-          fbevents.js loads but Meta holds all events until the visitor accepts ad measurement
-          (stored choice in cei_consent.marketing is applied immediately). PageView is NOT fired
-          here: components/analytics/MetaPixel.tsx fires it per route once consent is granted.
-        */}
-        {META_PIXEL_ID && (
-          <Script id="meta-pixel" strategy="afterInteractive">
-            {`
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('consent', 'revoke');
-              try {
-                var stored = JSON.parse(window.localStorage.getItem('cei_consent'));
-                if (stored && stored.marketing === 'granted') fbq('consent', 'grant');
-              } catch (e) {}
-              fbq('init', '${META_PIXEL_ID}');
-            `}
-          </Script>
-        )}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(organization) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(website) }} />
         <ScrollProgress />
