@@ -21,9 +21,10 @@ declare global {
 export function ConsentBanner() {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [draft, setDraft] = useState<{ analytics: boolean; recordings: boolean }>({
+  const [draft, setDraft] = useState<{ analytics: boolean; recordings: boolean; marketing: boolean }>({
     analytics: false,
     recordings: false,
+    marketing: false,
   });
 
   useEffect(() => {
@@ -52,8 +53,8 @@ export function ConsentBanner() {
 
   if (!visible) return null;
 
-  const choice = (analytics: ConsentChoice, recordings: ConsentChoice) => {
-    setConsent({ analytics, recordings });
+  const choice = (analytics: ConsentChoice, recordings: ConsentChoice, marketing: ConsentChoice) => {
+    setConsent({ analytics, recordings, marketing });
     setVisible(false);
     setExpanded(false);
   };
@@ -77,7 +78,7 @@ export function ConsentBanner() {
         </div>
 
         {expanded && (
-          <div className="grid gap-3 rounded-xl bg-slate-50 p-4 sm:grid-cols-2">
+          <div className="grid gap-3 rounded-xl bg-slate-50 p-4 sm:grid-cols-3">
             {consentNotice.items.map((item) => (
               <label key={item.key} className="flex cursor-pointer items-start gap-3">
                 <input
@@ -108,7 +109,7 @@ export function ConsentBanner() {
           {expanded ? (
             <button
               type="button"
-              onClick={() => choice(draft.analytics ? "granted" : "denied", draft.recordings ? "granted" : "denied")}
+              onClick={() => choice(draft.analytics ? "granted" : "denied", draft.recordings ? "granted" : "denied", draft.marketing ? "granted" : "denied")}
               className="order-1 rounded-lg bg-[#0052CC] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#0052CC]/90 sm:order-3"
             >
               {consentNotice.saveLabel}
@@ -117,14 +118,14 @@ export function ConsentBanner() {
             <>
               <button
                 type="button"
-                onClick={() => choice("denied", "denied")}
+                onClick={() => choice("denied", "denied", "denied")}
                 className="order-2 rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-bold text-[#0A2540] hover:border-slate-400 sm:order-2"
               >
                 {consentNotice.rejectLabel}
               </button>
               <button
                 type="button"
-                onClick={() => choice("granted", "granted")}
+                onClick={() => choice("granted", "granted", "granted")}
                 className="order-1 rounded-lg bg-[#0052CC] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#0052CC]/90 sm:order-3"
               >
                 {consentNotice.acceptLabel}

@@ -9,6 +9,7 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { ClickTracker } from "@/components/analytics/ClickTracker";
 import { WebVitals } from "@/components/analytics/WebVitals";
 import { ClarityLoader } from "@/components/analytics/Clarity";
+import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { siteConfig } from "@/lib/config";
 import { GA_ID } from "@/lib/analytics/gaId";
 import { jsonLd, organizationSchema, websiteSchema } from "@/lib/structuredData";
@@ -143,6 +144,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClickTracker />
         <WebVitals />
         <ClarityLoader />
+        <MetaPixel />
         <Analytics />
       </body>
     </html>

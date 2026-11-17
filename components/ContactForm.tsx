@@ -12,6 +12,7 @@ import { getAttribution } from "@/lib/analytics/attribution";
 import { getGaIds } from "@/lib/analytics/ids";
 import { GA_ID } from "@/lib/analytics/gaId";
 import { setClarityTag } from "@/lib/analytics/clarityTags";
+import { metaAllowed, metaBrowserIds, newEventId, trackMeta } from "@/lib/meta/client";
 
 const REQUIREMENTS = [
   "Reduce my EMI",
@@ -25,7 +26,12 @@ const REQUIREMENTS = [
   "Other"
 ];
 
-export function ContactForm() {
+export function ContactForm({ variant = "home" }: { variant?: "home" | "page" }) {
+  const page = variant === "page";
+  const inputCls = page
+    ? "w-full bg-[#F3F7FB] border-2 border-transparent focus:border-[#0052CC] rounded-md px-4 h-[52px] text-[#0A2540] text-base outline-none transition-colors placeholder:text-[#3C4F69]/60"
+    : "w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50";
+  const labelCls = page ? "text-base font-semibold text-[#0A2540]" : "text-sm font-bold text-[#0A2540]";
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -73,6 +79,14 @@ export function ContactForm() {
       return;
     }
 
+    const phoneDigits = formData.phone.replace(/[\s-]/g, "").replace(/^(\+91|0)/, "");
+    if (!/^[6-9]\d{9}$/.test(phoneDigits)) {
+      setErrorMessage("Please enter a valid 10-digit Indian mobile number.");
+      setStatus("error");
+      track({ name: "lead_form_error", params: { form_id: "contact", error_code: "mobile_invalid" } });
+      return;
+    }
+
     const salary = Number(formData.netSalary);
     if (isNaN(salary) || salary <= 45000) {
       setErrorMessage("Net salary must be greater than ₹45,000.");
@@ -105,18 +119,28 @@ export function ContactForm() {
         getGaIds(GA_ID),
       ]);
 
+      const metaConsent = metaAllowed();
+      const metaEventId = newEventId();
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          phone: phoneDigits,
           consent: {
             contact: formData.consentContact,
-            shareWithLenders: formData.consentContact,
+            shareWithLenders: false, // the consent text no longer mentions lenders
             noticeVersion: NOTICE_VERSION,
           },
           attribution,
           ga,
+          meta: {
+            consent: metaConsent,
+            eventId: metaEventId,
+            sourceUrl: window.location.href.split("#")[0],
+            ...metaBrowserIds(attribution),
+          },
         }),
       });
 
@@ -130,12 +154,14 @@ export function ContactForm() {
       setFormData({
         name: "",
         phone: "",
-            requirement: "",
-            netSalary: "",
+        requirement: "",
+        netSalary: "",
         ongoingEmi: "",
         consentContact: false,
       });
       track({ name: "generate_lead", params: { lead_source: "contact", currency: "INR" } });
+      // Same eventId as the server's Conversions API event, so Meta counts this lead once.
+      trackMeta("Lead", {}, metaEventId);
       setJourneyStage("lead");
       if (ga.clientId) setClarityTag("ga_client_id", ga.clientId);
       if (result.leadRef) setClarityTag("lead_ref", result.leadRef);
@@ -150,7 +176,7 @@ export function ContactForm() {
   const renderRightColumn = () => {
     if (status === "success") {
       return (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-[24px] p-8 text-center shadow-sm h-full flex flex-col justify-center" data-clarity-mask="true">
+        <div className={page ? "bg-white rounded-lg p-8 sm:p-10 text-center h-full flex flex-col justify-center" : "bg-emerald-50 border border-emerald-200 rounded-[24px] p-8 text-center shadow-sm h-full flex flex-col justify-center"} data-clarity-mask="true">
           <div className="flex justify-center mb-4">
             <CheckCircle2 className="w-12 h-12 text-emerald-500" />
           </div>
@@ -192,17 +218,17 @@ export function ContactForm() {
     }
 
     return (
-      <div className="bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated" id="contact-form-card">
+      <div className={page ? "bg-white p-6 sm:p-10 flex flex-col scroll-mt-24 rounded-lg" : "bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated"} id="contact-form-card">
         <div className="mb-6 md:mb-8 shrink-0">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-2">
-            <h2 className="text-[32px] font-bold tracking-[-0.02em] text-[#0A2540]">Leave your details</h2>
+            <h2 className={page ? "text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] text-[#0A2540]" : "text-[32px] font-bold tracking-[-0.02em] text-[#0A2540]"}>Leave your details</h2>
 
           </div>
-          <p className="text-[#3C4F69] text-sm -mt-1 sm:mt-0">We&apos;ll call you back, usually within 24 hours.</p>
+          <p className={page ? "text-[#3C4F69] text-base mt-1" : "text-[#3C4F69] text-sm -mt-1 sm:mt-0"}>We&apos;ll call you back, usually within 24 hours.</p>
         </div>
 
         {status === "error" && (
-          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3 shrink-0">
+          <div role="alert" className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3 shrink-0">
             <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
             <p className="text-sm text-red-800 font-medium">{errorMessage}</p>
           </div>
@@ -211,39 +237,43 @@ export function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="name" className={labelCls}>
                 Full Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Rahul Sharma"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className={inputCls}
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="phone" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="phone" className={labelCls}>
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
+                autoComplete="tel-national"
+                inputMode="numeric"
+                maxLength={14}
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="e.g. 9876543210"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className={inputCls}
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="requirement" className="text-sm font-bold text-[#0A2540]">
+            <label htmlFor="requirement" className={labelCls}>
               What can we help you with? <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -252,7 +282,7 @@ export function ContactForm() {
                 name="requirement"
                 value={formData.requirement}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none pr-10"
+                className={`${inputCls} appearance-none pr-10`}
                 required
               >
                 <option value="" disabled>Select an option</option>
@@ -267,37 +297,44 @@ export function ContactForm() {
               </div>
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="netSalary" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="netSalary" className={labelCls}>
                 Net Monthly Salary (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
                 id="netSalary"
                 name="netSalary"
+                inputMode="numeric"
+                min={0}
                 value={formData.netSalary}
                 onChange={handleChange}
+                aria-describedby="netSalary-hint"
                 placeholder="e.g. 50000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className={inputCls}
                 required
               />
+              <p id="netSalary-hint" className="text-sm text-[#3C4F69]">Take-home pay. Must be above ₹45,000.</p>
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="ongoingEmi" className="text-sm font-bold text-[#0A2540]">
+              <label htmlFor="ongoingEmi" className={labelCls}>
                 Ongoing EMI (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
                 id="ongoingEmi"
                 name="ongoingEmi"
+                inputMode="numeric"
+                min={0}
                 value={formData.ongoingEmi}
                 onChange={handleChange}
+                aria-describedby="ongoingEmi-hint"
                 placeholder="e.g. 15000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#0A2540] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#3C4F69]/50"
+                className={inputCls}
                 required
               />
+              <p id="ongoingEmi-hint" className="text-sm text-[#3C4F69]">All current EMIs together. 0 if none.</p>
             </div>
           </div>
 
@@ -315,15 +352,14 @@ export function ContactForm() {
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
               <span className="text-sm text-[#3C4F69] group-hover:text-[#0A2540] transition-colors">
-                I agree that Credit Expert India, and its partner lenders (see{" "}
-                <Link href="/partner-disclosures" className="underline">partner disclosures</Link>), may contact me regarding this enquiry. <span className="text-red-500">*</span>
+                I agree that Credit Expert India may contact me regarding this enquiry. <span className="text-red-500">*</span>
               </span>
             </label>
 
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-[#0052CC] text-white py-[18px] rounded font-bold shadow-xl shadow-[#0052CC]/20 hover:shadow-2xl hover:shadow-[#0052CC]/30 hover:bg-[#0052CC]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
+              className={page ? "w-full bg-[#0052CC] text-white h-14 rounded-md font-semibold hover:bg-[#0A2540] active:scale-[0.99] transition-[background-color,transform] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed text-base" : "w-full bg-[#0052CC] text-white py-[18px] rounded font-bold shadow-xl shadow-[#0052CC]/20 hover:shadow-2xl hover:shadow-[#0052CC]/30 hover:bg-[#0052CC]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"}
             >
               {status === "loading" ? (
                 <>
@@ -339,14 +375,16 @@ export function ContactForm() {
             </button>
             
             <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#3C4F69]">
-              <Lock className="w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400" />
-              <p className="text-[11px] sm:text-xs text-slate-400">Your information is secure and will only be used to contact you.</p>
+              <Lock className={page ? "w-4 h-4 shrink-0 text-[#3C4F69]" : "w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400"} />
+              <p className={page ? "text-sm text-[#3C4F69]" : "text-[11px] sm:text-xs text-slate-400"}>Your information is secure and will only be used to contact you.</p>
             </div>
           </div>
         </form>
       </div>
     );
   };
+
+  if (page) return <div className="w-full">{renderRightColumn()}</div>;
 
   return (
     <div className="w-full">

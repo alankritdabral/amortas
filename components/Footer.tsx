@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logoWithName from '@/public/img/logo_with_name.webp';
 import { siteConfig, contact } from '@/lib/config';
-import { MessageCircle, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { MessageCircle, Facebook, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
 import { clearConsent } from '@/lib/consent';
 import { articles } from '@/content/articles';
 
@@ -80,18 +80,6 @@ export function Footer() {
               <MessageCircle className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">
                 <span className="text-xs opacity-90">Chat on WhatsApp</span>
-                <span className="text-base font-bold">{contact.whatsapp}</span>
-              </span>
-            </a>
-            <a
-              href={`tel:+${whatsappDigits}`}
-              data-analytics-cta="footer_call"
-              data-analytics-location="footer"
-              className="flex flex-1 min-w-[200px] items-center gap-3 rounded-2xl bg-[#12306B] border border-white/10 px-5 py-3 text-white hover:bg-[#163a82] transition-colors"
-            >
-              <Phone className="w-5 h-5 shrink-0" />
-              <span className="flex flex-col">
-                <span className="text-xs text-[#B4C3E0]">Call us</span>
                 <span className="text-base font-bold">{contact.whatsapp}</span>
               </span>
             </a>

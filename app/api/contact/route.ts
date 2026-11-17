@@ -1,18 +1,24 @@
 import { saveWebsiteLead } from "@/lib/websiteLeads";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
+import { sendMetaLead } from "@/lib/meta/capi";
 import { sanitizeAttribution } from "@/lib/analytics/sanitizeAttribution";
 import { writeLeadAnalytics } from "@/lib/analytics/leadAnalytics";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, requirement, consent, netSalary, ongoingEmi, attribution, ga } = body;
+    const { name, phone, requirement, consent, netSalary, ongoingEmi, attribution, ga, meta } = body;
 
     if (!name || !phone || !requirement || !netSalary || !ongoingEmi) {
       return NextResponse.json(
         { error: "Required fields are missing." },
         { status: 400 }
       );
+    }
+
+    const phoneDigits = String(phone).replace(/[\s-]/g, "").replace(/^(\+91|0)/, "");
+    if (!/^[6-9]\d{9}$/.test(phoneDigits)) {
+      return NextResponse.json({ error: "Please enter a valid 10-digit Indian mobile number." }, { status: 400 });
     }
 
     // "Being contacted about this enquiry" consent is mandatory — without it
@@ -45,7 +51,7 @@ export async function POST(request: Request) {
     try {
       leadId = await saveWebsiteLead({
         name,
-        phone,
+        phone: phoneDigits,
         requirement,
         netSalary: Math.round(salary),
         ongoingEmi: Math.round(emi),
@@ -74,6 +80,26 @@ export async function POST(request: Request) {
       ga,
       consent: { contact: true, shareWithLenders: !!consent.shareWithLenders, noticeVersion: consent.noticeVersion },
     });
+
+    // Meta Conversions API: only when the visitor accepted ad measurement (client says so), and
+    // after the response so it adds no latency. Fire-and-forget; a failure never affects the lead.
+    if (meta?.consent === true && typeof meta.eventId === "string" && meta.eventId.length <= 64) {
+      const h = request.headers;
+      const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || undefined;
+      const str = (v: unknown) => (typeof v === "string" && v.length <= 200 ? v : undefined);
+      after(() =>
+        sendMetaLead({
+          eventId: meta.eventId,
+          phone: phoneDigits,
+          name: String(name),
+          fbp: str(meta.fbp),
+          fbc: str(meta.fbc),
+          ip,
+          userAgent: h.get("user-agent") || undefined,
+          sourceUrl: str(meta.sourceUrl),
+        })
+      );
+    }
 
     return NextResponse.json({
       success: true,
