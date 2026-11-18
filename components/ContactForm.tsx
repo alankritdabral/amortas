@@ -151,6 +151,11 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
       }
 
       setStatus("success");
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set("status", "submitted");
+        window.history.replaceState(window.history.state, "", url.toString());
+      } catch {}
       setFormData({
         name: "",
         phone: "",
@@ -208,7 +213,14 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
           </div>
           
           <button
-            onClick={() => setStatus("idle")}
+            onClick={() => {
+              setStatus("idle");
+              try {
+                const url = new URL(window.location.href);
+                url.searchParams.delete("status");
+                window.history.replaceState(window.history.state, "", url.toString());
+              } catch {}
+            }}
             className="mt-6 text-sm text-emerald-700 hover:text-emerald-900 underline font-medium transition-colors"
           >
             Send another message
