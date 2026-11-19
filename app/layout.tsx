@@ -5,7 +5,8 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { ConsentBanner } from "@/components/consent/ConsentBanner";
+// TEMP: cookie banner disabled
+// import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { ClickTracker } from "@/components/analytics/ClickTracker";
 import { WebVitals } from "@/components/analytics/WebVitals";
 import { ClarityLoader } from "@/components/analytics/Clarity";
@@ -165,7 +166,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <ConsentBanner />
+        {/* TEMP: cookie banner disabled <ConsentBanner /> */}
         <ClickTracker />
         <WebVitals />
         <ClarityLoader />
