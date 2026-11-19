@@ -1,13 +1,12 @@
 import { saveWebsiteLead } from "@/lib/websiteLeads";
-import { NextResponse, after } from "next/server";
-import { sendMetaLead } from "@/lib/meta/capi";
+import { NextResponse } from "next/server";
 import { sanitizeAttribution } from "@/lib/analytics/sanitizeAttribution";
 import { writeLeadAnalytics } from "@/lib/analytics/leadAnalytics";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, requirement, consent, netSalary, ongoingEmi, attribution, ga, meta } = body;
+    const { name, phone, requirement, consent, netSalary, ongoingEmi, attribution, ga } = body;
 
     if (!name || !phone || !requirement || !netSalary || !ongoingEmi) {
       return NextResponse.json(
@@ -80,26 +79,6 @@ export async function POST(request: Request) {
       ga,
       consent: { contact: true, shareWithLenders: !!consent.shareWithLenders, noticeVersion: consent.noticeVersion },
     });
-
-    // Meta Conversions API: only when the visitor accepted ad measurement (client says so), and
-    // after the response so it adds no latency. Fire-and-forget; a failure never affects the lead.
-    if (meta?.consent === true && typeof meta.eventId === "string" && meta.eventId.length <= 64) {
-      const h = request.headers;
-      const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || undefined;
-      const str = (v: unknown) => (typeof v === "string" && v.length <= 200 ? v : undefined);
-      after(() =>
-        sendMetaLead({
-          eventId: meta.eventId,
-          phone: phoneDigits,
-          name: String(name),
-          fbp: str(meta.fbp),
-          fbc: str(meta.fbc),
-          ip,
-          userAgent: h.get("user-agent") || undefined,
-          sourceUrl: str(meta.sourceUrl),
-        })
-      );
-    }
 
     return NextResponse.json({
       success: true,

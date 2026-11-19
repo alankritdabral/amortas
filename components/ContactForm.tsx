@@ -12,7 +12,6 @@ import { getAttribution } from "@/lib/analytics/attribution";
 import { getGaIds } from "@/lib/analytics/ids";
 import { GA_ID } from "@/lib/analytics/gaId";
 import { setClarityTag } from "@/lib/analytics/clarityTags";
-import { metaAllowed, metaBrowserIds, newEventId, trackMeta } from "@/lib/meta/client";
 
 const REQUIREMENTS = [
   "Reduce my EMI",
@@ -119,9 +118,6 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
         getGaIds(GA_ID),
       ]);
 
-      const metaConsent = metaAllowed();
-      const metaEventId = newEventId();
-
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -135,12 +131,6 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
           },
           attribution,
           ga,
-          meta: {
-            consent: metaConsent,
-            eventId: metaEventId,
-            sourceUrl: window.location.href.split("#")[0],
-            ...metaBrowserIds(attribution),
-          },
         }),
       });
 
@@ -165,8 +155,6 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
         consentContact: false,
       });
       track({ name: "generate_lead", params: { lead_source: "contact", currency: "INR" } });
-      // Same eventId as the server's Conversions API event, so Meta counts this lead once.
-      trackMeta("Lead", {}, metaEventId);
       setJourneyStage("lead");
       if (ga.clientId) setClarityTag("ga_client_id", ga.clientId);
       if (result.leadRef) setClarityTag("lead_ref", result.leadRef);
