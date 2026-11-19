@@ -48,7 +48,7 @@ export default function ContactPage() {
       {/* Chapter 1: the person and the form, together on the first screen */}
       <section id="contact-form" className="bg-[#EAF3FF]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 pt-28 md:pt-36 pb-16 md:pb-24 grid gap-12 lg:gap-16 lg:grid-cols-[6fr_5fr] items-start">
-          <div className="lg:sticky lg:top-28">
+          <div className="order-2 lg:order-1 lg:sticky lg:top-28">
             <h1 className="rise text-[clamp(48px,9vw,92px)] leading-[0.96] tracking-[-0.045em] font-semibold text-[#0A2540] text-balance">
               Talk to a real person.
             </h1>
@@ -72,7 +72,7 @@ export default function ContactPage() {
             </ul>
           </div>
 
-          <div className="rise w-full lg:max-w-[560px] lg:ml-auto" style={{ animationDelay: "120ms" }}>
+          <div className="order-1 lg:order-2 rise w-full lg:max-w-[560px] lg:ml-auto" style={{ animationDelay: "120ms" }}>
             <ContactForm variant="page" />
           </div>
         </div>
