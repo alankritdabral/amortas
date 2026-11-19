@@ -10,6 +10,9 @@ export const claims = {
 
 export const contact = {
   whatsapp: "+91-9761471212",
+  // Pre-filled text for the "Chat on WhatsApp" buttons. The employee numbers come from the
+  // backend (lead_employees) via /whatsapp-chat.
+  whatsappMessage: "Hi, I would like help with my loans.",
   email: "info@creditexpertindia.com",
   addresses: [
     {

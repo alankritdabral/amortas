@@ -5,7 +5,7 @@ import { Loader2, ArrowRight, CheckCircle2, AlertCircle, ChevronDown, Lock, Chec
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/img/logo.webp";
-import { contact } from "@/lib/config";
+import { WhatsAppChatLink } from "@/components/WhatsAppChatLink";
 import { NOTICE_VERSION } from "@/lib/consent";
 import { track, setJourneyStage } from "@/lib/analytics/track";
 import { getAttribution } from "@/lib/analytics/attribution";
@@ -193,15 +193,12 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppChatLink
               data-analytics-location="contact_form_success"
               className="flex-1 px-6 py-3 bg-[#25D366] text-white hover:bg-emerald-600 rounded font-bold transition-all shadow-md shadow-green-600/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Chat on WhatsApp
-            </Link>
+            </WhatsAppChatLink>
             <Link
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"

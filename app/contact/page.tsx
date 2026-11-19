@@ -5,6 +5,7 @@ import { MessageCircle, PhoneForwarded, ListChecks, BadgeCheck, CheckCheck } fro
 import logo from "@/public/img/logo.webp";
 import { ContactForm } from "@/components/ContactForm";
 import { contact } from "@/lib/config";
+import { WhatsAppChatLink } from "@/components/WhatsAppChatLink";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact Us",
@@ -29,8 +30,6 @@ const localBusinessSchema = {
     }
   }))
 };
-
-const waHref = `https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`;
 
 const afterSteps = [
   { Icon: PhoneForwarded, lead: "We call you back.", rest: "Usually within 24 hours, on the number you gave us." },
@@ -58,16 +57,13 @@ export default function ContactPage() {
               credit specialist will get back to you.
             </p>
             <div className="rise mt-9 flex flex-col sm:flex-row gap-3" style={{ animationDelay: "160ms" }}>
-              <a
-                href={waHref}
-                target="_blank"
-                rel="noopener noreferrer"
+              <WhatsAppChatLink
                 data-analytics-location="contact_hero"
                 className="inline-flex items-center justify-center gap-2.5 h-14 px-7 rounded-md bg-[#0052CC] text-white text-base font-semibold transition-colors hover:bg-[#0A2540]"
               >
                 <MessageCircle className="w-5 h-5" aria-hidden="true" />
                 Chat with us on WhatsApp
-              </a>
+              </WhatsAppChatLink>
             </div>
             <ul className="rise mt-10 space-y-2 text-lg text-[#0A2540]" style={{ animationDelay: "240ms" }}>
               <li>Free to ask.</li>
@@ -167,9 +163,9 @@ export default function ContactPage() {
           <div className="mt-16 md:mt-24 grid gap-10 sm:grid-cols-2 bg-[#0052CC] rounded-lg p-8 md:p-12">
             <div>
               <h3 className="text-[28px] sm:text-[32px] leading-none tracking-[-0.03em] font-semibold">WhatsApp</h3>
-              <a href={waHref} target="_blank" rel="noopener noreferrer" className="mt-4 block text-xl sm:text-2xl font-medium underline underline-offset-4 decoration-2">
-                {contact.whatsapp}
-              </a>
+              <WhatsAppChatLink className="mt-4 block text-xl sm:text-2xl font-medium underline underline-offset-4 decoration-2">
+                Chat with a credit expert
+              </WhatsAppChatLink>
             </div>
             <div className="min-w-0">
               <h3 className="text-[28px] sm:text-[32px] leading-none tracking-[-0.03em] font-semibold">Email</h3>

@@ -54,7 +54,6 @@ const linkClass = 'text-sm text-[#B4C3E0] hover:text-white transition-colors';
 const headingClass = 'text-xs font-bold uppercase tracking-wider text-white mb-4';
 
 export function Footer() {
-  const whatsappDigits = contact.whatsapp.replace(/[^0-9]/g, '');
 
   return (
     <footer className="bg-[#0A2150] text-[#E6ECF7]">
@@ -70,7 +69,7 @@ export function Footer() {
           </div>
           <div className="flex flex-1 min-w-[280px] flex-wrap justify-end gap-3">
             <a
-              href={`https://wa.me/${whatsappDigits}?text=Hi%2C%20I%20would%20like%20help%20with%20my%20loans.`}
+              href="/whatsapp-chat"
               target="_blank"
               rel="noopener noreferrer"
               data-analytics-cta="footer_whatsapp"
@@ -80,7 +79,7 @@ export function Footer() {
               <MessageCircle className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">
                 <span className="text-xs opacity-90">Chat on WhatsApp</span>
-                <span className="text-base font-bold">{contact.whatsapp}</span>
+                <span className="text-base font-bold">Talk to a credit expert</span>
               </span>
             </a>
             <a

@@ -1753,7 +1753,7 @@ function CreditReportDashboardInner({ bureau, cibilData, formData }: any) {
 
         </div>
         <a
-          href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20my%20credit%20report.`}
+          href={`/whatsapp-chat?text=${encodeURIComponent("Hi, I'd like to talk about my credit report.")}`}
           target="_blank"
           rel="noopener noreferrer"
           data-analytics-cta="dashboard_expert"
