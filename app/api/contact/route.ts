@@ -15,6 +15,11 @@ export async function POST(request: Request) {
       );
     }
 
+    const phoneDigits = String(phone).replace(/[\s-]/g, "").replace(/^(\+91|0)/, "");
+    if (!/^[6-9]\d{9}$/.test(phoneDigits)) {
+      return NextResponse.json({ error: "Please enter a valid 10-digit Indian mobile number." }, { status: 400 });
+    }
+
     // "Being contacted about this enquiry" consent is mandatory — without it
     // we have no lawful basis to call the person back. Sharing the lead with
     // partner lenders is a separate, optional choice (RBI Digital Lending
@@ -45,7 +50,7 @@ export async function POST(request: Request) {
     try {
       leadId = await saveWebsiteLead({
         name,
-        phone,
+        phone: phoneDigits,
         requirement,
         netSalary: Math.round(salary),
         ongoingEmi: Math.round(emi),

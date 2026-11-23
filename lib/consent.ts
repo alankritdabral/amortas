@@ -10,15 +10,16 @@
  *   the cautious reading of the DPDP Act's consent requirements; if counsel
  *   advises a notice-only basis is enough for analytics, ANALYTICS_DEFAULT
  *   is the one constant to change.
- * - Ads storage is always denied: this site runs no ads and debt/credit
- *   products are a Google Ads "sensitive category", so ad personalisation
- *   is never requested.
+ * - Google ads storage is always denied: debt/credit products are a Google
+ *   Ads "sensitive category", so Google ad personalisation is never
+ *   requested. Meta (Facebook/Instagram) ad measurement is a separate,
+ *   opt-in `marketing` choice, also OFF until the visitor accepts.
  * - Every read and write is wrapped in try/catch: localStorage can throw in
  *   private browsing, with blocked site data, or during prerendering/SSR.
  *   A failure here must never break the page.
  */
 
-export const NOTICE_VERSION = "2026-11-v1";
+export const NOTICE_VERSION = "2026-11-v2";
 const STORAGE_KEY = "cei_consent";
 
 /** The cautious default: analytics off until the visitor accepts. Flip this
@@ -32,6 +33,9 @@ export type ConsentState = {
   analytics: ConsentChoice;
   /** Microsoft Clarity session recordings and heatmaps. */
   recordings: ConsentChoice;
+  /** Meta Pixel + Conversions API (ad-campaign measurement). Absent in
+   * choices stored before this existed: treated as denied. */
+  marketing: ConsentChoice;
   /** The content/consent.ts notice text version the visitor saw and agreed to. */
   noticeVersion: string;
   /** ISO timestamp of when this choice was made. */
@@ -64,7 +68,7 @@ export function getConsent(): ConsentState | null {
       typeof parsed.noticeVersion === "string" &&
       typeof parsed.ts === "string"
     ) {
-      return parsed as ConsentState;
+      return { ...parsed, marketing: parsed.marketing === "granted" ? "granted" : "denied" } as ConsentState;
     }
     return null;
   } catch {
@@ -74,10 +78,11 @@ export function getConsent(): ConsentState | null {
 
 /** Stores the visitor's choice and notifies subscribers (e.g. to push it
  * into gtag Consent Mode and Clarity). Never throws. */
-export function setConsent(choice: { analytics: ConsentChoice; recordings: ConsentChoice }): ConsentState {
+export function setConsent(choice: { analytics: ConsentChoice; recordings: ConsentChoice; marketing?: ConsentChoice }): ConsentState {
   const state: ConsentState = {
     analytics: choice.analytics,
     recordings: choice.recordings,
+    marketing: choice.marketing ?? "denied",
     noticeVersion: NOTICE_VERSION,
     ts: new Date().toISOString(),
   };

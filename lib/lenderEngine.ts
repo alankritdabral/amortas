@@ -18,8 +18,15 @@
 interface ObligationRules {
   ccObligationPercent: number;      // % of CC outstanding treated as obligation
   goldLoanObligationPercent: number;
+  kccObligationPercent?: number;    // KCC: % of outstanding (undefined = full EMI)
   plNonObligationIfEmisBelow?: number;  // PL is non-obligation if remaining EMIs < this
   hlNonObligationIfEmisBelow?: number;  // HL is non-obligation if remaining EMIs < this
+  // Pending-EMI waivers for EMI loans. The first entry whose minTenure <= the loan's
+  // total tenure applies: if the EMIs still pending are <= maxEmisLeft, the loan is not obligated.
+  // (Chola: tenure > 18 → last 6 EMIs ignored; tenure = 18 → last 3 EMIs ignored)
+  pendingEmiWaivers?: { minTenure: number; maxEmisLeft: number }[];
+  cdNonObligationIfTenureAtMost?: number;    // Consumer durable loans with tenure <= N months not obligated
+  ccNonObligationUpToSalaryMultiple?: number; // total CC O/S <= N × salary → CC not obligated at all
 }
 
 interface IncomeAddBack {
@@ -94,6 +101,7 @@ interface LenderConfig {
   digitalProcess: boolean;
   minAge: number;
   maxAgeAtMaturity: number;
+  govtMaxAgeAtMaturity?: number;   // Govt employees: retirement age applies instead of maxAgeAtMaturity
   minExperienceMonths: number;
 
   // Location restriction warning
@@ -137,7 +145,7 @@ export const LENDERS: LenderConfig[] = [
     maxTenure: 84,
     maxFoir: 70,
     employerBankId: "axisBank",
-    minSalary: 35000,  // CSG minimum; varies by segment
+    minSalary: 0,      // Removed: no minimum take-home salary gate for Axis Bank
     minCibil: 700,     // Minimum across all segments
     cibilMinus1Accepted: false,
     cibilMinus1MaxFunding: 0,
@@ -254,7 +262,7 @@ export const LENDERS: LenderConfig[] = [
     maxTenure: 72,
     maxFoir: 75,
     employerBankId: "ltFinance",
-    minSalary: 175000,       // ₹1.75L+ for highlighted offer
+    minSalary: 0,            // Removed: no minimum salary gate (was ₹1.75L)
     minCibil: 775,           // 775 for highlighted offer
     cibilMinus1Accepted: true,
     cibilMinus1MaxFunding: 1000000, // Up to ₹10L
@@ -291,8 +299,8 @@ export const LENDERS: LenderConfig[] = [
     },
     restrictedProfiles: [],
     wfhAccepted: true,
-    ownHouseRequired: true,  // "Owned residential property mandatory"
-    metroOnly: true,         // "Metro Cities"
+    ownHouseRequired: false, // Removed: owned property no longer mandatory
+    metroOnly: false,        // Removed: no longer restricted to Metro cities
     geoLimitKm: null,
     digitalProcess: true,
     minAge: 21,
@@ -314,7 +322,7 @@ export const LENDERS: LenderConfig[] = [
     maxTenure: 84,
     maxFoir: 70,
     employerBankId: "kotak",
-    minSalary: 75000,         // Minimum based on Green Scorecard
+    minSalary: 0,             // Removed: no generic minimum salary gate (was ₹75K)
     minCibil: null,           // Segment/policy based
     cibilMinus1Accepted: false,
     cibilMinus1MaxFunding: 0,
@@ -348,7 +356,7 @@ export const LENDERS: LenderConfig[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // CHOLA — Source: chola.md (Delhi NCR specific)
+  // CHOLA — Source: chola.md + Delhi NCR one-pager (Nov 2026)
   // ═══════════════════════════════════════════════════════════════════════════
   {
     id: "chola",
@@ -369,16 +377,23 @@ export const LENDERS: LenderConfig[] = [
       multiplePLs: true,
       maxPLBTs: 6,              // 6 tracks across PL/OD/DOD/CC
       creditCard: true,
-      maxCCBTs: 6,              // CC OS up to 8× allowed for BT
+      maxCCBTs: 6,              // CC OS up to 8× salary allowed for BT (checked in Chola block)
       appLoan: false,
       maxAppBTs: 0,
-      overdraft: false,
+      overdraft: true,          // OD / DOD tracks can be taken over
       maxTotalBTs: 6,           // 6 tracks total
       topUp: true,
     },
     obligations: {
       ccObligationPercent: 5,
-      goldLoanObligationPercent: 0,  // Zero GL/KCC obligation
+      goldLoanObligationPercent: 0,  // Zero GL obligation
+      kccObligationPercent: 0,       // Zero KCC obligation
+      ccNonObligationUpToSalaryMultiple: 3, // CC O/S up to 3× salary not obligated
+      pendingEmiWaivers: [
+        { minTenure: 19, maxEmisLeft: 6 }, // tenure above 18 months → last 6 EMIs not obligated
+        { minTenure: 18, maxEmisLeft: 3 }, // 18-month tenure → last 3 EMIs not obligated
+      ],
+      cdNonObligationIfTenureAtMost: 6,    // CD loans with 6-month tenure not obligated
     },
     incomeAddBack: {
       rentalPercent: 100,       // Rental income considered (up to 60% total add-back)
@@ -397,12 +412,13 @@ export const LENDERS: LenderConfig[] = [
       "Manpower", "Law", "Collection", "Court", "Police", "Belt Job",
     ],
     wfhAccepted: true,   // WFH docs not required per policy update
-    ownHouseRequired: false,  // Required only for ₹30L cases
+    ownHouseRequired: false,  // Required only for ₹30L cases (enforced in Chola block)
     metroOnly: false,
     geoLimitKm: null,
     digitalProcess: false,
     minAge: 21,
-    maxAgeAtMaturity: 58,
+    maxAgeAtMaturity: 58,     // Pvt job
+    govtMaxAgeAtMaturity: 60, // Govt: retirement age
     minExperienceMonths: 0,
     locationWarning: "⚠️ Chola policy data is specifically for Delhi NCR. Eligibility in other locations may differ.",
   },
@@ -430,8 +446,8 @@ export const LENDERS: LenderConfig[] = [
       maxPLBTs: 5,              // Max 5 PL BTs
       creditCard: false,        // Policy dependent
       maxCCBTs: 0,
-      appLoan: true,            // App loans & fintech loans accepted
-      maxAppBTs: null,
+      appLoan: false,           // No app/fintech loan BT
+      maxAppBTs: 0,
       overdraft: true,
       odBTRestrictions: ["Tata Capital", "Bajaj Finance", "Kotak", "ABFL", "Cholamandalam", "Axis Finance"],
       maxTotalBTs: 5,
@@ -479,7 +495,7 @@ export const LENDERS: LenderConfig[] = [
       maxCCBTs: 6,
       appLoan: true,
       maxAppBTs: 3,
-      overdraft: false,
+      overdraft: true,         // OD-to-OD only (see BT_INTO_OD_FROM_OD_ONLY)
       maxTotalBTs: 8,          // Up to 8 total in debt consolidation poster
       topUp: true,
     },
@@ -568,7 +584,7 @@ export const LENDERS: LenderConfig[] = [
       maxCCBTs: null,
       appLoan: true,           // "Subject to eligibility"
       maxAppBTs: null,
-      overdraft: false,
+      overdraft: true,
       maxTotalBTs: null,
       topUp: true,
       minBTFinancedAmount: 500000, // BT loan amount must be > ₹5L
@@ -612,7 +628,7 @@ export const LENDERS: LenderConfig[] = [
       maxCCBTs: null,
       appLoan: true,
       maxAppBTs: null,
-      overdraft: false,
+      overdraft: true,
       maxTotalBTs: null,
       topUp: true,
     },
@@ -652,9 +668,9 @@ export const LENDERS: LenderConfig[] = [
       multiplePLs: true,
       maxPLBTs: null,
       creditCard: true,
-      maxCCBTs: 2,
-      appLoan: false,
-      maxAppBTs: 0,
+      maxCCBTs: null, // no cap on the number of loans/cards consolidated
+      appLoan: true,
+      maxAppBTs: null,
       overdraft: true,
       maxTotalBTs: null,
       topUp: true,
@@ -704,7 +720,7 @@ export const LENDERS: LenderConfig[] = [
       maxCCBTs: 0,
       appLoan: false,
       maxAppBTs: 0,
-      overdraft: true,
+      overdraft: false,     // ICICI takes PL BT only, no OD takeover
       maxTotalBTs: null,
       topUp: true,
     },
@@ -748,6 +764,7 @@ export const LENDERS: LenderConfig[] = [
       appLoan: false,
       maxAppBTs: 0,
       overdraft: true,
+      odBTRestrictions: ["Bajaj"], // existing OD taken over only from Bajaj Finance
       maxTotalBTs: null,
       topUp: true,
     },
@@ -768,28 +785,94 @@ export const LENDERS: LenderConfig[] = [
 
 
 
+// Lenders that take a balance transfer into an Overdraft facility ("BT to OD").
+const BT_INTO_OD_LENDERS = ["kotak", "indusind", "abfl", "chola", "poonawalla", "tatacapital", "piramal"];
+// Of those, lenders whose OD only takes over existing Overdrafts (OD to OD).
+const BT_INTO_OD_FROM_OD_ONLY = ["piramal"];
+
 // ─── Obligation Calculator ──────────────────────────────────────────────────
 
 /**
  * Calculate the effective EMI obligation for a loan based on lender-specific rules.
  */
+// EMIs still pending on a loan: an explicit emisRemaining wins; otherwise derived
+// from total tenure and the months elapsed since dateOpened. null when unknown.
+function remainingEmisFor(loan: any): number | null {
+  const explicit = Number(loan.emisRemaining);
+  if (loan.emisRemaining !== undefined && loan.emisRemaining !== null && !isNaN(explicit)) {
+    return Math.max(0, explicit);
+  }
+  const tenure = Number(loan.tenure);
+  if (!tenure || isNaN(tenure)) return null;
+  const opened = parseLoanDate(loan.dateOpened);
+  if (!opened) return null;
+  const monthsElapsed = Math.floor((Date.now() - opened.getTime()) / (1000 * 60 * 60 * 24 * 30.44));
+  return Math.max(0, tenure - monthsElapsed);
+}
+
+interface ObligationContext {
+  netSalary?: number;          // basis for salary-multiple rules
+  totalCcOutstanding?: number; // sum of all credit card outstanding on the report
+}
+
 function calculateObligation(
   loan: any,
-  lender: LenderConfig
+  lender: LenderConfig,
+  ctx: ObligationContext = {}
 ): number {
   const type = loan.type || "";
   const emi = Number(loan.emi || 0);
   const outstanding = Number(loan.currentOutstanding || 0);
-  const remainingEmis = Number(loan.emisRemaining || loan.tenure || 0);
+  const totalTenure = Number(loan.tenure) || 0;
+  const remainingEmis = remainingEmisFor(loan) ?? 0;
+  const rules = lender.obligations;
+
+  // Joint loan paid by someone else (repayment banking to be documented): not obligated
+  if (loan.userPaysEmi === false) return 0;
 
   // Credit Card: use bank-specific CC obligation %
   if (type === "Credit Card") {
-    return outstanding * (lender.obligations.ccObligationPercent / 100);
+    if (
+      rules.ccNonObligationUpToSalaryMultiple &&
+      ctx.netSalary &&
+      (ctx.totalCcOutstanding ?? outstanding) <= ctx.netSalary * rules.ccNonObligationUpToSalaryMultiple
+    ) {
+      return 0;
+    }
+    return outstanding * (rules.ccObligationPercent / 100);
   }
 
   // Gold Loan: use bank-specific GL obligation %
   if (type === "Gold Loan") {
-    return outstanding * (lender.obligations.goldLoanObligationPercent / 100);
+    return outstanding * (rules.goldLoanObligationPercent / 100);
+  }
+
+  // KCC: bank-specific % of outstanding, else full EMI
+  if (type === "KCC") {
+    if (rules.kccObligationPercent !== undefined) {
+      return outstanding * (rules.kccObligationPercent / 100);
+    }
+    return emi;
+  }
+
+  // Consumer durable loans with a short tenure are ignored by some lenders
+  if (
+    type === "Consumer Loan" &&
+    rules.cdNonObligationIfTenureAtMost &&
+    totalTenure > 0 &&
+    totalTenure <= rules.cdNonObligationIfTenureAtMost
+  ) {
+    return 0;
+  }
+
+  // Pending-EMI waivers (tenure-banded), for EMI-based loans only
+  if (rules.pendingEmiWaivers && totalTenure > 0 && type !== "Overdraft" && remainingEmisFor(loan) !== null) {
+    const band = [...rules.pendingEmiWaivers]
+      .sort((a, b) => b.minTenure - a.minTenure)
+      .find((w) => totalTenure >= w.minTenure);
+    if (band && remainingEmis <= band.maxEmisLeft) {
+      return 0;
+    }
   }
 
   // PL non-obligation rule (Axis: PL <6 EMI remaining = 0)
@@ -861,7 +944,41 @@ function calculateEffectiveNTH(
   return nth;
 }
 
+// Parses a loan's dateOpened field, which may be "DD-MM-YYYY" (bureau-formatted),
+// a raw bureau date string, or "N/A"/empty. Returns null when unparseable.
+function parseLoanDate(dateOpened: string | undefined): Date | null {
+  if (!dateOpened || dateOpened === "N/A") return null;
+
+  const ddmmyyyy = dateOpened.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  if (ddmmyyyy) {
+    const [, dd, mm, yyyy] = ddmmyyyy;
+    const d = new Date(Number(yyyy), Number(mm) - 1, Number(dd));
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  const yyyymmdd = dateOpened.match(/^(\d{4})(\d{2})(\d{2})$/);
+  if (yyyymmdd) {
+    const [, yyyy, mm, dd] = yyyymmdd;
+    const d = new Date(Number(yyyy), Number(mm) - 1, Number(dd));
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  const d = new Date(dateOpened);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 // ─── Eligibility Engine ─────────────────────────────────────────────────────
+
+/**
+ * Default FOIR by net salary (applies to banks & NBFCs unless a lender's own rules override):
+ *   < 50,000 → 50% | 50,000–69,999 → 65% | ≥ 70,000 → 70%
+ *   ≥ 70,000 with a running secured loan (Home/Car/Auto): NBFC → 75%
+ */
+export function getDefaultFoir(netSalary: number, hasSecuredLoan: boolean, isNbfc: boolean): number {
+  if (netSalary < 50000) return 50;
+  if (netSalary < 70000) return 65;
+  return isNbfc && hasSecuredLoan ? 75 : 70;
+}
 
 export function analyzeLenderEligibility({
   profile,
@@ -878,14 +995,29 @@ export function analyzeLenderEligibility({
   const eligibleLenders: any[] = [];
   const ineligibleLenders: any[] = [];
 
+  // When the applicant wants "BT to PL", any Overdraft being consolidated is
+  // converted into a Personal Loan, so it must be counted as a PL BT, not an OD BT.
+  const effectiveCatBLoans =
+    profile.btPreference === "BT to PL"
+      ? catBLoans.map((l: any) => (l.type === "Overdraft" ? { ...l, type: "Personal Loan" } : l))
+      : catBLoans;
+
   // Pre-count loan types in catBLoans
-  const plCount = catBLoans.filter((l: any) => l.type === "Personal Loan").length;
-  const ccCount = catBLoans.filter((l: any) => l.type === "Credit Card").length;
-  const appLoans = catBLoans.filter((l: any) => l.type === "App Loan");
+  const plCount = effectiveCatBLoans.filter((l: any) => l.type === "Personal Loan").length;
+  const ccCount = effectiveCatBLoans.filter((l: any) => l.type === "Credit Card").length;
+  const appLoans = effectiveCatBLoans.filter((l: any) => l.type === "App Loan");
   const appCount = appLoans.length;
-  const odLoans = catBLoans.filter((l: any) => l.type === "Overdraft");
+  const odLoans = effectiveCatBLoans.filter((l: any) => l.type === "Overdraft");
   const odCount = odLoans.length;
-  const totalBTCount = catBLoans.length;
+  const totalBTCount = effectiveCatBLoans.length;
+
+  // Shared context for salary-multiple obligation rules
+  const obligationCtx: ObligationContext = {
+    netSalary: Number(profile.netSalary) || 0,
+    totalCcOutstanding: allLoans
+      .filter((l: any) => l.type === "Credit Card")
+      .reduce((sum: number, l: any) => sum + Number(l.currentOutstanding || 0), 0),
+  };
 
   for (const lender of LENDERS) {
     let isEligible = true;
@@ -897,7 +1029,10 @@ export function analyzeLenderEligibility({
     // ─── Get employer tier for this specific lender ─────────────────────
     const employerTier = profile.employerTier || "Unknown";
     customOutput.employerTier = employerTier;
-    customOutput.employerCategory = employerTier;
+    // Bank-specific category straight from that lender's employer listing (if the
+    // employer is listed there); falls back to the unified tier used by the rules.
+    const bankCategory = (profile.employerBankCategories || []).find((b: any) => b.key === lender.id)?.category;
+    customOutput.employerCategory = bankCategory || employerTier;
 
     // ─── Calculate effective NTH ────────────────────────────────────────
     const nth = calculateEffectiveNTH(lender, profile);
@@ -905,7 +1040,14 @@ export function analyzeLenderEligibility({
 
     // ─── Global FOIR Logic ──────────────────────────────────────────────
     const hasRunningHL = allLoans.some((l: any) => l.type === "Home Loan" && Number(l.currentOutstanding || 0) > 0);
-    let effectiveMaxFoir = hasRunningHL ? Math.max(70, lender.maxFoir) : 70;
+    const hasSecuredLoan =
+      hasRunningHL ||
+      allLoans.some((l: any) => l.type === "Car Loan" && Number(l.currentOutstanding || 0) > 0);
+    const salaryForFoir = Number(profile.netSalary) || 0;
+    const defaultFoir = getDefaultFoir(salaryForFoir, hasSecuredLoan, lender.type === "NBFC");
+    let effectiveMaxFoir = hasRunningHL && lender.type !== "NBFC" && salaryForFoir >= 70000
+      ? Math.max(defaultFoir, lender.maxFoir)
+      : defaultFoir;
     customOutput.maxFOIR = `${effectiveMaxFoir}%`;
 
     // ─── Location warning ──────────────────────────────────────────────
@@ -986,7 +1128,27 @@ export function analyzeLenderEligibility({
       }
     }
 
-    // 8. Bounce / late payment
+    // 8. Age limits (only when age is known). Govt employees use retirement age where configured.
+    if (age > 0) {
+      if (age < lender.minAge) {
+        isEligible = false;
+        rejectionReasons.push(`Minimum age is ${lender.minAge} years`);
+      }
+      const maxAge =
+        employerTier === "GOVT" && lender.govtMaxAgeAtMaturity
+          ? lender.govtMaxAgeAtMaturity
+          : lender.maxAgeAtMaturity;
+      const tenureAllowedByAge = Math.floor((maxAge - age) * 12);
+      if (tenureAllowedByAge < 12) {
+        isEligible = false;
+        rejectionReasons.push(`Exceeds maximum age of ${maxAge} at loan maturity`);
+      } else if (tenureAllowedByAge < lender.maxTenure) {
+        warnings.push(`Tenure limited to ${tenureAllowedByAge} months by age at maturity (${maxAge})`);
+        customOutput.tenureLimitedByAge = tenureAllowedByAge;
+      }
+    }
+
+    // 9. Bounce / late payment
     if (
       (profile.hasBounce === "yes" || profile.hasLatePayment === "yes")
     ) {
@@ -1076,15 +1238,17 @@ export function analyzeLenderEligibility({
       }
     }
 
-    // OD BT check
-    if (odCount > 0) {
+    // OD BT check — uses the original Overdraft loans, even when "BT to PL" relabels them
+    // as PL for count limits: a lender that doesn't take over ODs can't take this one over.
+    const rawOdLoans = catBLoans.filter((l: any) => l.type === "Overdraft");
+    if (rawOdLoans.length > 0) {
       if (!lender.bt.overdraft) {
         isEligible = false;
         rejectionReasons.push("Does not support Overdraft BT");
       }
-      // IndusInd: OD BT only for specific banks
+      // IndusInd / HDFC: OD BT only from specific lenders
       if (lender.bt.odBTRestrictions && lender.bt.odBTRestrictions.length > 0) {
-        const invalidODs = odLoans.filter((l: any) => {
+        const invalidODs = rawOdLoans.filter((l: any) => {
           const bankName = (l.bankName || "").toLowerCase();
           return !lender.bt.odBTRestrictions!.some(
             (r) => bankName.includes(r.toLowerCase())
@@ -1115,16 +1279,24 @@ export function analyzeLenderEligibility({
 
     // BT / Loan Preference check
     if (profile.btPreference === "BT to OD") {
-      // Currently Kotak, Chola, and IndusInd have specific OD/Flexi rules configured
-      if (!["kotak", "chola", "indusind"].includes(lender.id)) {
+      if (!BT_INTO_OD_LENDERS.includes(lender.id)) {
         isEligible = false;
         rejectionReasons.push("Overdraft facility not supported by this policy");
+      } else if (
+        BT_INTO_OD_FROM_OD_ONLY.includes(lender.id) &&
+        catBLoans.some((l: any) => l.type !== "Overdraft")
+      ) {
+        isEligible = false;
+        rejectionReasons.push("BT into OD is available only for existing Overdrafts (OD to OD)");
       }
     } else if (profile.btPreference === "BT to PL") {
       // Kotak's configuration here is strictly OD
       if (lender.id === "kotak") {
         isEligible = false;
         rejectionReasons.push("This specific policy is structured for Overdrafts only");
+      } else if (BT_INTO_OD_FROM_OD_ONLY.includes(lender.id) && rawOdLoans.length > 0) {
+        isEligible = false;
+        rejectionReasons.push("An existing Overdraft can only be taken over into an OD (OD to OD)");
       }
     }
 
@@ -1141,33 +1313,20 @@ export function analyzeLenderEligibility({
       }
 
       const seg = profile.axisCustomerSegment || "NTB";
-      let nmiReq = 75000;
-      let cibilReq = 780;
+      // No minimum take-home salary for any segment, and no NTB-specific conditions:
+      // NTB falls back to the lender-level minimum CIBIL.
+      let cibilReq = 0;
 
       if (seg === "CSG") {
-        nmiReq = 35000;
         cibilReq = nth > 85000 ? 700 : 740;
       } else if (seg === "Non-CSG CASA") {
-        nmiReq = 50000;
         cibilReq = 740;
         if (profile.casaVintage !== "yes") {
           isEligible = false;
           rejectionReasons.push("Axis Bank requires 90+ days CASA vintage for Non-CSG CASA segment");
         }
-      } else if (seg === "NTB") {
-        nmiReq = 75000;
-        cibilReq = nth > 100000 ? 740 : 780;
-      } else if (seg === "Blue Collar") {
-        nmiReq = 200000;
-        cibilReq = 0;
       }
 
-      if (nth < nmiReq) {
-        isEligible = false;
-        rejectionReasons.push(
-          `Requires minimum ₹${nmiReq.toLocaleString("en-IN")} NTH for ${seg} segment`
-        );
-      }
       if (cibilReq > 0 && cibilScore > 0 && cibilScore < cibilReq) {
         isEligible = false;
         rejectionReasons.push(
@@ -1182,7 +1341,7 @@ export function analyzeLenderEligibility({
       if (isEligible) {
         let totalAxisObligation = 0;
         allLoans.forEach((l: any) => {
-          totalAxisObligation += calculateObligation(l, lender);
+          totalAxisObligation += calculateObligation(l, lender, obligationCtx);
         });
 
         const maxEmi = nth * (effectiveMaxFoir / 100);
@@ -1236,6 +1395,25 @@ export function analyzeLenderEligibility({
           customOutput.axisSpecialOffers = specialOffers;
           warnings.push(`Special Offers Available: ${specialOffers.join(" | ")}`);
         }
+      }
+    }
+
+    // ── AXIS FINANCE specific ───────────────────────────────────────────
+    if (lender.id === "axisfinance" && isEligible) {
+      // Source: bank_comparison data — Axis Finance rejects if applicant has
+      // taken a Personal Loan or Overdraft in the last 3 months.
+      const recentPLOrOD = allLoans.some((l: any) => {
+        if (l.type !== "Personal Loan" && l.type !== "Overdraft") return false;
+        const opened = parseLoanDate(l.dateOpened);
+        if (!opened) return false;
+        const monthsSince =
+          (Date.now() - opened.getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+        return monthsSince < 3;
+      });
+
+      if (recentPLOrOD) {
+        isEligible = false;
+        rejectionReasons.push("Personal Loan/Overdraft taken in the last 3 months");
       }
     }
 
@@ -1338,19 +1516,70 @@ export function analyzeLenderEligibility({
 
     // ── CHOLA specific ──────────────────────────────────────────────────
     if (lender.id === "chola" && isEligible) {
+      const cholaSalary = Number(profile.netSalary) || 0;
+      const employmentType = String(profile.employmentType || "Regular");
+
       // Delhi location CIBIL requirement
       if (profile.location === "Delhi NCR" && cibilScore > 0 && cibilScore < 700) {
         isEligible = false;
         rejectionReasons.push("Delhi NCR requires minimum CIBIL of 700");
       }
 
-      // Flexi OD eligibility
+      // All categories funded except Cat D
+      if (employerTier === "D") {
+        isEligible = false;
+        rejectionReasons.push("Cat D employers are not funded");
+      }
+
+      // Max 5 unique credit enquiries in the last 30 days (top-up enquiries can be ignored)
+      const enquiries30d = Number(profile.inquiriesLast30Days);
+      if (!isNaN(enquiries30d) && enquiries30d > 5) {
+        isEligible = false;
+        rejectionReasons.push(`More than 5 credit enquiries in the last 30 days (${enquiries30d})`);
+      }
+
+      // Govt contractual: needs ₹50K+ salary and 2-year JCP; funded up to ₹7.5L
+      if (employmentType === "Govt Contractual" && cholaSalary < 50000) {
+        isEligible = false;
+        rejectionReasons.push("Govt contractual employees need salary above ₹50,000");
+      }
+
+      // BT seasoning: 6 months on book, paid without bouncing
+      const unseasonedBT = catBLoans.filter((l: any) => {
+        const opened = parseLoanDate(l.dateOpened);
+        if (!opened) return false;
+        const monthsSince = (Date.now() - opened.getTime()) / (1000 * 60 * 60 * 24 * 30.44);
+        return monthsSince < 6;
+      });
+      if (unseasonedBT.length > 0) {
+        isEligible = false;
+        rejectionReasons.push("BT loans must have 6 months on book (6 MOB) without bounce");
+      }
+
+      // Credit card BT: outstanding allowed up to 8× salary
+      const ccBtOutstanding = effectiveCatBLoans
+        .filter((l: any) => l.type === "Credit Card")
+        .reduce((sum: number, l: any) => sum + Number(l.currentOutstanding || 0), 0);
+      if (cholaSalary > 0 && ccBtOutstanding > cholaSalary * 8) {
+        isEligible = false;
+        rejectionReasons.push("Credit card outstanding for BT exceeds 8× salary");
+      }
+
+      // Flexi OD: fresh-loan product, ₹10L–₹30L, 84 months (2 years Flexi + 5 years drop-line)
+      const flexiOdCibilOk = cibilScore <= 0 || cibilScore >= 725;
       if (
-        (employerTier === "GOVT" && nth >= 100000) ||
-        (["A+", "A", "B"].includes(employerTier) && nth >= 150000)
+        flexiOdCibilOk &&
+        ((employerTier === "GOVT" && nth >= 100000) ||
+          (["A+", "A", "B"].includes(employerTier) && nth >= 150000))
       ) {
         customOutput.flexiOdEligible = true;
         customOutput.flexiOdStructure = "2 years Flexi + 5 years Drop-line";
+        customOutput.flexiOdMinLoan = 1000000;
+        customOutput.flexiOdMaxLoan = 3000000;
+        // ROI 13.5% for Cat-A and Govt, 14.5% otherwise (offer valid till 30 Nov 2026)
+        customOutput.flexiOdRate = ["A+", "A", "GOVT"].includes(employerTier) ? 13.5 : 14.5;
+      } else {
+        customOutput.flexiOdEligible = false;
       }
 
       // CIBIL -1 handling
@@ -1381,6 +1610,22 @@ export function analyzeLenderEligibility({
         customOutput.cholaMaxLoan = cholaEffectiveNTH >= 100000 ? 3000000 : 1000000;
       } else {
         customOutput.cholaMaxLoan = 1000000;
+      }
+
+      // ₹30L cases need an owned house in self or spouse name
+      if (customOutput.cholaMaxLoan === 3000000 && profile.residenceType !== "Owned") {
+        customOutput.cholaMaxLoan = 1000000;
+        warnings.push("₹30L funding needs owned house (self/spouse); capped at ₹10L on rented residence");
+      }
+
+      // Govt contractual and 4th grade (driver, peon, MTS, attendant): up to ₹7.5L
+      if (employmentType === "Govt Contractual" || employmentType === "4th Grade") {
+        customOutput.cholaMaxLoan = Math.min(customOutput.cholaMaxLoan, 750000);
+        warnings.push(
+          employmentType === "Govt Contractual"
+            ? "Govt contractual: funding capped at ₹7.5L, 2-year JCP to be documented"
+            : "4th grade employee: funding capped at ₹7.5L (Safai Karamchari / Railways & MCD 4th grade not funded)"
+        );
       }
 
       // BT tracks
@@ -1458,8 +1703,8 @@ export function analyzeLenderEligibility({
     // ── POONAWALLA specific ─────────────────────────────────────────────
     if (lender.id === "poonawalla" && isEligible) {
       // Validate specific BT counts
-      const plCount = catBLoans.filter((l: any) => l.type === "Personal Loan").length;
-      const odCount = catBLoans.filter((l: any) => l.type === "Overdraft").length;
+      const plCount = effectiveCatBLoans.filter((l: any) => l.type === "Personal Loan").length;
+      const odCount = effectiveCatBLoans.filter((l: any) => l.type === "Overdraft").length;
 
       if (odCount > 0) {
         if (odCount > 1) {
@@ -1509,9 +1754,16 @@ export function analyzeLenderEligibility({
         rejectionReasons.push("High-risk Cat E applicants with Prime or Others income are not allowed");
       } else {
         effectiveMaxFoir = gridFoir;
-        customOutput.maxFOIR = `${gridFoir}%`;
         customOutput.poonawallaFOIR = gridFoir;
       }
+
+      // Secured (Car/Auto) loan bumps max FOIR to 75%
+      const hasSecuredAutoLoan = allLoans.some((l: any) => l.type === "Car Loan" && Number(l.currentOutstanding || 0) > 0);
+      if (hasSecuredAutoLoan) {
+        effectiveMaxFoir = Math.max(effectiveMaxFoir, 75);
+        customOutput.poonawallaFOIR = effectiveMaxFoir;
+      }
+      customOutput.maxFOIR = `${effectiveMaxFoir}%`;
       if (profile.cityTier !== "Metro") {
         warnings.push("FOIR grid is defined only for Metro, Tier 1 and Tier 2 cities");
       }
@@ -1519,7 +1771,7 @@ export function analyzeLenderEligibility({
       // FOIR & capacity (CC 5% / gold 1% obligation rules via calculateObligation)
       let totalEmi = 0;
       allLoans.forEach((l: any) => {
-        totalEmi += calculateObligation(l, lender);
+        totalEmi += calculateObligation(l, lender, obligationCtx);
       });
       const maxEmi = nth * (effectiveMaxFoir / 100);
       const unusedCap = isEligible ? Math.max(0, maxEmi - totalEmi) : 0;
@@ -1575,13 +1827,20 @@ export function analyzeLenderEligibility({
       const bandIdx = nth > 75000 ? 2 : nth >= 50000 ? 1 : 0;
 
       // FOIR grid by salary (Max FOIR applied to total obligations)
-      const tataFoir = nth > 75000 ? 75 : nth > 50000 ? 65 : nth > 25000 ? 60 : 50;
+      let tataFoir = nth > 75000 ? 75 : nth > 50000 ? 65 : nth > 25000 ? 60 : 50;
+
+      // Secured (Car/Auto) loan bumps max FOIR to 75%
+      const hasSecuredAutoLoan = allLoans.some((l: any) => l.type === "Car Loan" && Number(l.currentOutstanding || 0) > 0);
+      if (hasSecuredAutoLoan) {
+        tataFoir = Math.max(tataFoir, 75);
+      }
+
       effectiveMaxFoir = tataFoir;
       customOutput.maxFOIR = `${tataFoir}%`;
 
       let totalEmi = 0;
       allLoans.forEach((l) => {
-        totalEmi += calculateObligation(l, lender);
+        totalEmi += calculateObligation(l, lender, obligationCtx);
       });
       const unusedCap = Math.max(0, nth * (tataFoir / 100) - totalEmi);
       const r = lender.headlineRate / 12 / 100;
@@ -1627,7 +1886,7 @@ export function analyzeLenderEligibility({
 
       let totalObligations = 0;
       allLoans.forEach((l: any) => {
-        totalObligations += calculateObligation(l, lender);
+        totalObligations += calculateObligation(l, lender, obligationCtx);
       });
 
       const unusedCapacity = Math.max(0, maxEmiCapacity - totalObligations);

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
 import { siteConfig, contact } from '@/lib/config';
-import { MessageCircle, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { MessageCircle, Facebook, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
 import { clearConsent } from '@/lib/consent';
 import { articles } from '@/content/articles';
 
@@ -53,7 +53,6 @@ const linkClass = 'text-sm text-[#D4D4D4] hover:text-white transition-colors';
 const headingClass = 'text-xs font-bold uppercase tracking-wider text-white mb-4';
 
 export function Footer() {
-  const whatsappDigits = contact.whatsapp.replace(/[^0-9]/g, '');
 
   return (
     <footer className="bg-[#2E2E2E] text-[#FAFAFA]">
@@ -69,7 +68,7 @@ export function Footer() {
           </div>
           <div className="flex flex-1 min-w-[280px] flex-wrap justify-end gap-3">
             <a
-              href={`https://wa.me/${whatsappDigits}?text=Hi%2C%20I%20would%20like%20help%20with%20my%20loans.`}
+              href="/whatsapp-chat"
               target="_blank"
               rel="noopener noreferrer"
               data-analytics-cta="footer_whatsapp"
@@ -79,19 +78,7 @@ export function Footer() {
               <MessageCircle className="w-5 h-5 shrink-0" />
               <span className="flex flex-col">
                 <span className="text-xs opacity-90">Chat on WhatsApp</span>
-                <span className="text-base font-bold">{contact.whatsapp}</span>
-              </span>
-            </a>
-            <a
-              href={`tel:+${whatsappDigits}`}
-              data-analytics-cta="footer_call"
-              data-analytics-location="footer"
-              className="flex flex-1 min-w-[200px] items-center gap-3 rounded-2xl bg-[#3A3A3A] border border-white/10 px-5 py-3 text-white hover:bg-[#262626] transition-colors"
-            >
-              <Phone className="w-5 h-5 shrink-0" />
-              <span className="flex flex-col">
-                <span className="text-xs text-[#D4D4D4]">Call us</span>
-                <span className="text-base font-bold">{contact.whatsapp}</span>
+                <span className="text-base font-bold">Talk to a credit expert</span>
               </span>
             </a>
             <a

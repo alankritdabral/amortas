@@ -5,12 +5,14 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { ConsentBanner } from "@/components/consent/ConsentBanner";
+// TEMP: cookie banner disabled
+// import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { ClickTracker } from "@/components/analytics/ClickTracker";
 import { WebVitals } from "@/components/analytics/WebVitals";
 import { ClarityLoader } from "@/components/analytics/Clarity";
 import { siteConfig } from "@/lib/config";
 import { GA_ID } from "@/lib/analytics/gaId";
+import { GTM_ID } from "@/lib/analytics/gtmId";
 import { jsonLd, organizationSchema, websiteSchema } from "@/lib/structuredData";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -133,13 +135,63 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
         />
+        {/*
+          Google Tag Manager. Loads after the consent defaults above, so tags
+          in the container see Consent Mode v2 state. The standard GTM loader
+          (not the bare gtm.js tag) is used so `gtm.start` is pushed and
+          container triggers fire.
+        */}
+        <Script id="gtm-loader" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            var f = document.getElementsByTagName('script')[0], j = document.createElement('script');
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=${GTM_ID}';
+            f.parentNode.insertBefore(j, f);
+          `}
+        </Script>
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* Meta Pixel Code */}
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1194449116344351');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            alt=""
+            src="https://www.facebook.com/tr?id=1194449116344351&ev=PageView&noscript=1"
+          />
+        </noscript>
+        {/* End Meta Pixel Code */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(organization) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(website) }} />
         <ScrollProgress />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
-        <ConsentBanner />
+        {/* TEMP: cookie banner disabled <ConsentBanner /> */}
         <ClickTracker />
         <WebVitals />
         <ClarityLoader />

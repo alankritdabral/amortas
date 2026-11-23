@@ -10,7 +10,7 @@
  */
 export const consentNotice = {
   heading: "Before you continue",
-  body: "We'd like to use a couple of tools to understand how visitors use this site, so we can improve it. None of these send your name, phone number or any other personal details to Google or Microsoft — they only see anonymous usage data.",
+  body: "We'd like to use a few tools to understand how visitors use this site, so we can improve it. Analytics and recordings send no personal details to Google or Microsoft — they only see anonymous usage data. Ad measurement is optional and described below.",
   items: [
     {
       key: "analytics" as const,
@@ -23,6 +23,12 @@ export const consentNotice = {
       label: "Session recordings (Microsoft Clarity)",
       description:
         "Records anonymised mouse movement and scrolling so we can see where visitors get stuck. Form fields are always blanked out. Kept for 30 days.",
+    },
+    {
+      key: "marketing" as const,
+      label: "Ad measurement (Meta Pixel)",
+      description:
+        "Lets us see which of our Facebook and Instagram ads led to an enquiry. If you submit an enquiry, your phone number is shared with Meta in scrambled (hashed) form for this purpose only. Your income, EMIs and the loan you asked about are never shared.",
     },
   ],
   acceptLabel: "Accept all",

@@ -5,7 +5,7 @@ import { track } from "@/lib/analytics/track";
 import type { ContactMethod } from "@/lib/analytics/events";
 
 function contactMethodFor(href: string): ContactMethod | null {
-  if (href.startsWith("https://wa.me/") || href.includes("wa.me/")) return "whatsapp";
+  if (href.includes("wa.me/") || href.includes("/whatsapp-chat")) return "whatsapp";
   if (href.startsWith("mailto:")) return "email";
   if (href.startsWith("tel:")) return "phone";
   return null;

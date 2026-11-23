@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Loader2, ArrowRight, CheckCircle2, AlertCircle, ChevronDown, Lock, Check, CheckCheck } from "lucide-react";
 import Link from "next/link";
 import { LogoMark } from "@/components/Logo";
-import { contact } from "@/lib/config";
+import { WhatsAppChatLink } from "@/components/WhatsAppChatLink";
 import { NOTICE_VERSION } from "@/lib/consent";
 import { track, setJourneyStage } from "@/lib/analytics/track";
 import { getAttribution } from "@/lib/analytics/attribution";
@@ -24,7 +24,12 @@ const REQUIREMENTS = [
   "Other"
 ];
 
-export function ContactForm() {
+export function ContactForm({ variant = "home" }: { variant?: "home" | "page" }) {
+  const page = variant === "page";
+  const inputCls = page
+    ? "w-full bg-[#FFF8F3] border-2 border-transparent focus:border-[#FF5A00] rounded-md px-4 h-[52px] text-[#2E2E2E] text-base outline-none transition-colors placeholder:text-[#575757]/60"
+    : "w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50";
+  const labelCls = page ? "text-base font-semibold text-[#2E2E2E]" : "text-sm font-bold text-[#2E2E2E]";
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -72,6 +77,14 @@ export function ContactForm() {
       return;
     }
 
+    const phoneDigits = formData.phone.replace(/[\s-]/g, "").replace(/^(\+91|0)/, "");
+    if (!/^[6-9]\d{9}$/.test(phoneDigits)) {
+      setErrorMessage("Please enter a valid 10-digit Indian mobile number.");
+      setStatus("error");
+      track({ name: "lead_form_error", params: { form_id: "contact", error_code: "mobile_invalid" } });
+      return;
+    }
+
     const salary = Number(formData.netSalary);
     if (isNaN(salary) || salary <= 45000) {
       setErrorMessage("Net salary must be greater than ₹45,000.");
@@ -109,9 +122,10 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          phone: phoneDigits,
           consent: {
             contact: formData.consentContact,
-            shareWithLenders: formData.consentContact,
+            shareWithLenders: false, // the consent text no longer mentions lenders
             noticeVersion: NOTICE_VERSION,
           },
           attribution,
@@ -126,11 +140,16 @@ export function ContactForm() {
       }
 
       setStatus("success");
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set("status", "submitted");
+        window.history.replaceState(window.history.state, "", url.toString());
+      } catch {}
       setFormData({
         name: "",
         phone: "",
-            requirement: "",
-            netSalary: "",
+        requirement: "",
+        netSalary: "",
         ongoingEmi: "",
         consentContact: false,
       });
@@ -149,7 +168,7 @@ export function ContactForm() {
   const renderRightColumn = () => {
     if (status === "success") {
       return (
-        <div className="bg-emerald-50 border border-emerald-200 rounded-[24px] p-8 text-center shadow-sm h-full flex flex-col justify-center" data-clarity-mask="true">
+        <div className={page ? "bg-white rounded-lg p-8 sm:p-10 text-center h-full flex flex-col justify-center" : "bg-emerald-50 border border-emerald-200 rounded-[24px] p-8 text-center shadow-sm h-full flex flex-col justify-center"} data-clarity-mask="true">
           <div className="flex justify-center mb-4">
             <CheckCircle2 className="w-12 h-12 text-emerald-500" />
           </div>
@@ -161,27 +180,31 @@ export function ContactForm() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppChatLink
               data-analytics-location="contact_form_success"
               className="flex-1 px-6 py-3 bg-[#25D366] text-white hover:bg-emerald-600 rounded font-bold transition-all shadow-md shadow-green-600/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Chat on WhatsApp
-            </Link>
+            </WhatsAppChatLink>
             <Link
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"
               data-analytics-location="contact_form_success"
-              className="flex-1 px-6 py-3 bg-[#FF5A00] text-[#2E2E2E] hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#E04F00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-[#FF5A00] text-[#2E2E2E] hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#FF5A00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Check Eligibility
             </Link>
           </div>
           
           <button
-            onClick={() => setStatus("idle")}
+            onClick={() => {
+              setStatus("idle");
+              try {
+                const url = new URL(window.location.href);
+                url.searchParams.delete("status");
+                window.history.replaceState(window.history.state, "", url.toString());
+              } catch {}
+            }}
             className="mt-6 text-sm text-emerald-700 hover:text-emerald-900 underline font-medium transition-colors"
           >
             Send another message
@@ -191,17 +214,17 @@ export function ContactForm() {
     }
 
     return (
-      <div className="bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated" id="contact-form-card">
+      <div className={page ? "bg-white p-6 sm:p-10 flex flex-col scroll-mt-24 rounded-lg" : "bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated"} id="contact-form-card">
         <div className="mb-6 md:mb-8 shrink-0">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-2">
-            <h2 className="text-[32px] font-bold tracking-[-0.02em] text-[#2E2E2E]">Leave your details</h2>
+            <h2 className={page ? "text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] text-[#2E2E2E]" : "text-[32px] font-bold tracking-[-0.02em] text-[#2E2E2E]"}>Leave your details</h2>
 
           </div>
-          <p className="text-[#575757] text-sm -mt-1 sm:mt-0">We&apos;ll call you back, usually within 24 hours.</p>
+          <p className={page ? "text-[#575757] text-base mt-1" : "text-[#575757] text-sm -mt-1 sm:mt-0"}>We&apos;ll call you back, usually within 24 hours.</p>
         </div>
 
         {status === "error" && (
-          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3 shrink-0">
+          <div role="alert" className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-start gap-3 shrink-0">
             <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
             <p className="text-sm text-red-800 font-medium">{errorMessage}</p>
           </div>
@@ -210,39 +233,43 @@ export function ContactForm() {
         <form onSubmit={handleSubmit} className="space-y-4 flex flex-col flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="name" className="text-sm font-bold text-[#2E2E2E]">
+              <label htmlFor="name" className={labelCls}>
                 Full Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
+                autoComplete="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Rahul Sharma"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
+                className={inputCls}
                 required
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="phone" className="text-sm font-bold text-[#2E2E2E]">
+              <label htmlFor="phone" className={labelCls}>
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
                 id="phone"
                 name="phone"
+                autoComplete="tel-national"
+                inputMode="numeric"
+                maxLength={14}
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="e.g. 9876543210"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
+                className={inputCls}
                 required
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="requirement" className="text-sm font-bold text-[#2E2E2E]">
+            <label htmlFor="requirement" className={labelCls}>
               What can we help you with? <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -251,7 +278,7 @@ export function ContactForm() {
                 name="requirement"
                 value={formData.requirement}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all appearance-none pr-10"
+                className={`${inputCls} appearance-none pr-10`}
                 required
               >
                 <option value="" disabled>Select an option</option>
@@ -266,37 +293,44 @@ export function ContactForm() {
               </div>
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label htmlFor="netSalary" className="text-sm font-bold text-[#2E2E2E]">
+              <label htmlFor="netSalary" className={labelCls}>
                 Net Monthly Salary (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
                 id="netSalary"
                 name="netSalary"
+                inputMode="numeric"
+                min={0}
                 value={formData.netSalary}
                 onChange={handleChange}
+                aria-describedby="netSalary-hint"
                 placeholder="e.g. 50000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
+                className={inputCls}
                 required
               />
+              <p id="netSalary-hint" className="text-sm text-[#575757]">Take-home pay. Must be above ₹45,000.</p>
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="ongoingEmi" className="text-sm font-bold text-[#2E2E2E]">
+              <label htmlFor="ongoingEmi" className={labelCls}>
                 Ongoing EMI (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
                 id="ongoingEmi"
                 name="ongoingEmi"
+                inputMode="numeric"
+                min={0}
                 value={formData.ongoingEmi}
                 onChange={handleChange}
+                aria-describedby="ongoingEmi-hint"
                 placeholder="e.g. 15000"
-                className="w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50"
+                className={inputCls}
                 required
               />
+              <p id="ongoingEmi-hint" className="text-sm text-[#575757]">All current EMIs together. 0 if none.</p>
             </div>
           </div>
 
@@ -308,21 +342,20 @@ export function ContactForm() {
                   name="consentContact"
                   checked={formData.consentContact}
                   onChange={handleChange}
-                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#FF5A00] checked:border-[#E04F00] transition-colors cursor-pointer"
+                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#FF5A00] checked:border-[#FF5A00] transition-colors cursor-pointer"
                   required
                 />
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
               <span className="text-sm text-[#575757] group-hover:text-[#2E2E2E] transition-colors">
-                I agree that Amortas, and its partner lenders (see{" "}
-                <Link href="/partner-disclosures" className="underline">partner disclosures</Link>), may contact me regarding this enquiry. <span className="text-red-500">*</span>
+                I agree that Amortas may contact me regarding this enquiry. <span className="text-red-500">*</span>
               </span>
             </label>
 
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full bg-[#FF5A00] text-[#2E2E2E] py-[18px] rounded font-bold shadow-xl shadow-[#E04F00]/20 hover:shadow-2xl hover:shadow-[#E04F00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"
+              className={page ? "w-full bg-[#FF5A00] text-[#2E2E2E] h-14 rounded-md font-semibold hover:bg-[#2E2E2E] active:scale-[0.99] transition-[background-color,transform] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed text-base" : "w-full bg-[#FF5A00] text-[#2E2E2E] py-[18px] rounded font-bold shadow-xl shadow-[#FF5A00]/20 hover:shadow-2xl hover:shadow-[#FF5A00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"}
             >
               {status === "loading" ? (
                 <>
@@ -338,14 +371,16 @@ export function ContactForm() {
             </button>
             
             <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#575757]">
-              <Lock className="w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400" />
-              <p className="text-[11px] sm:text-xs text-slate-400">Your information is secure and will only be used to contact you.</p>
+              <Lock className={page ? "w-4 h-4 shrink-0 text-[#575757]" : "w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400"} />
+              <p className={page ? "text-sm text-[#575757]" : "text-[11px] sm:text-xs text-slate-400"}>Your information is secure and will only be used to contact you.</p>
             </div>
           </div>
         </form>
       </div>
     );
   };
+
+  if (page) return <div className="w-full">{renderRightColumn()}</div>;
 
   return (
     <div className="w-full">
