@@ -23,7 +23,7 @@ export function FAQ() {
             These are the questions people ask us before anything else. We&apos;ve answered them
             straight.
           </p>
-          <div className="mt-8 max-w-sm bg-[#2E2E2E] text-white p-6 rounded-xl border-2 border-[#2E2E2E] shadow-[6px_6px_0_0_#FF5A00]">
+          <div className="mt-8 max-w-sm bg-[#2E2E2E] text-white p-6 rounded-xl border-2 border-[#2E2E2E] shadow-[6px_6px_0_0_#FFDA00]">
             <p className="text-xl font-extrabold tracking-[-0.02em]">Still have a question?</p>
             <p className="mt-2 text-base text-[#D4D4D4]">Talk to a credit specialist. It&apos;s free, and there&apos;s no pressure.</p>
             <a href={`tel:${contact.whatsapp.replace(/[^+0-9]/g, "")}`} className="mt-4 inline-flex items-center h-11 px-5 bg-[#FF5A00] text-[#2E2E2E] font-bold rounded">
@@ -40,7 +40,7 @@ export function FAQ() {
               className="border-2 border-[#2E2E2E] bg-white rounded-xl mb-3 px-4 md:px-6 data-[state=open]:bg-[#F7E0D4] transition-colors"
             >
               <AccordionTrigger className="hover:no-underline text-left gap-6 py-5 group">
-                <span className="text-[21px] md:text-[26px] leading-snug font-semibold tracking-[-0.015em] text-[#2E2E2E] group-hover:text-[#E04F00] transition-colors">
+                <span className="text-[21px] md:text-[26px] leading-snug font-semibold tracking-[-0.015em] text-[#2E2E2E] group-hover:underline transition-colors">
                   {faq.question}
                 </span>
               </AccordionTrigger>

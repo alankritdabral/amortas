@@ -34,7 +34,7 @@ const INJECTED_STYLES = `
   /* Gradient UI Elements */
   .ambient-gradient {
       background: 
-          radial-gradient(circle at 70% 25%, rgba(255, 90, 0, 0.25), transparent 45%),
+          radial-gradient(circle at 70% 25%, rgba(255, 255, 255, 0.12), transparent 45%),
           linear-gradient(180deg, #2E2E2E 0%, #2E2E2E 55%, #2E2E2E 100%);
   }
 
@@ -74,8 +74,8 @@ const INJECTED_STYLES = `
   }
 
   .glass-arrow {
-      background: rgba(255, 90, 0, 0.22);
-      border: 1px solid rgba(255, 90, 0, 0.35);
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
   }
   
   .savings-icon-container {
@@ -237,7 +237,7 @@ export function AnimatedPhoneMockup({ className }: { className?: string }) {
                   <p ref={currentRef} className="ui-slide-right text-[32px] font-bold text-white leading-none">₹0</p>
                   <p className="ui-fade-up text-sm text-white/[0.55] font-normal mt-1">per month</p>
                 </div>
-                <div className="ui-scale-in bg-[rgba(255, 90, 0,0.15)] border border-[rgba(255, 90, 0,0.45)] text-[#FFD2B8] px-2.5 py-1.5 rounded-[12px] flex flex-col items-center">
+                <div className="ui-scale-in bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.4)] text-[#FFD2B8] px-2.5 py-1.5 rounded-[12px] flex flex-col items-center">
                   <span className="text-sm font-semibold leading-none mb-0.5">16.5%</span>
                   <span className="text-[11px] font-medium leading-none text-[#FFD2B8]">interest rate</span>
                 </div>

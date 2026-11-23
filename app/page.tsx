@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { HeroGridBlock, HeroLogos } from "@/components/HeroGridBlock";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { LoanSolutionsSection } from "@/components/LoanSolutionsSection";
 import { CtaBand } from "@/components/home/Bands";
+import { ConsolidationHero } from "@/components/home/ConsolidationHero";
+import { ChangesSection } from "@/components/home/ChangesSection";
+import { HowTimeline } from "@/components/home/HowTimeline";
 import { SectionRules, SectionDivider } from "@/components/SectionRules";
 import {
-  HeroVisualBlock,
   SmartCalculator,
   EligibilityForm,
-  HowItWorks,
   ScamProtection,
   FAQ,
   NetworkStats,
@@ -25,39 +24,12 @@ export default function Home() {
   return (
     <SectionRules>
 
-      {/* Row 1: Hero & Visual/Video Block */}
-      <section className="relative w-full overflow-hidden pt-[40px] sm:pt-[76px] min-h-[400px] sm:h-auto sm:min-h-0 flex flex-col">
-        {/* Background Image */}
-        <div className="hero-skyline pointer-events-none bg-[#F7E0D4]">
-          <Image
-            src="/Misty India Skyline with Orbital Arcs.webp"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover object-bottom sm:object-center opacity-70 grayscale mix-blend-multiply"
-            priority
-          />
-        </div>
+      {/* Row 1: Hero, "Multiple Loans. One EMI." with the EMI card and lender strip */}
+      <ConsolidationHero />
 
-        {/* Navbar / hero separator */}
-        <div className="absolute inset-x-0 top-[60px] lg:top-[76px]">
-          <SectionDivider />
-        </div>
-
-        <div className="relative max-w-[1220px] mx-auto grid grid-cols-1 lg:grid-cols-12 z-10">
-          <div className="lg:col-span-6">
-            <HeroGridBlock />
-          </div>
-          <div className="hidden lg:block lg:col-span-6 relative">
-            <HeroVisualBlock />
-          </div>
-        </div>
-        
-        {/* Full width logos - Inside hero section to overlay on the background image */}
-        <div className="relative z-20 mt-auto">
-          <HeroLogos />
-        </div>
-      </section>
+      <SectionDivider />
+      {/* Row 1.2: What changes, what does not */}
+      <ChangesSection />
 
       <SectionDivider />
       {/* Row 1.5: Loan Solutions Section (New) */}
@@ -87,7 +59,7 @@ export default function Home() {
       <SectionDivider />
       {/* Row 3: How it Works & Scam Protection */}
       <AnimatedSection>
-        <HowItWorks />
+        <HowTimeline />
       </AnimatedSection>
       <AnimatedSection>
         <ScamProtection />

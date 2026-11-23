@@ -29,7 +29,7 @@ const SOLUTIONS: Solution[] = [
       { lead: "No obligation", text: "to proceed after you see your options" },
     ],
     cta: { label: "Check your EMI options", href: "#calculator" },
-    scene: { kind: "phone", tint: "rgba(255, 90, 0,0.08)" },
+    scene: { kind: "phone", tint: "rgba(46, 46, 46, 0.06)" },
   },
   {
     id: "credit-card",
@@ -42,7 +42,7 @@ const SOLUTIONS: Solution[] = [
       { lead: "One fixed EMI", text: "instead of a revolving balance" },
     ],
     cta: { label: "Explore card debt options", href: "/credit-card-debt" },
-    scene: { kind: "card", tint: "rgba(255, 90, 0,0.06)", rate: { from: 45, to: 11 } },
+    scene: { kind: "card", tint: "rgba(46, 46, 46, 0.05)", rate: { from: 45, to: 11 } },
   },
   {
     id: "app-loans",
@@ -57,7 +57,7 @@ const SOLUTIONS: Solution[] = [
     cta: { label: "See app loan options", href: "/app-loan" },
     scene: {
       kind: "merge",
-      tint: "rgba(255, 90, 0,0.12)",
+      tint: "rgba(46, 46, 46, 0.08)",
       emi: 15999,
       chips: [
         { amount: 8000, name: "App loan A", icon: Smartphone },
@@ -80,7 +80,7 @@ const SOLUTIONS: Solution[] = [
     cta: { label: "Explore debt consolidation", href: "/debt-consolidation" },
     scene: {
       kind: "merge",
-      tint: "rgba(224, 79, 0,0.14)",
+      tint: "rgba(46, 46, 46, 0.1)",
       emi: 24999,
       chips: [
         { amount: 12500, name: "Personal Loan", icon: Banknote },
@@ -161,7 +161,7 @@ export const LoanSolutionsSection = () => {
                 className="sticky top-[var(--slot)] bg-white border-t border-dashed border-[#E5E5E5] first:border-t-0 shadow-[0_-6px_10px_-8px_rgba(10, 10, 10,0.22)]"
               >
                 <div onClick={() => bringForward(idx)} className="flex items-center gap-0 py-2 cursor-pointer group">
-                  <span aria-hidden className="w-10 h-10 shrink-0 rounded-md flex items-center justify-center bg-[#FF5A00] text-white">
+                  <span aria-hidden className="w-10 h-10 shrink-0 rounded-md flex items-center justify-center bg-[#2E2E2E] text-white">
                     <Icon className="w-5 h-5" />
                   </span>
 

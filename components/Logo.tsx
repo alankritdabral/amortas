@@ -25,22 +25,26 @@ export function Logo({
   href = "/",
   onClick,
   className = "",
+  size = "md",
 }: {
   variant?: "light" | "dark";
   href?: string;
   onClick?: () => void;
   className?: string;
+  /** "lg" is the bigger lockup used in the desktop navbar. */
+  size?: "md" | "lg";
 }) {
+  const lg = size === "lg";
   return (
     <Link
       href={href}
       onClick={onClick}
       aria-label="Amortas home"
-      className={`inline-flex items-center gap-2.5 shrink-0 ${className}`}
+      className={`inline-flex items-center shrink-0 ${lg ? "gap-3" : "gap-2.5"} ${className}`}
     >
-      <LogoMark className="h-7 sm:h-8 w-auto text-[#FF5A00]" />
+      <LogoMark className={`${lg ? "h-7 sm:h-8 lg:h-[38px]" : "h-7 sm:h-8"} w-auto text-[#FF5A00]`} />
       <span
-        className={`text-[22px] sm:text-2xl font-extrabold tracking-[-0.04em] leading-none ${
+        className={`${lg ? "text-[22px] sm:text-2xl lg:text-[31px]" : "text-[22px] sm:text-2xl"} font-extrabold tracking-[-0.04em] leading-none ${
           variant === "dark" ? "text-white" : "text-[#2E2E2E]"
         }`}
       >

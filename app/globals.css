@@ -30,7 +30,7 @@
   --shadow-level-1: 2px 2px 0 0 #2E2E2E;
   --shadow-level-2: 4px 4px 0 0 #2E2E2E;
   --shadow-level-3: 6px 6px 0 0 #2E2E2E;
-  --shadow-level-4: 8px 8px 0 0 #FF5A00;
+  --shadow-level-4: 8px 8px 0 0 #2E2E2E;
 }
 
 @theme inline {
@@ -248,16 +248,16 @@ input[type="range"]::-webkit-slider-thumb {
   height: 20px;
   margin-top: -7px; /* Centers 20px thumb on 6px track */
   border-radius: 50%;
-  background: var(--blue-energy);
+  background: #2E2E2E;
   border: 3px solid white;
-  box-shadow: 0 2px 8px rgba(255, 90, 0, 0.35), 0 0 0 1px rgba(255, 90, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(46, 46, 46, 0.35), 0 0 0 1px rgba(46, 46, 46, 0.1);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 3px 12px rgba(255, 90, 0, 0.45), 0 0 0 1px rgba(255, 90, 0, 0.15);
+  box-shadow: 0 3px 12px rgba(46, 46, 46, 0.45), 0 0 0 1px rgba(46, 46, 46, 0.15);
 }
 
 input[type="range"]::-webkit-slider-thumb:active {
@@ -268,9 +268,9 @@ input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--blue-energy);
+  background: #2E2E2E;
   border: 3px solid white;
-  box-shadow: 0 2px 8px rgba(255, 90, 0, 0.35), 0 0 0 1px rgba(255, 90, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(46, 46, 46, 0.35), 0 0 0 1px rgba(46, 46, 46, 0.1);
   cursor: pointer;
 }
 
@@ -410,7 +410,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 /* Stripe-style layered card elevation: tight contact shadow + soft blue-tinted ambient lift */
 :root {
   --shadow-card: 4px 4px 0 0 #2E2E2E;
-  --shadow-card-hover: 7px 7px 0 0 #FF5A00;
+  --shadow-card-hover: 7px 7px 0 0 #2E2E2E;
 }
 
 .card-elevated {
@@ -434,18 +434,18 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 
 /* ── Bold Tangerine Studio ── */
-::selection { background: #FF5A00; color: #fff; }
+::selection { background: #FFDA00; color: #1A1A1A; }
 h1, h2, h3 { text-wrap: balance; }
 .orange-marquee { background: #FF5A00; color: #fff; border-block: 2px solid #2E2E2E; }
-.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FF5A00; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #2E2E2E; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
   outline: 3px solid #FF5A00; outline-offset: 2px;
 }
 
-/* Light filled section background: warm tint + faint orange dot grid */
+/* Light filled section background: warm tint + faint ink dot grid */
 .section-tint {
   background-color: #FFF8F3;
-  background-image: radial-gradient(rgba(255, 90, 0, 0.16) 1px, transparent 1.2px);
+  background-image: radial-gradient(rgba(46, 46, 46, 0.12) 1px, transparent 1.2px);
   background-size: 22px 22px;
 }
 

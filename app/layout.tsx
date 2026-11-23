@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Poppins } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -24,6 +24,14 @@ const inter = Inter({
 const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
+});
+
+// Display face for the homepage hero headline only.
+const poppins = Poppins({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["800"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -92,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const website = websiteSchema();
 
   return (
-    <html lang="en-IN" className={`${inter.variable} ${manrope.variable} h-full antialiased font-sans scroll-smooth`}>
+    <html lang="en-IN" className={`${inter.variable} ${manrope.variable} ${poppins.variable} h-full antialiased font-sans scroll-smooth`}>
       <body className="min-h-full flex flex-col bg-background text-brand-black [font-feature-settings:'ss01'] overflow-x-hidden">
         {/*
           Consent Mode v2 ordering (developers.google.com/tag-platform/security/guides/consent):

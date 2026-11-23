@@ -7,7 +7,7 @@ export const loanCategories = [
     title: "Personal Loan",
     description: "High-interest personal loans can be refinanced at lower rates.",
     image: "/img/marraige.webp",
-    icon: <IndianRupee className="w-5 h-5 text-blue-600" />,
+    icon: <IndianRupee className="w-5 h-5 text-[#2E2E2E]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-2">
@@ -30,17 +30,17 @@ export const loanCategories = [
 
         <div className="flex justify-center -my-3 relative z-10">
           <div className="bg-white rounded-full p-1 border border-gray-100 shadow-sm">
-            <ArrowDown className="w-4 h-4 text-blue-500" />
+            <ArrowDown className="w-4 h-4 text-[#2E2E2E]" />
           </div>
         </div>
 
-        <div className="bg-blue-600 text-white rounded-xl p-4 shadow-md mt-2 flex justify-between items-center">
+        <div className="bg-[#2E2E2E] text-white rounded-xl p-4 shadow-md mt-2 flex justify-between items-center">
           <div>
-            <p className="text-blue-200 text-xs mb-1">Potential New Rate</p>
+            <p className="text-[#FFD2B8] text-xs mb-1">Potential New Rate</p>
             <p className="font-bold text-lg">9.99% p.a.</p>
           </div>
           <div className="text-right">
-            <p className="text-blue-200 text-xs mb-1">Potential New EMI</p>
+            <p className="text-[#FFD2B8] text-xs mb-1">Potential New EMI</p>
             <p className="font-bold text-lg">₹12,400</p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export const loanCategories = [
     title: "Credit Card Loans",
     description: "Convert high-interest credit card dues into a single, lower-interest EMI.",
     image: "/img/creditcard.webp",
-    icon: <CreditCard className="w-5 h-5 text-blue-600" />,
+    icon: <CreditCard className="w-5 h-5 text-[#2E2E2E]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -77,9 +77,9 @@ export const loanCategories = [
           <div className="flex flex-col">
             <div className="flex-1 bg-blue-50 border border-blue-100 rounded-xl p-3 flex flex-col justify-center items-center text-center relative">
                <div className="absolute -left-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-0.5 border border-gray-200 z-10 hidden md:block">
-                  <ArrowDown className="w-4 h-4 text-blue-500 -rotate-90" />
+                  <ArrowDown className="w-4 h-4 text-[#2E2E2E] -rotate-90" />
                </div>
-               <p className="text-xs text-blue-600 font-medium mb-1">One EMI</p>
+               <p className="text-xs text-[#2E2E2E] font-medium mb-1">One EMI</p>
                <p className="font-bold text-slate-900 text-lg">₹12,500</p>
                <p className="text-xs text-slate-600">@ 9.99% p.a.</p>
             </div>
@@ -102,7 +102,7 @@ export const loanCategories = [
     title: "App Loans",
     description: "Combine multiple app loans and reduce your total interest outgo.",
     image: "/img/teenager.webp",
-    icon: <Smartphone className="w-5 h-5 text-blue-600" />,
+    icon: <Smartphone className="w-5 h-5 text-[#2E2E2E]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="flex gap-4 items-center mb-6 px-4">
@@ -118,8 +118,8 @@ export const loanCategories = [
           
           <ArrowDown className="w-5 h-5 text-slate-300 -rotate-90 flex-shrink-0" />
 
-          <div className="flex-1 bg-blue-600 rounded-xl p-4 text-center text-white shadow-md">
-             <p className="text-xs text-blue-200 mb-2">One Consolidated EMI</p>
+          <div className="flex-1 bg-[#2E2E2E] rounded-xl p-4 text-center text-white shadow-md">
+             <p className="text-xs text-[#FFD2B8] mb-2">One Consolidated EMI</p>
              <p className="font-bold text-xl">₹10,900*</p>
           </div>
         </div>
@@ -135,7 +135,7 @@ export const loanCategories = [
     title: "Multiple Loans",
     description: "Merge multiple EMIs into one simple, affordable EMI.",
     image: "/img/multipleloans.webp",
-    icon: <Banknote className="w-5 h-5 text-blue-600" />,
+    icon: <Banknote className="w-5 h-5 text-[#2E2E2E]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="flex flex-col sm:flex-row gap-4 items-stretch mb-6">
@@ -155,7 +155,7 @@ export const loanCategories = [
           </div>
           
           <div className="flex items-center justify-center">
-             <ArrowDown className="w-5 h-5 text-blue-400 rotate-0 sm:-rotate-90" />
+             <ArrowDown className="w-5 h-5 text-[#575757] rotate-0 sm:-rotate-90" />
           </div>
 
           <div className="flex-1 bg-slate-900 rounded-xl p-4 flex flex-col items-center justify-center text-center text-white shadow-md">
@@ -175,7 +175,7 @@ export const loanCategories = [
     title: "Overdraft / OD",
     description: "Refinance eligible OD facilities at potentially lower interest rates.",
     image: "/img/od.webp",
-    icon: <Landmark className="w-5 h-5 text-blue-600" />,
+    icon: <Landmark className="w-5 h-5 text-[#2E2E2E]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-2 text-center">
@@ -195,13 +195,13 @@ export const loanCategories = [
 
         <div className="flex justify-center -my-3 relative z-10">
           <div className="bg-white rounded-full p-1 border border-gray-100 shadow-sm">
-            <ArrowDown className="w-4 h-4 text-blue-500" />
+            <ArrowDown className="w-4 h-4 text-[#2E2E2E]" />
           </div>
         </div>
 
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mt-2 text-center">
-          <p className="text-xs text-blue-600 font-medium mb-1">Potential New Rate</p>
-          <p className="font-bold text-blue-700 text-2xl">9.99%*</p>
+          <p className="text-xs text-[#2E2E2E] font-medium mb-1">Potential New Rate</p>
+          <p className="font-bold text-[#2E2E2E] text-2xl">9.99%*</p>
         </div>
 
         <p className="text-[11px] text-slate-400 mt-auto pt-4 text-center">

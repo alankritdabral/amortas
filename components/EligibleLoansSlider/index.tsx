@@ -60,7 +60,7 @@ export const EligibleLoansSlider = () => {
       <div className="max-w-[1220px] mx-auto">
         
         <div className="px-4 md:px-6 lg:px-12 py-6 md:py-8 mb-2 md:mb-4 text-center">
-          <p className="text-[11px] md:text-sm font-bold tracking-wider text-blue-600 uppercase mb-2 md:mb-4">
+          <p className="text-[11px] md:text-sm font-bold tracking-wider text-[#2E2E2E] uppercase mb-2 md:mb-4">
             Bring Your Eligible Loans Together
           </p>
           <h2 className="text-2xl md:text-[32px] lg:text-[42px] leading-[1.1] tracking-[-0.03em] font-semibold mx-auto text-slate-900 max-w-[280px] md:max-w-none">

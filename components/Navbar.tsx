@@ -20,9 +20,9 @@ type Menu = {
   narrow?: boolean;
 };
 
-const G1 = "linear-gradient(90deg,#E04F00,#FFD2B8 55%,#ff9a3c)";
-const G2 = "linear-gradient(90deg,#E04F00,#FFD2B8 55%,#ffd24d)";
-const G3 = "linear-gradient(90deg,#E04F00,#FFDA00 60%,#ff6fb5)";
+const G1 = "linear-gradient(90deg,#2E2E2E,#FFD2B8 55%,#ffd24d)";
+const G2 = "linear-gradient(90deg,#2E2E2E,#FFD2B8 55%,#ffd24d)";
+const G3 = "linear-gradient(90deg,#2E2E2E,#FFDA00 60%,#ff6fb5)";
 
 const promoAssessment = {
   img: "/img/multipleloans.webp",
@@ -279,7 +279,7 @@ export function Navbar() {
         className={`absolute top-0 left-0 right-0 z-50 h-[60px] lg:h-[76px] px-4 md:px-6 lg:px-8 flex items-start lg:items-center`}
       >
         <div
-          className="relative w-full mx-auto max-w-[1220px] h-full"
+          className="relative w-full mx-auto max-w-[1358px] h-full xl:pl-2"
           onMouseEnter={() => {
             setBarHover(true);
             cancelClose();
@@ -319,7 +319,7 @@ export function Navbar() {
                 transition:
                   "clip-path 0.2s cubic-bezier(0.45,0.05,0.55,0.95), height 0.28s cubic-bezier(0.45,0.05,0.55,0.95), width 0.28s cubic-bezier(0.45,0.05,0.55,0.95)",
               }}
-              className="hidden lg:block absolute left-[-28px] top-[6px] z-0 bg-white rounded-md border-2 border-[#2E2E2E] overflow-hidden shadow-[6px_6px_0_0_#FF5A00]"
+              className="hidden lg:block absolute left-[-28px] top-[6px] z-0 bg-white rounded-md border-2 border-[#2E2E2E] overflow-hidden shadow-[6px_6px_0_0_#2E2E2E]"
             >
               <div ref={panelInner}>
                 <motion.div key={renderMenu.key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.16 }}>
@@ -391,10 +391,10 @@ export function Navbar() {
 
           {/* The bar */}
           <div className="relative z-10 flex items-center justify-between h-full">
-            <Logo />
+            <Logo size="lg" />
 
             <nav className="hidden lg:flex flex-1 items-center ml-10" aria-label="Main">
-              <ul className="flex items-center gap-1">
+              <ul className="flex items-center gap-1 lg:ml-[35px]">
                 {menus.map((m) => {
                   const isOpen = active === m.key;
                   const focusKey = active || hoverKey;
@@ -413,7 +413,7 @@ export function Navbar() {
                         }}
                         onFocus={() => openMenu(m.key, true)}
                         onClick={() => (isOpen ? hidePanel() : openMenu(m.key, true))}
-                        className={`h-10 px-3 text-base font-bold flex items-center gap-1 rounded transition-colors duration-200 cursor-pointer hover:text-[#FF5A00] ${
+                        className={`h-10 px-[18px] text-[18px] font-[500] flex items-center gap-1.5 rounded-lg transition-colors duration-200 cursor-pointer hover:bg-[#F7E0D4] ${
                           dim ? "text-[#737373]" : "text-[#2E2E2E]"
                         }`}
                       >
@@ -431,7 +431,7 @@ export function Navbar() {
                 href="/eligibility"
                 data-analytics-cta="navbar_eligibility"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center text-base font-bold text-[#2E2E2E] bg-white border-2 border-[#2E2E2E] rounded hover:bg-[#F7E0D4] transition-colors"
+                className="h-10 px-[22px] inline-flex items-center text-[17px] font-[500] text-[#1A1A1A] bg-white/80 border border-[#2E2E2E] rounded-lg hover:bg-white transition-colors"
               >
                 Eligibility
               </Link>
@@ -439,9 +439,9 @@ export function Navbar() {
                 href={assessmentHref}
                 data-analytics-cta="navbar_get_assessment"
                 data-analytics-location="navbar"
-                className="h-10 px-5 inline-flex items-center gap-1 text-base font-bold text-[#2E2E2E] hover:text-white bg-[#FF5A00] border-2 border-[#2E2E2E] shadow-[3px_3px_0_0_#2E2E2E] hover:bg-[#2E2E2E] rounded transition-colors"
+                className="h-10 px-[22px] inline-flex items-center gap-2 text-[17px] font-semibold text-white bg-gradient-to-b from-[#FF6A14] to-[#EC4F00] rounded-lg shadow-[0_10px_20px_-10px_rgba(236,79,0,0.8)] hover:brightness-105 transition-[filter]"
               >
-                Get assessment <ChevronRight className="h-4 w-4" />
+                Get assessment <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
             </div>
 

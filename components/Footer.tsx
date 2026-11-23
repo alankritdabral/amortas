@@ -155,7 +155,7 @@ export function Footer() {
                   <li key={link.href}><Link href={link.href} className={linkClass}>{link.label}</Link></li>
                 ))}
               </ul>
-              <Link href="/learning-center" className="inline-flex items-center mt-3 text-sm font-bold text-[#FF9A5C] hover:text-white transition-colors">
+              <Link href="/learning-center" className="inline-flex items-center mt-3 text-sm font-bold text-[#FFD2B8] hover:text-white transition-colors">
                 Visit the learning center
               </Link>
             </nav>
@@ -168,7 +168,7 @@ export function Footer() {
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {contact.addresses.map((addr) => (
               <address key={addr.city} className="not-italic flex gap-3.5 p-5 rounded-2xl bg-white/5">
-                <MapPin className="w-5 h-5 mt-0.5 shrink-0 text-[#FF9A5C]" />
+                <MapPin className="w-5 h-5 mt-0.5 shrink-0 text-[#FFD2B8]" />
                 <span className="flex flex-col gap-1.5">
                   <strong className="text-base text-white">{addr.city}</strong>
                   <span className="text-sm leading-relaxed text-[#D4D4D4]">{addr.fullAddress}</span>

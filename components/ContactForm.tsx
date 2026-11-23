@@ -27,7 +27,7 @@ const REQUIREMENTS = [
 export function ContactForm({ variant = "home" }: { variant?: "home" | "page" }) {
   const page = variant === "page";
   const inputCls = page
-    ? "w-full bg-[#FFF8F3] border-2 border-transparent focus:border-[#FF5A00] rounded-md px-4 h-[52px] text-[#2E2E2E] text-base outline-none transition-colors placeholder:text-[#575757]/60"
+    ? "w-full bg-[#FFF8F3] border-2 border-transparent focus:border-[#2E2E2E] rounded-md px-4 h-[52px] text-[#2E2E2E] text-base outline-none transition-colors placeholder:text-[#575757]/60"
     : "w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50";
   const labelCls = page ? "text-base font-semibold text-[#2E2E2E]" : "text-sm font-bold text-[#2E2E2E]";
   const [formData, setFormData] = useState({
@@ -342,7 +342,7 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
                   name="consentContact"
                   checked={formData.consentContact}
                   onChange={handleChange}
-                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#FF5A00] checked:border-[#FF5A00] transition-colors cursor-pointer"
+                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#2E2E2E] checked:border-[#2E2E2E] transition-colors cursor-pointer"
                   required
                 />
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />

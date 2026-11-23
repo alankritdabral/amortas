@@ -8,7 +8,7 @@ type Stat = { id: string; value: number; format: (n: number) => string; descript
 
 // Figures come from the partner-lender data in lib/lenderEngine.ts (max amount and tenure).
 const STATS: Stat[] = [
-  { id: "lenders", value: 50, format: (n) => Math.round(n) + "+", description: "partner banks and NBFCs compared in one place" },
+  { id: "lenders", value: 13, format: (n) => String(Math.round(n)), description: "partner banks and NBFCs compared in one place" },
   { id: "debts", value: 5, format: (n) => String(Math.round(n)), description: "kinds of debt you can bring into one EMI" },
   { id: "amount", value: 1, format: (n) => "₹" + Math.round(n) + " Cr", description: "maximum loan amount from select partner lenders*" },
   { id: "tenure", value: 84, format: (n) => String(Math.round(n)), description: "months of maximum repayment tenure*" },
@@ -144,8 +144,8 @@ function createEngine(canvas: HTMLCanvasElement, count: number, animated: boolea
     const p = animated ? (now / 1000 - sceneStart) / TRANSITION_S : 10;
     ctx.clearRect(0, 0, w, h);
     ctx.lineWidth = 1;
-    ctx.strokeStyle = "#FF5A00";
-    ctx.fillStyle = "#E04F00";
+    ctx.strokeStyle = "#2E2E2E";
+    ctx.fillStyle = "#575757";
     for (let i = 0; i < count; i++) {
       FORMATIONS[scene](i, count, t, w, h, rand, tgt);
       const j = i * 5;
@@ -304,7 +304,7 @@ export function NetworkStats() {
             <span
               key={edge}
               aria-hidden
-              className={`hidden lg:block absolute left-0 w-1/4 h-px bg-[linear-gradient(90deg,transparent,#E04F00_50%,transparent)] transition-transform duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none ${edge === 0 ? "-top-px" : "-bottom-px"}`}
+              className={`hidden lg:block absolute left-0 w-1/4 h-px bg-[linear-gradient(90deg,transparent,#2E2E2E_50%,transparent)] transition-transform duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none ${edge === 0 ? "-top-px" : "-bottom-px"}`}
               style={{ transform: `translateX(${(hovered ?? active) * 100}%)` }}
             />
           ))}
@@ -320,7 +320,7 @@ export function NetworkStats() {
                 onMouseEnter={() => setHovered(i)}
                 onFocus={() => setHovered(i)}
                 onBlur={() => setHovered(null)}
-                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#E04F00] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#2E2E2E] max-lg:bg-[#FF5A00]/[0.06]" : "text-[#A3A3A3] hover:text-[#737373]"}`}
+                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#2E2E2E] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#2E2E2E] max-lg:bg-[#2E2E2E]/[0.05]" : "text-[#A3A3A3] hover:text-[#737373]"}`}
               >
                 <span className="text-[34px] md:text-[48px] leading-none tracking-[-0.03em] font-medium tabular-nums">
                   <AnimatedNumber

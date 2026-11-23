@@ -79,10 +79,10 @@ function StageChipCard({ chip, index, active, focal, instant }: { chip: StageChi
             ? { ...SPRING, delay: 0.1 + index * 0.06 }
             : { duration: 0.35, ease: [0.5, 0, 0.75, 0], delay: index * 0.03 }
       }
-      className="absolute rounded-xl bg-white border border-[#FF5A00]/15 shadow-sm flex items-center px-3"
+      className="absolute rounded-xl bg-white border border-[#2E2E2E]/15 shadow-sm flex items-center px-3"
       style={{ left: CHIP_LEFT, top, width: CHIP_W, height: ROW_H }}
     >
-      <div className="relative w-8 h-8 shrink-0 rounded-lg bg-[#F7E0D4] border border-[#FF5A00]/20 text-[#E04F00]">
+      <div className="relative w-8 h-8 shrink-0 rounded-lg bg-[#F7E0D4] border border-[#2E2E2E]/20 text-[#2E2E2E]">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={chip.name}
@@ -139,7 +139,7 @@ function RateCard({ rate, active, y, instant }: { rate: StageRate; active: boole
           </p>
           <p className="text-sm text-[#2E2E2E] opacity-70 font-medium">Current rate</p>
         </div>
-        <ArrowRight className="w-6 h-6 text-[#E04F00]" strokeWidth={1.5} />
+        <ArrowRight className="w-6 h-6 text-[#2E2E2E]" strokeWidth={1.5} />
         <div className="text-right">
           <p className="text-[32px] font-bold text-[#10B981] leading-none mb-1 tabular-nums">
             <AnimatedNumber value={rate.to} format={fmtFor(rate.to)} instant={instant} />
@@ -244,7 +244,7 @@ export function LoanStage({ scene, className, style, still }: { scene: StageScen
               <path
                 key={i}
                 d={`M ${CHIP_LEFT + CHIP_W} ${y} C 240 ${y}, 270 ${CY}, ${HUB_LEFT - 6} ${CY}`}
-                stroke="#FF5A00"
+                stroke="#2E2E2E"
                 strokeWidth="1.5"
                 strokeDasharray="3 5"
                 fill="none"
@@ -280,7 +280,7 @@ export function LoanStage({ scene, className, style, still }: { scene: StageScen
           <motion.div
             animate={hubPulse}
             className="w-full h-full rounded-xl flex flex-col items-center justify-center text-white shadow-lg"
-            style={{ background: "linear-gradient(135deg, #2E2E2E 0%, #E04F00 100%)" }}
+            style={{ background: "linear-gradient(135deg, #2E2E2E 0%, #575757 100%)" }}
           >
             <p className="text-xs font-medium text-[#FFD2B8] mb-2">ONE EMI</p>
             <p className="text-[21px] font-bold mb-1.5 tabular-nums">
