@@ -30,7 +30,7 @@ const manrope = Manrope({
 const poppins = Poppins({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["800"],
+  weight: ["700", "800"],
   display: "swap",
 });
 
