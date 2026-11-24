@@ -228,7 +228,7 @@ export function DebtConsolidationCalculator() {
             Select a sample debt profile or customize the numbers below to match your loans:
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2">
           {PRESET_SCENARIOS.map((preset, idx) => (
             <button
               key={idx}
@@ -240,7 +240,7 @@ export function DebtConsolidationCalculator() {
                   params: { preset_id: preset.name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "") },
                 });
               }}
-              className="text-xs font-semibold px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 border border-slate-200 transition-colors cursor-pointer"
+              className="text-sm sm:text-xs text-left font-semibold px-3.5 py-2.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 border border-slate-200 transition-colors cursor-pointer"
             >
               {preset.name}
             </button>
@@ -250,7 +250,7 @@ export function DebtConsolidationCalculator() {
             onClick={() => setDebts([
               { id: "1", name: "Credit Card Dues", type: "credit_card", balance: 200000, interestRate: 40, monthlyPayment: 15000, remainingMonths: 24 }
             ])}
-            className="text-xs font-semibold px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-500 border border-dashed border-slate-300 transition-colors cursor-pointer"
+            className="text-sm sm:text-xs font-semibold px-3 py-2.5 sm:py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-500 border border-dashed border-slate-300 transition-colors cursor-pointer"
           >
             Clear / Start Fresh
           </button>
@@ -262,12 +262,12 @@ export function DebtConsolidationCalculator() {
         {/* Left Column: Input Debt Obligations (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 card-elevated space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
                 <h2 className="text-lg font-bold text-slate-900">Step 1: Your Active Debts & EMIs</h2>
                 <p className="text-xs text-slate-500 mt-0.5">Add all your current personal loans, credit card balances, and app loans</p>
               </div>
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-700">
+              <span className="shrink-0 whitespace-nowrap text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 text-slate-700">
                 {debts.length} {debts.length === 1 ? "Obligation" : "Obligations"}
               </span>
             </div>
@@ -279,8 +279,8 @@ export function DebtConsolidationCalculator() {
                   key={debt.id} 
                   className="p-4 rounded-2xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition-colors space-y-3 relative group"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 w-full sm:w-auto sm:flex-1 min-w-0">
                       <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-800 text-xs font-bold shrink-0">
                         {index + 1}
                       </span>
@@ -289,7 +289,7 @@ export function DebtConsolidationCalculator() {
                         value={debt.name}
                         onChange={(e) => handleUpdateDebt(debt.id, "name", e.target.value)}
                         placeholder="e.g. HDFC Personal Loan, SBI Card"
-                        className="text-sm font-semibold bg-transparent border-b border-dashed border-slate-300 focus:border-blue-600 outline-none px-1 py-0.5 w-full max-w-[220px] text-slate-900"
+                        className="text-sm font-semibold bg-transparent border-b border-dashed border-slate-300 focus:border-blue-600 outline-none px-1 py-0.5 w-full min-w-0 sm:max-w-[220px] text-slate-900"
                       />
                     </div>
                     
@@ -393,11 +393,11 @@ export function DebtConsolidationCalculator() {
             <div className="space-y-6">
               {/* Proposed Tenure Slider */}
               <div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
                     Consolidated Loan Tenure
                   </label>
-                  <span className="text-sm font-extrabold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
+                  <span className="whitespace-nowrap text-sm font-extrabold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
                     {proposedTenure} Months ({Number(proposedTenure / 12).toFixed(1)} Years)
                   </span>
                 </div>
@@ -420,14 +420,14 @@ export function DebtConsolidationCalculator() {
 
               {/* Proposed Interest Rate */}
               <div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <div>
                     <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
                       Consolidated Interest Rate (p.a.)
                     </label>
                     <p className="text-[11px] text-slate-500">Starting from 9.99% p.a.* for eligible salaried profiles</p>
                   </div>
-                  <span className="text-sm font-extrabold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
+                  <span className="whitespace-nowrap text-sm font-extrabold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">
                     {proposedRate}% p.a.
                   </span>
                 </div>
@@ -449,7 +449,7 @@ export function DebtConsolidationCalculator() {
               </div>
 
               {/* Processing Fee Input */}
-              <div className="flex items-center justify-between pt-2 text-xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-xs">
                 <span className="text-slate-600 font-medium">Estimated Lender Processing Fee:</span>
                 <div className="flex items-center gap-1.5">
                   <input
@@ -461,7 +461,7 @@ export function DebtConsolidationCalculator() {
                     onChange={(e) => setProcessingFeePercent(Math.max(0, Number(e.target.value)))}
                     className="w-16 text-right px-2 py-1 bg-slate-100 border border-slate-200 rounded-lg font-bold text-slate-800 outline-none"
                   />
-                  <span className="text-slate-500 font-bold">% ({formatINR(result.processingFeeAmount)})</span>
+                  <span className="whitespace-nowrap text-slate-500 font-bold">% ({formatINR(result.processingFeeAmount)})</span>
                 </div>
               </div>
             </div>

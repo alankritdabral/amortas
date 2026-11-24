@@ -62,14 +62,14 @@ export function DebtConsolidation() {
           scattered payments can become one.
         </p>
 
-        <div className="mt-8 flex flex-wrap gap-2" role="tablist">
+        <div className="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-2" role="tablist">
           {SCENARIOS.map((s) => (
             <button
               key={s.id}
               role="tab"
               aria-selected={activeScenario.id === s.id}
               onClick={() => setActiveScenario(s)}
-              className={`rounded px-5 py-3 text-base font-semibold transition-colors cursor-pointer ${
+              className={`rounded px-5 py-3 text-base font-semibold text-left transition-colors cursor-pointer ${
                 activeScenario.id === s.id
                   ? "bg-[#FF5A00] text-[#2E2E2E]"
                   : "bg-[#F7E0D4] text-[#2E2E2E] hover:bg-[#D4D4D4]"

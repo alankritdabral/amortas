@@ -23,7 +23,7 @@ export function ProductHero({ title, body, cta, image, imageAlt = "", points = [
         <h1 className="hero-title text-[clamp(36px,10vw,44px)] sm:text-5xl lg:text-[56px] leading-[1.02] tracking-[-0.04em] font-medium max-w-2xl">
           {title}
         </h1>
-        <p className="hero-description mt-6 text-base sm:text-lg lg:text-xl leading-[1.5] text-[#FFD2B8] max-w-xl">{body}</p>
+        <p className="hero-description mt-6 text-base sm:text-lg lg:text-xl leading-[1.5] text-[#1A1A1A] max-w-xl">{body}</p>
         <a
           href={href}
           data-analytics-cta={`hero_${cta.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")}`}
@@ -32,7 +32,7 @@ export function ProductHero({ title, body, cta, image, imageAlt = "", points = [
         >
           {cta} <ArrowRight className="w-5 h-5" />
         </a>
-        <ul className="mt-10 space-y-2 text-base sm:text-lg text-[#FFD2B8]">
+        <ul className="mt-10 space-y-2 text-base sm:text-lg font-medium text-[#1A1A1A]">
           {points.map((p) => (
             <li key={p}>{p}</li>
           ))}

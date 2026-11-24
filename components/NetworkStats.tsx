@@ -320,7 +320,7 @@ export function NetworkStats() {
                 onMouseEnter={() => setHovered(i)}
                 onFocus={() => setHovered(i)}
                 onBlur={() => setHovered(null)}
-                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#2E2E2E] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#2E2E2E] max-lg:bg-[#2E2E2E]/[0.05]" : "text-[#A3A3A3] hover:text-[#737373]"}`}
+                className={`group flex flex-col items-center gap-2 px-4 py-8 md:py-10 text-center cursor-pointer transition-colors duration-300 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#2E2E2E] max-lg:border-[#FFD2B8] ${i % 2 === 0 ? "max-lg:border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} ${isActive ? "text-[#2E2E2E] max-lg:bg-[#2E2E2E]/[0.05]" : "max-lg:text-[#5F5F5F] lg:text-[#A3A3A3] lg:hover:text-[#737373]"}`}
               >
                 <span className="text-[34px] md:text-[48px] leading-none tracking-[-0.03em] font-medium tabular-nums">
                   <AnimatedNumber

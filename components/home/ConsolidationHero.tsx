@@ -109,7 +109,7 @@ export function ConsolidationHero() {
         <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,1fr)_448px] xl:gap-6">
           {/* ── Left: the promise ── */}
           <div className="order-1 min-w-0 pt-3 xl:pl-2 xl:pt-[13px]">
-            <p className="inline-flex h-9 items-center gap-2.5 rounded-full bg-[#FDE5D5] px-[18px] text-[14px] font-[500] text-[#B03F0C] sm:text-[15.5px]">
+            <p className="inline-flex min-h-9 items-center gap-2.5 rounded-2xl sm:rounded-full bg-[#FDE5D5] px-[18px] py-1.5 text-[13.5px] leading-tight font-[500] text-[#B03F0C] sm:text-[15.5px]">
               <Image src="/hero/icons/shield.png" alt="" width={22} height={22} className="h-[22px] w-[22px]" {...ICON} />
               Debt Consolidation for Salaried Professionals
             </p>
@@ -137,7 +137,7 @@ export function ConsolidationHero() {
               {FEATURES.map(({ icon, text }, i) => (
                 <li
                   key={icon}
-                  className={`flex items-center gap-2.5 sm:gap-3 ${i > 0 ? "border-l border-[#F1D9C8] pl-3 sm:pl-4" : "pr-2"}`}
+                  className={`flex flex-col items-center text-center sm:flex-row sm:text-left gap-1.5 sm:gap-3 ${i > 0 ? "border-l border-[#F1D9C8] px-1 sm:pl-4 sm:pr-0" : "px-1 sm:pl-0 sm:pr-2"}`}
                 >
                   <Image src={icon} alt="" width={48} height={48} className="h-10 w-10 shrink-0 sm:h-12 sm:w-12" {...ICON} />
                   <span className="text-[13px] font-[500] leading-tight text-[#1F1F1F] sm:whitespace-nowrap sm:text-[15px]">
