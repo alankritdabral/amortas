@@ -747,7 +747,7 @@ export function EligibilityForm() {
     <div id="check-eligibility" className="w-full max-w-[1220px] mx-auto flex flex-col justify-center h-full">
       <div className={step === 1 ? "grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-10 lg:gap-16 items-start" : ""}>
         {step === 1 ? (
-          <div className="bg-[#FFDA00] text-[#1A1A1A] p-8 md:p-12 lg:sticky lg:top-28">
+          <div className="bg-[#F7E0D4] text-[#1A1A1A] p-8 md:p-12 lg:sticky lg:top-28">
             <h2 className="text-3xl sm:text-4xl leading-[1.15] tracking-tight font-semibold">
               See what you could save, in about two minutes.
             </h2>

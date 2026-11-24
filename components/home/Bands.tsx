@@ -5,7 +5,7 @@ import { WhatsAppChatLink } from "@/components/WhatsAppChatLink";
 /** Big yellow call-to-action band that closes the page above the black footer. */
 export function CtaBand() {
   return (
-    <section className="w-full bg-[#FFDA00] text-[#1A1A1A] border-t-2 border-[#1A1A1A]">
+    <section className="w-full bg-[#F7E0D4] text-[#1A1A1A] border-t-2 border-[#1A1A1A]">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
         <h2 className="text-[44px] sm:text-[64px] lg:text-[88px] leading-[0.95] font-extrabold tracking-[-0.05em] max-w-3xl">
           Ready to pay less on your EMIs?

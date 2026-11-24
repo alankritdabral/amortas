@@ -45,7 +45,7 @@ export const loanCategories = [
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-auto pt-4 text-center">
+        <p className="text-[11px] text-slate-600 mt-auto pt-4 text-center">
           Illustrative example. Actual eligibility and rates vary.
         </p>
       </div>
@@ -91,7 +91,7 @@ export const loanCategories = [
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-auto text-center">
+        <p className="text-[11px] text-slate-600 mt-auto text-center">
           Illustrative EMI difference. Example for visualization purposes only.
         </p>
       </div>
@@ -124,7 +124,7 @@ export const loanCategories = [
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-auto text-center">
+        <p className="text-[11px] text-slate-600 mt-auto text-center">
           *Illustrative example. Actual terms depend on eligibility.
         </p>
       </div>
@@ -164,7 +164,7 @@ export const loanCategories = [
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-auto text-center">
+        <p className="text-[11px] text-slate-600 mt-auto text-center">
           *Illustrative example. Actual rates and EMI may vary.
         </p>
       </div>
@@ -204,7 +204,7 @@ export const loanCategories = [
           <p className="font-bold text-[#2E2E2E] text-2xl">9.99%*</p>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-auto pt-4 text-center">
+        <p className="text-[11px] text-slate-600 mt-auto pt-4 text-center">
           *Indicative rate. Subject to eligibility.
         </p>
       </div>

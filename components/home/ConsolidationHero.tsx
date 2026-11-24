@@ -26,7 +26,7 @@ const FEATURES = [
   { icon: "/hero/icons/feat-bolt.png", text: ["Quick &", "digital process"] },
 ];
 
-// 13 lenders in lib/lenderEngine.ts's LENDERS table: 6 shown, 7 more. Images and widths follow the design.
+// 13 lenders in lib/lenderEngine.ts's LENDERS table: all 13 shown in the slider. Images and widths follow the design.
 const LOGOS = [
   { src: "/hero/logos/axis.png", alt: "Axis Bank", w: 172, iw: 124, ih: 40 },
   { src: "/hero/logos/hdfc.png", alt: "HDFC Bank", w: 192, iw: 150, ih: 40 },
@@ -34,6 +34,13 @@ const LOGOS = [
   { src: "/hero/logos/lt.png", alt: "L&T Finance", w: 180, iw: 140, ih: 40 },
   { src: "/hero/logos/smfg.png", alt: "SMFG India Credit", w: 152, iw: 108, ih: 40 },
   { src: "/hero/logos/kotak.png", alt: "Kotak Mahindra Bank", w: 163, iw: 156, ih: 44 },
+  { src: "/logos/ICICI.png", alt: "ICICI Bank", w: 170, iw: 150, ih: 30 },
+  { src: "/logos/AXISFINANCE.svg", alt: "Axis Finance", w: 172, iw: 130, ih: 33 },
+  { src: "/hero/logos/abfl.svg", alt: "Aditya Birla Finance", w: 172, iw: 130, ih: 30 },
+  { src: "/hero/logos/chola.svg", alt: "Chola", w: 150, iw: 80, ih: 30 },
+  { src: "/hero/logos/indusind.svg", alt: "IndusInd Bank", w: 180, iw: 140, ih: 15 },
+  { src: "/hero/logos/piramal.png", alt: "Piramal Finance", w: 150, iw: 80, ih: 37 },
+  { src: "/hero/logos/poonawalla.svg", alt: "Poonawalla Fincorp", w: 172, iw: 130, ih: 31 },
 ];
 
 const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
@@ -237,14 +244,26 @@ export function ConsolidationHero() {
             </p>
             <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-l from-transparent to-[#F2A06E] xl:block" />
           </div>
-          <ul className="mx-auto mt-[22px] grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 xl:flex xl:justify-center xl:gap-[22px]">
-            {LOGOS.map((l) => (
-              <li key={l.alt} className={`${LOGO_CARD} xl:w-[var(--w)]`} style={{ ["--w" as string]: `${l.w}px` }}>
-                <Image src={l.src} alt={l.alt} width={l.iw} height={l.ih} className="h-auto max-w-full" {...ICON} />
-              </li>
-            ))}
-            <li className={`${LOGO_CARD} text-[16px] font-[500] text-[#141414] xl:w-[132px] xl:text-[18px]`}>+ 7 more</li>
-          </ul>
+          <div
+            className="mt-[22px] overflow-hidden py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]"
+            aria-label="Partner lenders"
+          >
+            <ul className="animate-marquee flex w-max items-center hover:[animation-play-state:paused]">
+              {[0, 1].flatMap((copy) => [
+                ...LOGOS.map((l) => (
+                  <li
+                    key={`${copy}-${l.alt}`}
+                    aria-hidden={copy === 1}
+                    className="shrink-0 pr-3 xl:pr-[22px]"
+                  >
+                    <div className={`${LOGO_CARD} w-[140px] xl:w-[var(--w)]`} style={{ ["--w" as string]: `${l.w}px` }}>
+                      <Image src={l.src} alt={copy === 1 ? "" : l.alt} width={l.iw} height={l.ih} className="h-auto max-w-full" {...ICON} />
+                    </div>
+                  </li>
+                )),
+              ])}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

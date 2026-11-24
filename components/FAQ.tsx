@@ -23,7 +23,7 @@ export function FAQ() {
             These are the questions people ask us before anything else. We&apos;ve answered them
             straight.
           </p>
-          <div className="mt-8 max-w-sm bg-[#2E2E2E] text-white p-6 rounded-xl border-2 border-[#2E2E2E] shadow-[6px_6px_0_0_#FFDA00]">
+          <div className="mt-8 max-w-sm bg-[#2E2E2E] text-white p-6 rounded-xl border-2 border-[#2E2E2E] shadow-[6px_6px_0_0_#F7E0D4]">
             <p className="text-xl font-extrabold tracking-[-0.02em]">Still have a question?</p>
             <p className="mt-2 text-base text-[#D4D4D4]">Talk to a credit specialist. It&apos;s free, and there&apos;s no pressure.</p>
             <a href={`tel:${contact.whatsapp.replace(/[^+0-9]/g, "")}`} className="mt-4 inline-flex items-center h-11 px-5 bg-[#FF5A00] text-[#2E2E2E] font-bold rounded">

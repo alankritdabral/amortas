@@ -24,7 +24,7 @@
   --success-green: #10B981;
   --warning-lemon: #F59E0B;
   --error-ruby: #EF4444;
-  --magenta-midpoint: #FFDA00;
+  --magenta-midpoint: #F7E0D4;
   
   /* Shadows */
   --shadow-level-1: 2px 2px 0 0 #2E2E2E;
@@ -165,7 +165,7 @@ body {
 }
 
 .text-gradient-gold {
-  color: #FFDA00;
+  color: #F7E0D4;
 }
 
 .shimmer-btn {
@@ -434,7 +434,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 
 /* ── Bold Tangerine Studio ── */
-::selection { background: #FFDA00; color: #1A1A1A; }
+::selection { background: #F7E0D4; color: #1A1A1A; }
 h1, h2, h3 { text-wrap: balance; }
 .orange-marquee { background: #FF5A00; color: #fff; border-block: 2px solid #2E2E2E; }
 .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #2E2E2E; }

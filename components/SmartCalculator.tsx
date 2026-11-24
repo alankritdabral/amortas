@@ -94,7 +94,7 @@ export function SmartCalculator() {
   return (
     <div id="calculator" className="w-full grid grid-cols-1 lg:grid-cols-[5fr_7fr] text-[#2E2E2E]">
       {/* Left: the human part */}
-      <div className="bg-[#FFDA00] text-[#1A1A1A] px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 py-14 md:py-20">
+      <div className="bg-[#F7E0D4] text-[#1A1A1A] px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 py-14 md:py-20">
         <h2 className="text-[40px] sm:text-[56px] lg:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">
           What would your EMI look like?
         </h2>

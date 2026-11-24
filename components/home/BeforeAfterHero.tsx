@@ -53,7 +53,7 @@ export function BeforeAfterHero() {
           <h1 className="hero-title text-[48px] font-bold leading-[0.98] tracking-[-0.045em] text-[#1A1A1A] sm:text-[64px] lg:text-[80px]">
             Your month,
             <br />
-            <span className="-ml-2 bg-[#FFDA00] px-2 sm:-ml-2.5 sm:px-2.5">simplified.</span>
+            <span className="-ml-2 bg-[#F7E0D4] px-2 sm:-ml-2.5 sm:px-2.5">simplified.</span>
           </h1>
           <p className="hero-description mt-6 max-w-[460px] text-[17px] leading-[1.5] text-[#575757] sm:mt-7 sm:text-xl">
             Flip the switch to see the same loans as one EMI and one due date.
@@ -139,7 +139,7 @@ export function BeforeAfterHero() {
               </>
             ) : (
               <>
-                <div className="mt-4 flex items-center gap-3.5 rounded border-2 border-[#1A1A1A] bg-[#FFDA00] px-3.5 py-4 text-[#1A1A1A] sm:py-[18px]">
+                <div className="mt-4 flex items-center gap-3.5 rounded border-2 border-[#1A1A1A] bg-[#F7E0D4] px-3.5 py-4 text-[#1A1A1A] sm:py-[18px]">
                   <span className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded bg-[#1A1A1A] text-lg font-bold text-white sm:h-[60px] sm:w-[60px] sm:text-xl">
                     5th
                   </span>

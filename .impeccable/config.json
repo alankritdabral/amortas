@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-24T10:56:46.686Z",
+        "reason": "Site already loads Inter via next/font in app/layout.tsx; mock mirrors the existing brand font, not a new choice"
+      }
+    ]
+  }
+}

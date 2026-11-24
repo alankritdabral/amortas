@@ -27,7 +27,7 @@ export function HowTimeline() {
                 <div className="flex flex-col items-center">
                   <span
                     className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#1A1A1A] text-[19px] font-bold sm:h-[52px] sm:w-[52px] sm:text-[22px] ${
-                      last ? "bg-[#FFDA00] text-[#1A1A1A]" : "bg-[#2E2E2E] text-white"
+                      last ? "bg-[#F7E0D4] text-[#1A1A1A]" : "bg-[#2E2E2E] text-white"
                     }`}
                   >
                     {i + 1}

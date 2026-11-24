@@ -22,7 +22,7 @@ type Menu = {
 
 const G1 = "linear-gradient(90deg,#2E2E2E,#FFD2B8 55%,#ffd24d)";
 const G2 = "linear-gradient(90deg,#2E2E2E,#FFD2B8 55%,#ffd24d)";
-const G3 = "linear-gradient(90deg,#2E2E2E,#FFDA00 60%,#ff6fb5)";
+const G3 = "linear-gradient(90deg,#2E2E2E,#F7E0D4 60%,#ff6fb5)";
 
 const promoAssessment = {
   img: "/img/multipleloans.webp",
