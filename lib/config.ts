@@ -13,7 +13,7 @@ export const contact = {
   // Pre-filled text for the "Chat on WhatsApp" buttons. The employee numbers come from the
   // backend (lead_employees) via /whatsapp-chat.
   whatsappMessage: "Hi, I would like help with my loans.",
-  email: "info@creditexpertindia.com",
+  email: "info@amortas.com",
   addresses: [
     {
       city: "Dehradun",
@@ -28,7 +28,7 @@ export const contact = {
       fullAddress: "Balaji Dwar, Adarsh Colonial Road, Rudrapur, near SBI Bank ATM Rudrapur Uttarakhand 263153"
     }
   ],
-  legalName: "Credit Expert India",
+  legalName: "Amortas",
 } as const;
 
 export const lendingPartners = {
@@ -49,7 +49,7 @@ export const siteConfig = {
   name: "Amortas",
   tagline: "Paying Too Much Interest on Your Loans? Let's Find a Better Way Forward.",
   // Must match the primary domain in Vercel (Project → Settings → Domains).
-  // Vercel 308-redirects the apex (creditexpertindia.com) to www, so canonicals,
+  // Vercel 308-redirects the apex (amortas.com) to www, so canonicals,
   // og:url, sitemap <loc> and the robots Sitemap: line must all use www.
-  url: "https://www.creditexpertindia.com",
+  url: "https://www.amortas.com",
 };

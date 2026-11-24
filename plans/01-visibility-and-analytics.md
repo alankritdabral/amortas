@@ -9,7 +9,7 @@
 
 ## Primary goal
 
-1. More salaried borrowers find creditexpertindia.com through Google and Bing when they search for loan and debt help.
+1. More salaried borrowers find amortas.com through Google and Bing when they search for loan and debt help.
 2. For every visit and every lead, the team can see:
    - where the person came from,
    - what they did on each page and calculator,
@@ -188,11 +188,11 @@
 ### What to implement
 
 1. **Ship the domain fix.**
-   - `lib/config.ts:45-52` now uses `https://www.creditexpertindia.com`. It was verified locally with `next dev`: robots, sitemap, canonical and `og:url` all use `www`.
+   - `lib/config.ts:45-52` now uses `https://www.amortas.com`. It was verified locally with `next dev`: robots, sitemap, canonical and `og:url` all use `www`.
    - Commit it together with the `AGENTS.md` and `CLAUDE.md` that `next dev` generates (it recreates them on every run, per `02-guides/ai-agents.md` L63).
 2. **Search Console** (owner action).
-   - Add a **Domain** property for `creditexpertindia.com` and verify it with the DNS TXT record at GoDaddy. Keep the record permanently.
-   - Submit `https://www.creditexpertindia.com/sitemap.xml`.
+   - Add a **Domain** property for `amortas.com` and verify it with the DNS TXT record at GoDaddy. Keep the record permanently.
+   - Submit `https://www.amortas.com/sitemap.xml`.
    - Export a baseline into `docs/seo/baseline-2026-11.md`: Performance (last 3 months: queries, pages, clicks, impressions, CTR, position), the Page indexing counts by reason, and the Core Web Vitals status.
 3. **Bing Webmaster Tools** (owner action). Use "Import from Google Search Console" and submit the same sitemap.
 4. **Rewrite the sitemap** (`app/sitemap.ts`), following `sitemap.md` L46-71:
@@ -205,7 +205,7 @@
    - Remove `/admin/`, since no such route exists. Keep `/api/`.
 6. **Titles and descriptions** (each `app/**/page.tsx` and `content/articles.ts`):
    - Homepage: an explicit `title: { absolute: "…" }` of 60 characters or fewer, and a description of 155 or fewer.
-   - Every page: title of 60 characters or fewer including the 22-character `" | Credit Expert India"` template. Use `title.absolute` where the template would push it over.
+   - Every page: title of 60 characters or fewer including the 22-character `" | Amortas"` template. Use `title.absolute` where the template would push it over.
    - Every page: a description of 70–155 characters that says what the page does.
    - Fix `/how-it-works`: the description says "5-step" but the page shows 4 steps.
    - Write real descriptions for the three legal pages.
@@ -220,9 +220,9 @@
 
 ### Verification checklist
 
-- [ ] `curl -s https://www.creditexpertindia.com/robots.txt` shows `Sitemap: https://www.creditexpertindia.com/sitemap.xml`, and no `utm_` rule.
+- [ ] `curl -s https://www.amortas.com/robots.txt` shows `Sitemap: https://www.amortas.com/sitemap.xml`, and no `utm_` rule.
 - [ ] The sitemap has 39 `<loc>` entries (minus any `noindex` pages), all starting `https://www.`, with no `<priority>` or `<changefreq>`. `<lastmod>` appears only where a real date exists.
-- [ ] Every page's `<link rel="canonical">` starts with `https://www.creditexpertindia.com`. Check by script over the sitemap URLs.
+- [ ] Every page's `<link rel="canonical">` starts with `https://www.amortas.com`. Check by script over the sitemap URLs.
 - [ ] A title and description length check passes: write a jest test that imports every page's `metadata` and asserts the limits.
 - [ ] Search Console: the property is verified, the sitemap shows "Success", and the baseline file is committed.
 
@@ -230,7 +230,7 @@
 
 - Don't stamp `new Date()` on every URL.
 - Don't verify the Domain property with an HTML tag (impossible for Domain properties).
-- Don't keep the bare domain in any absolute URL (`grep -rn "https://creditexpertindia.com" app lib components content` should return nothing).
+- Don't keep the bare domain in any absolute URL (`grep -rn "https://amortas.com" app lib components content` should return nothing).
 
 ---
 
@@ -268,7 +268,7 @@
    - The ID comes from `NEXT_PUBLIC_GA_ID`, with `G-VNY6TW0ZW0` as the fallback.
    - Why this order: every command, including events fired before the library loads, waits in `dataLayer` behind the consent default and `config`.
 5. **Lead-form consent rework.** The legal text must be reviewed by counsel.
-   - **EligibilityForm** (`components/EligibilityForm.tsx:613-621`): separate, unticked, required checkboxes for (a) fetching my credit report from the bureau and (b) Credit Expert India contacting me about this enquiry. Add an **optional** checkbox (c) to share my details with the partner lenders listed at `/partner-disclosures` (RBI DL para 12(iv)), plus an 18+ declaration.
+   - **EligibilityForm** (`components/EligibilityForm.tsx:613-621`): separate, unticked, required checkboxes for (a) fetching my credit report from the bureau and (b) Amortas contacting me about this enquiry. Add an **optional** checkbox (c) to share my details with the partner lenders listed at `/partner-disclosures` (RBI DL para 12(iv)), plus an 18+ declaration.
    - **ContactForm** (`components/ContactForm.tsx:259-266`) and the **DebtConsolidationCalculator lead modal** (`components/DebtConsolidationCalculator.tsx:653-658`): the same structure.
    - **Fix the calculator modal's pre-ticked consent:** it defaults to `true` at L55-61 and isn't validated. Default it to `false` and validate it.
    - **Server side:** `app/api/contact/route.ts:21-52` and `app/api/calculator-lead/route.ts:20-68` must reject a submission when a required consent is missing (they currently store `!!consent`). They should store `consent: { items: {...}, noticeVersion, formTextVersion, at: serverTimestamp }`.
@@ -633,7 +633,7 @@
 7. **Alt text.**
    - Decorative backgrounds get `alt=""`: the homepage hero (`app/page.tsx:31-38`, currently "Hero Background") and the `EligibleLoansSlider` backgrounds (`index.tsx:118-124`, currently "Background").
    - `ProductHero` gets an `imageAlt` prop with a short real description per page.
-   - The Navbar logo alt becomes "Credit Expert India" (`Navbar.tsx:390-397`).
+   - The Navbar logo alt becomes "Amortas" (`Navbar.tsx:390-397`).
 
 ### Documentation references
 
@@ -785,7 +785,7 @@
    - `grep -rn "lazyOnload" app | grep -i gtag`
    - `grep -rn "onFID\|useReportWebVitals\|event_label\|non_interaction" app components lib`
    - `grep -rn "debug_mode: *false\|consentV2()\|data-clarity-unmask" app components lib`
-   - `grep -rn "https://creditexpertindia.com" app lib components content`
+   - `grep -rn "https://amortas.com" app lib components content`
    - `grep -rn "changeFrequency\|priority:" app/sitemap.ts`
    - `grep -rn "'page_view'" components lib` (except the documented fallback)
 3. **Tests.** Run `npm test` (PII guard, attribution, content groups, consent, metadata lengths), `npm run lint` and `npm run build`. All must pass.

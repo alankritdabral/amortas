@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
         </h1>
         <div className="prose prose-slate max-w-none">
           <p>
-            At Amortas, accessible from creditexpertindia.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Amortas and how we use it.
+            At Amortas, accessible from amortas.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Amortas and how we use it.
           </p>
           <p>
             If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.

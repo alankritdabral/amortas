@@ -101,7 +101,7 @@ export async function POST(request: Request) {
     try {
       if (process.env.RESEND_API_KEY) {
         await resend.emails.send({
-          from: "alankrit.dabral@creditexpertindia.com",
+          from: "alankrit.dabral@amortas.com",
           to: ["btyagi419@gmail.com"],
           subject: `🔥 High-Intent Calculator Lead: ${name} (Debt: ₹${totalDebt?.toLocaleString('en-IN')})`,
           html: `

@@ -18,7 +18,7 @@ export default function TermsAndConditionsPage() {
         <div className="prose prose-slate max-w-none">
           <p>Welcome to Amortas!</p>
           <p>
-            These terms and conditions outline the rules and regulations for the use of Amortas's Website, located at creditexpertindia.com.
+            These terms and conditions outline the rules and regulations for the use of Amortas's Website, located at amortas.com.
           </p>
           <p>
             By accessing this website we assume you accept these terms and conditions. Do not continue to use Amortas if you do not agree to take all of the terms and conditions stated on this page.
