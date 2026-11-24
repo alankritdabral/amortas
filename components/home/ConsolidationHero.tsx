@@ -67,10 +67,10 @@ export function ConsolidationHero() {
 
   return (
     <section className="relative z-[25] w-full overflow-hidden bg-gradient-to-b from-[#FFF4EC] via-[#FFF9F5] to-[#FFFDFB] pt-[88px] xl:pt-[98px]">
-      <div className="relative mx-auto max-w-[1358px] px-4 sm:px-6 lg:px-8 xl:px-0">
+      <div className="relative mx-auto max-w-[1358px] px-4 pb-10 sm:px-6 lg:px-8 xl:px-0 xl:pb-0">
         <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,1fr)_448px] xl:gap-6">
           {/* ── Left: the promise ── */}
-          <div className="min-w-0 pt-3 xl:pl-2 xl:pt-[13px]">
+          <div className="order-1 min-w-0 pt-3 xl:pl-2 xl:pt-[13px]">
             <p className="inline-flex h-9 items-center gap-2.5 rounded-full bg-[#FDE5D5] px-[18px] text-[14px] font-[500] text-[#B03F0C] sm:text-[15.5px]">
               <Image src="/hero/icons/shield.png" alt="" width={22} height={22} className="h-[22px] w-[22px]" {...ICON} />
               Debt Consolidation for Salaried Professionals
@@ -141,7 +141,7 @@ export function ConsolidationHero() {
           </div>
 
           {/* ── Right: the EMI card, with the phone artwork behind it ── */}
-          <div className="relative min-w-0">
+          <div className="relative order-3 min-w-0 xl:order-2">
             {/* Artwork cut from the design: orange band, phone, pedestal. Sits behind the card. */}
             <div
               aria-hidden="true"
@@ -233,11 +233,10 @@ export function ConsolidationHero() {
               </Link>
             </div>
           </div>
-        </div>
 
         {/* ── Lender strip ── */}
-        <div className="pb-10 pt-12 xl:pt-[44px]">
-          <div className="flex items-center justify-center gap-4 xl:gap-[26px]">
+        <div className="order-2 min-w-0 xl:order-3 xl:col-span-2 xl:pb-10 xl:pt-[44px]">
+          <div className="hidden items-center justify-center gap-4 sm:flex xl:gap-[26px]">
             <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-r from-transparent to-[#F2A06E] xl:block" />
             <p className="text-center text-[17px] font-[500] text-[#141414] sm:text-[20px]">
               13 partner banks and NBFCs compared in one place
@@ -245,10 +244,10 @@ export function ConsolidationHero() {
             <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-l from-transparent to-[#F2A06E] xl:block" />
           </div>
           <div
-            className="mt-[22px] overflow-hidden py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]"
+            className="lender-strip mt-[22px] py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]"
             aria-label="Partner lenders"
           >
-            <ul className="animate-marquee flex w-max items-center hover:[animation-play-state:paused]">
+            <ul className="lender-track animate-marquee flex w-max items-center hover:[animation-play-state:paused]">
               {[0, 1].flatMap((copy) => [
                 ...LOGOS.map((l) => (
                   <li
@@ -265,6 +264,8 @@ export function ConsolidationHero() {
             </ul>
           </div>
         </div>
+        </div>
+
       </div>
     </section>
   );
