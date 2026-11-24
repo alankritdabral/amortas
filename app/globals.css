@@ -223,7 +223,8 @@ body {
   100% { transform: translate3d(-50%, 0, 0); }
 }
 
-.lender-strip { overflow: hidden; }
+.lender-strip { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.lender-strip::-webkit-scrollbar { display: none; }
 
 .animate-marquee {
   animation: marquee 40s linear infinite;
@@ -402,9 +403,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 @media (prefers-reduced-motion: reduce) {
   .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
   .animate-marquee, .animate-pulse-glow { animation: none; }
-  /* Motion off (common on phones): let people swipe the lender strip instead of freezing it. */
-  .lender-strip { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  .lender-strip::-webkit-scrollbar { display: none; }
 }
 
 /* Backdrop blur is expensive on weak GPUs */

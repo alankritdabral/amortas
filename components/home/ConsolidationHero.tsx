@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, Check, X } from "lucide-react";
@@ -53,7 +53,45 @@ const LOGO_CARD =
 
 const ICON = { unoptimized: true } as const;
 
+/** Auto-scrolling, swipeable, looping strip. Pauses while touched/hovered; no auto-motion if reduced motion is on. */
+function useAutoScroll(ref: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let paused = false;
+    let resume: ReturnType<typeof setTimeout> | undefined;
+    let raf = 0;
+    let last = performance.now();
+    let pos = el.scrollLeft;
+    const pause = () => { paused = true; clearTimeout(resume); };
+    const later = () => { clearTimeout(resume); resume = setTimeout(() => { pos = el.scrollLeft; paused = false; }, 1800); };
+    const tick = (now: number) => {
+      const dt = now - last;
+      last = now;
+      const half = el.scrollWidth / 2;
+      if (!paused && !reduce && half > 0) {
+        pos += (dt * 45) / 1000;
+        if (pos >= half) pos -= half;
+        el.scrollLeft = pos;
+      } else if (half > 0 && el.scrollLeft >= half) {
+        el.scrollLeft -= half;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    el.addEventListener("pointerenter", pause);
+    el.addEventListener("pointerleave", later);
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("touchend", later, { passive: true });
+    el.addEventListener("wheel", () => { pause(); later(); }, { passive: true });
+    return () => { cancelAnimationFrame(raf); clearTimeout(resume); };
+  }, [ref]);
+}
+
 export function ConsolidationHero() {
+  const stripRef = useRef<HTMLDivElement>(null);
+  useAutoScroll(stripRef);
   const [removed, setRemoved] = useState<string[]>([]);
   const active = LOANS.filter((l) => !removed.includes(l.id));
   const total = active.reduce((s, l) => s + l.amount, 0);
@@ -113,7 +151,7 @@ export function ConsolidationHero() {
 
             <div className="mt-[26px] flex flex-col gap-3 sm:flex-row sm:gap-[22px] xl:mt-[33px] xl:-ml-[11px]">
               <Link
-                href="#check-eligibility"
+                href="#lead-form"
                 data-analytics-cta="hero_check_eligibility"
                 data-analytics-location="hero"
                 className={`${ORANGE_BTN} h-[58px] px-7 text-[20px]`}
@@ -244,10 +282,11 @@ export function ConsolidationHero() {
             <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-l from-transparent to-[#F2A06E] xl:block" />
           </div>
           <div
+            ref={stripRef}
             className="lender-strip mt-[22px] py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]"
             aria-label="Partner lenders"
           >
-            <ul className="lender-track animate-marquee flex w-max items-center hover:[animation-play-state:paused]">
+            <ul className="flex w-max items-center">
               {[0, 1].flatMap((copy) => [
                 ...LOGOS.map((l) => (
                   <li

@@ -12,7 +12,7 @@ export function CtaBand() {
         </h2>
         <div className="flex flex-col sm:flex-row gap-4">
           <Link
-            href="#check-eligibility"
+            href="#lead-form"
             data-analytics-cta="cta_band_check_eligibility"
             data-analytics-location="cta_band"
             className="inline-flex items-center justify-center gap-2 h-[60px] px-7 bg-[#FF5A00] text-[#1A1A1A] text-lg font-bold rounded border-2 border-[#1A1A1A] shadow-[4px_4px_0_0_#1A1A1A] hover:bg-[#E04F00] transition-colors"

@@ -67,7 +67,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 4: Calculator */}
-      <section className="w-full">
+      <section id="calculator" className="w-full">
         <AnimatedSection>
           <SmartCalculator />
         </AnimatedSection>

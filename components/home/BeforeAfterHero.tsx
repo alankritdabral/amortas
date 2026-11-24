@@ -84,7 +84,7 @@ export function BeforeAfterHero() {
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
             <Link
-              href="#check-eligibility"
+              href="#lead-form"
               data-analytics-cta="hero_check_eligibility"
               data-analytics-location="hero"
               className="inline-flex h-[58px] items-center justify-center gap-2.5 rounded border-2 border-[#1A1A1A] bg-[#FF5A00] px-6 text-lg font-bold text-[#1A1A1A] shadow-[4px_4px_0_0_#1A1A1A] transition-colors hover:bg-[#E04F00]"
