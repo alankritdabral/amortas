@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { HeroGridBlock, HeroLogos } from "@/components/HeroGridBlock";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { LoanSolutionsSection } from "@/components/LoanSolutionsSection";
+import { CtaBand } from "@/components/home/Bands";
+import { ConsolidationHero } from "@/components/home/ConsolidationHero";
+import { ChangesSection } from "@/components/home/ChangesSection";
+import { HowTimeline } from "@/components/home/HowTimeline";
 import { SectionRules, SectionDivider } from "@/components/SectionRules";
 import {
-  HeroVisualBlock,
   SmartCalculator,
   EligibilityForm,
-  HowItWorks,
   ScamProtection,
   FAQ,
   NetworkStats,
@@ -24,39 +24,12 @@ export default function Home() {
   return (
     <SectionRules>
 
-      {/* Row 1: Hero & Visual/Video Block */}
-      <section className="relative w-full overflow-hidden pt-[40px] sm:pt-[76px] min-h-[400px] sm:h-auto sm:min-h-0 flex flex-col">
-        {/* Background Image */}
-        <div className="hero-skyline pointer-events-none">
-          <Image
-            src="/Misty India Skyline with Orbital Arcs.webp"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover object-bottom sm:object-center opacity-80"
-            priority
-          />
-        </div>
+      {/* Row 1: Hero, "Multiple Loans. One EMI." with the EMI card and lender strip */}
+      <ConsolidationHero />
 
-        {/* Navbar / hero separator */}
-        <div className="absolute inset-x-0 top-[60px] lg:top-[76px]">
-          <SectionDivider />
-        </div>
-
-        <div className="relative max-w-[1220px] mx-auto grid grid-cols-1 lg:grid-cols-12 z-10">
-          <div className="lg:col-span-6">
-            <HeroGridBlock />
-          </div>
-          <div className="hidden lg:block lg:col-span-6 relative">
-            <HeroVisualBlock />
-          </div>
-        </div>
-        
-        {/* Full width logos - Inside hero section to overlay on the background image */}
-        <div className="relative z-20 mt-auto">
-          <HeroLogos />
-        </div>
-      </section>
+      <SectionDivider />
+      {/* Row 1.2: What changes, what does not */}
+      <ChangesSection />
 
       <SectionDivider />
       {/* Row 1.5: Loan Solutions Section (New) */}
@@ -64,7 +37,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 1.6: Contact Form */}
-      <section className="w-full bg-[#EAF3FF] py-16 md:py-24">
+      <section className="w-full bg-[#F7E0D4] py-12 md:py-[72px]">
         <div className="max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <ContactForm />
@@ -75,7 +48,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 2: Eligible Loans Slider (Redesigned) */}
-      <div className="w-full bg-white">
+      <div className="w-full section-tint">
         <EligibleLoansSlider />
       </div>
 
@@ -86,7 +59,7 @@ export default function Home() {
       <SectionDivider />
       {/* Row 3: How it Works & Scam Protection */}
       <AnimatedSection>
-        <HowItWorks />
+        <HowTimeline />
       </AnimatedSection>
       <AnimatedSection>
         <ScamProtection />
@@ -102,8 +75,8 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 5: FAQ */}
-      <section className="w-full bg-white">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section className="w-full section-tint">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
             <FAQ />
           </AnimatedSection>
@@ -112,14 +85,15 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 6: Eligibility Form */}
-      <section id="lead-form" className="w-full bg-[#EAF3FF]">
-        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-24">
+      <section id="lead-form" className="w-full bg-[#F7E0D4]">
+        <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
             <EligibilityForm />
           </AnimatedSection>
         </div>
       </section>
 
+      <CtaBand />
     </SectionRules>
   );
 }

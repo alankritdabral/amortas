@@ -22,7 +22,7 @@ const CreditReportDashboard = dynamic(
     ssr: false,
     loading: () => (
       <div className="flex flex-col items-center justify-center p-12 text-center bg-white rounded-2xl border border-slate-200">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600 mb-3" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#2E2E2E] mb-3" />
         <p className="text-sm font-medium text-slate-700">Loading your report...</p>
       </div>
     ),
@@ -655,11 +655,11 @@ export function EligibilityForm() {
               <div className="flex flex-col gap-4">
                 <div className="relative flex-1">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input type="text" placeholder="First Name" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-blue-energy/30 focus:border-blue-energy outline-none transition-all" />
+                  <input type="text" placeholder="First Name" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all" />
                 </div>
                 <div className="relative flex-1">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input type="text" placeholder="Last Name" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-blue-energy/30 focus:border-blue-energy outline-none transition-all" />
+                  <input type="text" placeholder="Last Name" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all" />
                 </div>
               </div>
               {!formData.bureau.startsWith('crif') && (
@@ -670,14 +670,14 @@ export function EligibilityForm() {
                     placeholder="PAN Number"
                     value={formData.pan}
                     onChange={e => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
-                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-blue-energy/30 focus:border-blue-energy outline-none transition-all uppercase"
+                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all uppercase"
                     maxLength={10}
                   />
                 </div>
               )}
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input type="tel" placeholder="Mobile Number" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-blue-energy/30 focus:border-blue-energy outline-none transition-all" />
+                <input type="tel" placeholder="Mobile Number" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all" />
               </div>
               {(formData.bureau === 'experian' || formData.bureau === 'v1_json') && (
                 <div className="relative">
@@ -686,7 +686,7 @@ export function EligibilityForm() {
                     type="date"
                     value={formData.dob}
                     onChange={e => setFormData({ ...formData, dob: e.target.value })}
-                    className="w-full bg-white border border-icy-blue rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-blue-energy/30 focus:border-blue-energy outline-none transition-all text-sm"
+                    className="w-full bg-white border border-icy-blue rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all text-sm"
                   />
                 </div>
               )}
@@ -696,7 +696,7 @@ export function EligibilityForm() {
                   <select
                     value={formData.gender}
                     onChange={e => setFormData({ ...formData, gender: e.target.value })}
-                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-blue-energy/30 focus:border-blue-energy outline-none text-brand-black transition-all"
+                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none text-brand-black transition-all"
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -710,11 +710,11 @@ export function EligibilityForm() {
                   type="checkbox"
                   checked={formData.consent && formData.consentContact && formData.consentShareWithLenders}
                   onChange={e => setFormData({ ...formData, consent: e.target.checked, consentContact: e.target.checked, consentShareWithLenders: e.target.checked })}
-                  className="w-5 h-5 mt-0.5 text-blue-energy accent-blue-energy shrink-0 rounded"
+                  className="w-5 h-5 mt-0.5 text-[#2E2E2E] accent-[#2E2E2E] shrink-0 rounded"
                 />
                 <span className="text-xs text-brand-black/70 leading-relaxed">
                   <strong>Consent</strong><br />
-                  I confirm I am 21 or older and I consent and authorize Credit Expert India to securely retrieve my credit report from the credit bureau, to contact me about this enquiry, and to share my details with partner lenders (see{" "}
+                  I confirm I am 21 or older and I consent and authorize Amortas to securely retrieve my credit report from the credit bureau, to contact me about this enquiry, and to share my details with partner lenders (see{" "}
                   <Link href="/partner-disclosures" className="underline">partner disclosures</Link>).
                 </span>
               </label>
@@ -747,22 +747,22 @@ export function EligibilityForm() {
     <div id="check-eligibility" className="w-full max-w-[1220px] mx-auto flex flex-col justify-center h-full">
       <div className={step === 1 ? "grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-10 lg:gap-16 items-start" : ""}>
         {step === 1 ? (
-          <div className="bg-primary-hover text-white p-8 md:p-12 lg:sticky lg:top-28">
+          <div className="bg-[#F7E0D4] text-[#1A1A1A] p-8 md:p-12 lg:sticky lg:top-28">
             <h2 className="text-3xl sm:text-4xl leading-[1.15] tracking-tight font-semibold">
               See what you could save, in about two minutes.
             </h2>
-            <p className="mt-5 text-base leading-7 text-white/85">
+            <p className="mt-5 text-base leading-7 text-[#2E2E2E]">
               Tell us a little about yourself. We look at your credit profile the way a lender would,
               so what we tell you is realistic, not a sales pitch.
             </p>
-            <ul className="mt-8 space-y-3 text-base leading-6 text-white">
+            <ul className="mt-8 space-y-3 text-base leading-6 text-[#2E2E2E]">
               {[
                 "We never ask you to pay anything.",
                 "Your details stay with us unless you say otherwise.",
                 "You decide what happens next.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-white/70" aria-hidden />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#1A1A1A]" aria-hidden />
                   <span>{item}</span>
                 </li>
               ))}
@@ -821,7 +821,7 @@ export function EligibilityForm() {
               </button>
 
               {/* Icon */}
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-blue-energy to-sky-500 text-white flex items-center justify-center shadow-lg shadow-blue-energy/25">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#2E2E2E] text-white flex items-center justify-center shadow-lg shadow-black/10">
                 <Shield className="w-8 h-8" />
               </div>
 
@@ -852,8 +852,8 @@ export function EligibilityForm() {
                       onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                       className={`w-14 h-16 sm:w-16 sm:h-18 text-center text-2xl font-black text-slate-900 bg-slate-50 border-2 rounded-2xl outline-none transition-all shadow-inner ${
                         digit
-                          ? "border-blue-energy bg-white ring-2 ring-blue-energy/20"
-                          : "border-slate-200 focus:border-blue-energy focus:bg-white"
+                          ? "border-[#2E2E2E] bg-white ring-2 ring-[#2E2E2E]/20"
+                          : "border-slate-200 focus:border-[#2E2E2E] focus:bg-white"
                       }`}
                     />
                   ))}
@@ -913,7 +913,7 @@ export function EligibilityForm() {
                     type="button"
                     onClick={() => handleRequestOtp(true)}
                     disabled={otpLoading}
-                    className="text-blue-energy hover:text-blue-700 font-bold transition-colors flex items-center gap-1"
+                    className="text-[#2E2E2E] hover:underline font-bold transition-colors flex items-center gap-1"
                   >
                     <RotateCw className="w-3.5 h-3.5" />
                     <span>Resend Code</span>
