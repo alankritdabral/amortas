@@ -10,15 +10,15 @@ export function ScamProtection() {
     <section className="w-full bg-[#252525] text-white">
       <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
         <h2 className="text-[32px] sm:text-[48px] md:text-[56px] leading-[1.02] tracking-[-0.035em] font-bold max-w-4xl">
-          Loan scams are everywhere. So here&apos;s what we will never do:
+          Loan scams are everywhere. So here&apos;s what we will <span className="text-primary-brand">never</span> do:
         </h2>
 
         <ul className="mt-10 md:mt-14">
           {nevers.map((n, i) => (
             <li
               key={n}
-              className={`text-[32px] sm:text-[48px] lg:text-[72px] leading-[1.08] font-bold tracking-[-0.04em] line-through decoration-[2px] md:decoration-[3px] ${
-                i % 2 === 0 ? "text-[#FFD1A3]" : "text-white"
+              className={`text-[32px] sm:text-[48px] lg:text-[72px] leading-[1.08] font-bold tracking-[-0.04em] line-through decoration-primary-brand decoration-[2px] md:decoration-[3px] ${
+                i % 2 === 0 ? "text-primary-brand" : "text-white"
               }`}
             >
               {n}
@@ -26,7 +26,7 @@ export function ScamProtection() {
           ))}
         </ul>
 
-        <div className="mt-12 md:mt-16 max-w-xl bg-white text-[#252525] p-6 md:p-8 rounded-2xl card-elevated">
+        <div className="mt-12 md:mt-16 max-w-xl bg-white text-[#252525] p-6 md:p-8 rounded-2xl card-elevated border-l-8 border-primary-brand">
           <p className="text-lg md:text-xl leading-relaxed font-semibold">
             If anyone using our name asks you to pay to a personal UPI ID, stop and tell us.
           </p>
