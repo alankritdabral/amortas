@@ -2,9 +2,8 @@
 
 import Link from 'next/link';
 import { Logo } from '@/components/Logo';
-import { siteConfig, contact } from '@/lib/config';
+import { siteConfig, contact, company } from '@/lib/config';
 import { MessageCircle, Facebook, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
-import { clearConsent } from '@/lib/consent';
 import { articles } from '@/content/articles';
 
 // Every loan/product and calculator route lives in a footer link so Google
@@ -12,6 +11,8 @@ import { articles } from '@/content/articles';
 // menu (plans/01-visibility-and-analytics.md Phase 8).
 const solutionsLinks = [
   { label: 'Debt Consolidation', href: '/debt-consolidation' },
+  { label: 'Free Credit Score', href: '/free-cibil-score' },
+  { label: 'Free Credit Report', href: '/free-credit-report' },
   { label: 'Personal Loans', href: '/personal-loan' },
   { label: 'Loan Balance Transfer', href: '/loan-balance-transfer' },
   { label: 'Credit Card Debt', href: '/credit-card-debt' },
@@ -33,6 +34,8 @@ const companyLinks = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'Contact us', href: '/contact' },
   { label: 'FAQ', href: '/faq' },
+  { label: 'Learning Center', href: '/learning-center' },
+  { label: 'Loans by city', href: '/loans-by-city' },
 ];
 
 const guideLinks = articles.slice(0, 5).map((a) => ({ label: a.title, href: `/learning-center/${a.slug}` }));
@@ -41,21 +44,31 @@ const legalLinks = [
   { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Terms & Conditions', href: '/terms-and-conditions' },
   { label: 'Partner Disclosures', href: '/partner-disclosures' },
+  { label: 'Disclaimer', href: '/disclaimer' },
+  { label: 'Cookie Policy', href: '/cookie-policy' },
+  { label: 'Grievance Redressal', href: '/grievance-redressal' },
+  { label: 'Delete my data', href: '/delete-account' },
 ];
 
 const socials = [
-  { label: 'Facebook', href: 'https://www.facebook.com/people/Credit-Expert-India/100095328945231/#', Icon: Facebook },
-  { label: 'Instagram', href: 'https://www.instagram.com/creditexpertindia/', Icon: Instagram },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/credit-expert-india/home/', Icon: Linkedin },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61596290447233', Icon: Facebook },
+  { label: 'Instagram', href: 'https://www.instagram.com/amortas__/', Icon: Instagram },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/amortas/', Icon: Linkedin },
 ];
 
 const linkClass = 'text-sm text-[#D4D4D4] hover:text-white transition-colors';
 const headingClass = 'text-xs font-bold uppercase tracking-wider text-white mb-4';
 
 export function Footer() {
+  const entityLine = [
+    company.legalEntityName,
+    company.cin && `CIN: ${company.cin}`,
+    company.gstin && `GSTIN: ${company.gstin}`,
+    company.registeredOffice && `Registered office: ${company.registeredOffice}`,
+  ].filter(Boolean).join(' | ');
 
   return (
-    <footer className="bg-[#2E2E2E] text-[#FAFAFA]">
+    <footer className="bg-[#252525] text-[#FFF9F4]">
       <div className="mx-auto max-w-[1220px] px-4 sm:px-6 lg:px-8">
 
         {/* Talk to an advisor */}
@@ -155,7 +168,7 @@ export function Footer() {
                   <li key={link.href}><Link href={link.href} className={linkClass}>{link.label}</Link></li>
                 ))}
               </ul>
-              <Link href="/learning-center" className="inline-flex items-center mt-3 text-sm font-bold text-[#FFD2B8] hover:text-white transition-colors">
+              <Link href="/learning-center" className="inline-flex items-center mt-3 text-sm font-bold text-[#FFD1A3] hover:text-white transition-colors">
                 Visit the learning center
               </Link>
             </nav>
@@ -168,7 +181,7 @@ export function Footer() {
           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {contact.addresses.map((addr) => (
               <address key={addr.city} className="not-italic flex gap-3.5 p-5 rounded-2xl bg-white/5">
-                <MapPin className="w-5 h-5 mt-0.5 shrink-0 text-[#FFD2B8]" />
+                <MapPin className="w-5 h-5 mt-0.5 shrink-0 text-[#FFD1A3]" />
                 <span className="flex flex-col gap-1.5">
                   <strong className="text-base text-white">{addr.city}</strong>
                   <span className="text-sm leading-relaxed text-[#D4D4D4]">{addr.fullAddress}</span>
@@ -183,6 +196,7 @@ export function Footer() {
           <p className="text-xs leading-relaxed text-[#A3A3A3] max-w-4xl">
             {contact.legalName} is a loan facilitator, not a bank or NBFC. Final loan approval, interest rate and loan terms are determined by the respective lender based on its policies and eligibility criteria. We do not guarantee loan approval or specific rates.
           </p>
+          {entityLine && <p className="text-xs leading-relaxed text-[#A3A3A3] max-w-4xl">{entityLine}</p>}
           <div className="flex flex-wrap items-center justify-between gap-4">
             <p className="text-sm text-[#A3A3A3]">© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
             <nav aria-label="Legal">
@@ -192,11 +206,6 @@ export function Footer() {
                     <Link href={link.href} className="text-[#D4D4D4] hover:text-white transition-colors">{link.label}</Link>
                   </li>
                 ))}
-                <li>
-                  <button type="button" onClick={() => clearConsent()} className="text-[#D4D4D4] hover:text-white transition-colors">
-                    Cookie settings
-                  </button>
-                </li>
               </ul>
             </nav>
           </div>

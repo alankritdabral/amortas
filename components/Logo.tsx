@@ -42,10 +42,10 @@ export function Logo({
       aria-label="Amortas home"
       className={`inline-flex items-center shrink-0 ${lg ? "gap-3" : "gap-2.5"} ${className}`}
     >
-      <LogoMark className={`${lg ? "h-7 sm:h-8 lg:h-[38px]" : "h-7 sm:h-8"} w-auto text-[#FF5A00]`} />
+      <LogoMark className={`${lg ? "h-7 sm:h-8 lg:h-[38px]" : "h-7 sm:h-8"} w-auto text-[#FD6C01]`} />
       <span
         className={`${lg ? "text-[22px] sm:text-2xl lg:text-[31px]" : "text-[22px] sm:text-2xl"} font-extrabold tracking-[-0.04em] leading-none ${
-          variant === "dark" ? "text-white" : "text-[#2E2E2E]"
+          variant === "dark" ? "text-white" : "text-[#252525]"
         }`}
       >
         Amortas

@@ -1,13 +1,50 @@
 import React from "react";
 import { IndianRupee, CreditCard, Smartphone, Banknote, Landmark, ArrowDown } from "lucide-react";
 
+
+export type FundingLender = { id: string; name: string; kind: "Private bank" | "NBFC" };
+
+/**
+ * Partner private banks and NBFCs that fund at least ₹30 lakh (no public sector, payments, small-finance or foreign banks).
+ * Cross-checked against lib/lenderEngine.ts (read only) by __tests__/loan-lender-counts.test.ts.
+ */
+const L = (id: string, name: string, kind: FundingLender["kind"]): FundingLender => ({ id, name, kind });
+const AXIS = L("axis", "Axis Bank", "Private bank");
+const ICICI = L("icici", "ICICI Bank", "Private bank");
+const HDFC = L("hdfc", "HDFC Bank", "Private bank");
+const KOTAK = L("kotak", "Kotak Mahindra Bank", "Private bank");
+const INDUSIND = L("indusind", "IndusInd Bank", "Private bank");
+const ABFL = L("abfl", "Aditya Birla Finance", "NBFC");
+const TATA = L("tatacapital", "Tata Capital", "NBFC");
+const POONAWALLA = L("poonawalla", "Poonawalla Fincorp", "NBFC");
+const CHOLA = L("chola", "Chola", "NBFC");
+const PIRAMAL = L("piramal", "Piramal Finance", "NBFC");
+const AXISFIN = L("axisfinance", "Axis Finance", "NBFC");
+const SMFG = L("smfg", "SMFG India Credit", "NBFC");
+
+const FUNDING: Record<string, FundingLender[]> = {
+  "personal-loan": [AXIS, ICICI, HDFC, KOTAK, INDUSIND, ABFL, TATA, POONAWALLA, CHOLA, PIRAMAL, AXISFIN, SMFG],
+  "credit-card": [AXIS, ABFL, TATA, POONAWALLA, CHOLA, PIRAMAL, AXISFIN, SMFG],
+  "app-loans": [TATA, POONAWALLA, PIRAMAL, AXISFIN, SMFG],
+  "multiple-loans": [AXIS, ICICI, HDFC, KOTAK, INDUSIND, ABFL, TATA, POONAWALLA, CHOLA, PIRAMAL, AXISFIN, SMFG],
+  overdraft: [KOTAK, INDUSIND, ABFL, TATA, POONAWALLA, CHOLA, PIRAMAL],
+};
+
+/** Lenders that can take over every one of the given loan types (the overlap of their funding lists). */
+export const lendersForAll = (ids: readonly string[]): FundingLender[] => {
+  const lists = ids.map((id) => FUNDING[id]).filter(Boolean);
+  if (lists.length === 0) return [];
+  return lists[0].filter((l) => lists.every((list) => list.some((x) => x.id === l.id)));
+};
+
 export const loanCategories = [
   {
     id: "personal-loan",
+    fundingLenders: FUNDING["personal-loan"],
     title: "Personal Loan",
     description: "High-interest personal loans can be refinanced at lower rates.",
-    image: "/img/marraige.webp",
-    icon: <IndianRupee className="w-5 h-5 text-[#2E2E2E]" />,
+    image: "/img/personal-loan-couple-reviewing-offer.webp",
+    icon: <IndianRupee className="w-5 h-5 text-[#252525]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-2">
@@ -30,17 +67,17 @@ export const loanCategories = [
 
         <div className="flex justify-center -my-3 relative z-10">
           <div className="bg-white rounded-full p-1 border border-gray-100 shadow-sm">
-            <ArrowDown className="w-4 h-4 text-[#2E2E2E]" />
+            <ArrowDown className="w-4 h-4 text-[#252525]" />
           </div>
         </div>
 
-        <div className="bg-[#2E2E2E] text-white rounded-xl p-4 shadow-md mt-2 flex justify-between items-center">
+        <div className="bg-[#252525] text-white rounded-xl p-4 shadow-md mt-2 flex justify-between items-center">
           <div>
-            <p className="text-[#FFD2B8] text-xs mb-1">Potential New Rate</p>
+            <p className="text-[#FFD1A3] text-xs mb-1">Potential New Rate</p>
             <p className="font-bold text-lg">9.99% p.a.</p>
           </div>
           <div className="text-right">
-            <p className="text-[#FFD2B8] text-xs mb-1">Potential New EMI</p>
+            <p className="text-[#FFD1A3] text-xs mb-1">Potential New EMI</p>
             <p className="font-bold text-lg">₹12,400</p>
           </div>
         </div>
@@ -53,10 +90,11 @@ export const loanCategories = [
   },
   {
     id: "credit-card",
+    fundingLenders: FUNDING["credit-card"],
     title: "Credit Card Loans",
     description: "Convert high-interest credit card dues into a single, lower-interest EMI.",
-    image: "/img/creditcard.webp",
-    icon: <CreditCard className="w-5 h-5 text-[#2E2E2E]" />,
+    image: "/img/credit-card-debt-repayment.webp",
+    icon: <CreditCard className="w-5 h-5 text-[#252525]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -77,9 +115,9 @@ export const loanCategories = [
           <div className="flex flex-col">
             <div className="flex-1 bg-blue-50 border border-blue-100 rounded-xl p-3 flex flex-col justify-center items-center text-center relative">
                <div className="absolute -left-3 top-1/2 -translate-y-1/2 bg-white rounded-full p-0.5 border border-gray-200 z-10 hidden md:block">
-                  <ArrowDown className="w-4 h-4 text-[#2E2E2E] -rotate-90" />
+                  <ArrowDown className="w-4 h-4 text-[#252525] -rotate-90" />
                </div>
-               <p className="text-xs text-[#2E2E2E] font-medium mb-1">One EMI</p>
+               <p className="text-xs text-[#252525] font-medium mb-1">One EMI</p>
                <p className="font-bold text-slate-900 text-lg">₹12,500</p>
                <p className="text-xs text-slate-600">@ 9.99% p.a.</p>
             </div>
@@ -99,10 +137,11 @@ export const loanCategories = [
   },
   {
     id: "app-loans",
+    fundingLenders: FUNDING["app-loans"],
     title: "App Loans",
     description: "Combine multiple app loans and reduce your total interest outgo.",
-    image: "/img/teenager.webp",
-    icon: <Smartphone className="w-5 h-5 text-[#2E2E2E]" />,
+    image: "/img/young-professional-phone-loans.webp",
+    icon: <Smartphone className="w-5 h-5 text-[#252525]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="flex gap-4 items-center mb-6 px-4">
@@ -118,8 +157,8 @@ export const loanCategories = [
           
           <ArrowDown className="w-5 h-5 text-slate-300 -rotate-90 flex-shrink-0" />
 
-          <div className="flex-1 bg-[#2E2E2E] rounded-xl p-4 text-center text-white shadow-md">
-             <p className="text-xs text-[#FFD2B8] mb-2">One Consolidated EMI</p>
+          <div className="flex-1 bg-[#252525] rounded-xl p-4 text-center text-white shadow-md">
+             <p className="text-xs text-[#FFD1A3] mb-2">One Consolidated EMI</p>
              <p className="font-bold text-xl">₹10,900*</p>
           </div>
         </div>
@@ -132,10 +171,11 @@ export const loanCategories = [
   },
   {
     id: "multiple-loans",
+    fundingLenders: FUNDING["multiple-loans"],
     title: "Multiple Loans",
     description: "Merge multiple EMIs into one simple, affordable EMI.",
-    image: "/img/multipleloans.webp",
-    icon: <Banknote className="w-5 h-5 text-[#2E2E2E]" />,
+    image: "/img/debt-consolidation-multiple-emis.webp",
+    icon: <Banknote className="w-5 h-5 text-[#252525]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="flex flex-col sm:flex-row gap-4 items-stretch mb-6">
@@ -155,7 +195,7 @@ export const loanCategories = [
           </div>
           
           <div className="flex items-center justify-center">
-             <ArrowDown className="w-5 h-5 text-[#575757] rotate-0 sm:-rotate-90" />
+             <ArrowDown className="w-5 h-5 text-[#626262] rotate-0 sm:-rotate-90" />
           </div>
 
           <div className="flex-1 bg-slate-900 rounded-xl p-4 flex flex-col items-center justify-center text-center text-white shadow-md">
@@ -172,10 +212,11 @@ export const loanCategories = [
   },
   {
     id: "overdraft",
+    fundingLenders: FUNDING["overdraft"],
     title: "Overdraft / OD",
     description: "Refinance eligible OD facilities at potentially lower interest rates.",
-    image: "/img/od.webp",
-    icon: <Landmark className="w-5 h-5 text-[#2E2E2E]" />,
+    image: "/img/overdraft-credit-line-salaried.webp",
+    icon: <Landmark className="w-5 h-5 text-[#252525]" />,
     renderActiveContent: () => (
       <div className="flex flex-col h-full text-sm">
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-2 text-center">
@@ -195,13 +236,13 @@ export const loanCategories = [
 
         <div className="flex justify-center -my-3 relative z-10">
           <div className="bg-white rounded-full p-1 border border-gray-100 shadow-sm">
-            <ArrowDown className="w-4 h-4 text-[#2E2E2E]" />
+            <ArrowDown className="w-4 h-4 text-[#252525]" />
           </div>
         </div>
 
         <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mt-2 text-center">
-          <p className="text-xs text-[#2E2E2E] font-medium mb-1">Potential New Rate</p>
-          <p className="font-bold text-[#2E2E2E] text-2xl">9.99%*</p>
+          <p className="text-xs text-[#252525] font-medium mb-1">Potential New Rate</p>
+          <p className="font-bold text-[#252525] text-2xl">9.99%*</p>
         </div>
 
         <p className="text-[11px] text-slate-600 mt-auto pt-4 text-center">

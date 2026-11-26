@@ -1,32 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Check, X } from "lucide-react";
-import { WhatsAppChatLink } from "@/components/WhatsAppChatLink";
-import { track } from "@/lib/analytics/track";
+import { ArrowRight, Check } from "lucide-react";
+import { passbookMonths } from "@/lib/passbookMonths";
 
 
-type Loan = { id: string; name: string; amount: number; icon: string };
-
-// Example from the design: four EMIs that total ₹28,800 a month, shown as one
-// EMI of ₹25,600 (8/9 of the total, about 11% lower).
-const LOANS: Loan[] = [
-  { id: "personal", name: "Personal Loan", amount: 12500, icon: "/hero/icons/row-personal.png" },
-  { id: "card", name: "Credit Card", amount: 8300, icon: "/hero/icons/row-card.png" },
-  { id: "od", name: "Overdraft (OD)", amount: 4200, icon: "/hero/icons/row-od.png" },
-  { id: "app", name: "App Loan", amount: 3800, icon: "/hero/icons/row-app.png" },
-];
-const NEW_EMI_RATIO = 25600 / 28800;
-
-const FEATURES = [
-  { icon: "/hero/icons/feat-pct.png", text: ["Lower", "interest rate"] },
-  { icon: "/hero/icons/feat-layers.png", text: ["One simple", "EMI"] },
-  { icon: "/hero/icons/feat-bolt.png", text: ["Quick &", "digital process"] },
+// Illustrative example: four EMIs that total ₹28,800 a month become one EMI of ₹25,600.
+const OLD_DEBITS = [
+  { day: "03", label: "PERSONAL LOAN EMI", amount: "12,500", delay: "0.2s" },
+  { day: "07", label: "CREDIT CARD BILL", amount: "8,300", delay: "0.8s" },
+  { day: "12", label: "OD INTEREST", amount: "4,200", delay: "1.4s" },
+  { day: "18", label: "APP LOAN EMI", amount: "3,800", delay: "2s" },
 ];
 
-// 13 lenders in lib/lenderEngine.ts's LENDERS table: all 13 shown in the slider. Images and widths follow the design.
+// Partner logos shown in the slider (w = desktop card width, mw = mobile card width). Yes Bank and Bajaj Finance are display-only until their entries exist in lib/lenderEngine.ts.
 const LOGOS = [
   { src: "/hero/logos/axis.png", alt: "Axis Bank", w: 172, iw: 124, ih: 40 },
   { src: "/hero/logos/hdfc.png", alt: "HDFC Bank", w: 192, iw: 150, ih: 40 },
@@ -41,115 +30,61 @@ const LOGOS = [
   { src: "/hero/logos/indusind.svg", alt: "IndusInd Bank", w: 180, iw: 140, ih: 15 },
   { src: "/hero/logos/piramal.png", alt: "Piramal Finance", w: 150, iw: 80, ih: 37 },
   { src: "/hero/logos/poonawalla.svg", alt: "Poonawalla Fincorp", w: 172, iw: 130, ih: 31 },
+  { src: "/hero/logos/yesbank.svg", alt: "Yes Bank", w: 150, iw: 96, ih: 36 },
+  { src: "/hero/logos/bajaj.svg", alt: "Bajaj Finance", w: 200, mw: 176, iw: 160, ih: 16 },
 ];
 
-const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
-
 const ORANGE_BTN =
-  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg bg-gradient-to-b from-[#FF6A14] to-[#EC4F00] font-semibold text-white shadow-[0_14px_26px_-12px_rgba(236,79,0,0.85)] transition-[filter,transform] hover:brightness-105 active:translate-y-px";
+  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg bg-[#FD6C01] hover:bg-[#E15F00] font-semibold text-white shadow-[0_14px_26px_-12px_rgba(225,95,0,0.35)] transition-[filter,transform] hover:brightness-105 active:translate-y-px";
 
 const LOGO_CARD =
-  "flex h-[56px] items-center justify-center rounded-xl border border-[#F5EDE7] bg-white px-3 shadow-[0_10px_24px_-14px_rgba(120,60,20,0.4)]";
+  "flex h-[56px] items-center justify-center rounded-xl border border-[#F5EDE7] bg-white px-3 shadow-[0_10px_24px_-14px_rgba(120,60,20,0.18)]";
 
 const ICON = { unoptimized: true } as const;
 
-/** Auto-scrolling, swipeable, looping strip. Pauses while touched/hovered; no auto-motion if reduced motion is on. */
-function useAutoScroll(ref: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let paused = false;
-    let resume: ReturnType<typeof setTimeout> | undefined;
-    let raf = 0;
-    let last = performance.now();
-    let pos = el.scrollLeft;
-    const pause = () => { paused = true; clearTimeout(resume); };
-    const later = () => { clearTimeout(resume); resume = setTimeout(() => { pos = el.scrollLeft; paused = false; }, 1800); };
-    const tick = (now: number) => {
-      const dt = now - last;
-      last = now;
-      const half = el.scrollWidth / 2;
-      if (!paused && !reduce && half > 0) {
-        pos += (dt * 45) / 1000;
-        if (pos >= half) pos -= half;
-        el.scrollLeft = pos;
-      } else if (half > 0 && el.scrollLeft >= half) {
-        el.scrollLeft -= half;
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    el.addEventListener("pointerenter", pause);
-    el.addEventListener("pointerleave", later);
-    el.addEventListener("touchstart", pause, { passive: true });
-    el.addEventListener("touchend", later, { passive: true });
-    el.addEventListener("wheel", () => { pause(); later(); }, { passive: true });
-    return () => { cancelAnimationFrame(raf); clearTimeout(resume); };
-  }, [ref]);
+const subscribe = () => () => {};
+const clientMonthKey = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()}`;
+};
+
+/** Month labels from the visitor's own calendar. null on the server and first paint, so nothing stale is shown or hydrated. */
+function usePassbookMonths() {
+  const key = useSyncExternalStore(subscribe, clientMonthKey, () => "");
+  if (!key) return null;
+  const [year, month] = key.split("-").map(Number);
+  return passbookMonths(new Date(year, month, 1));
 }
 
 export function ConsolidationHero() {
-  const stripRef = useRef<HTMLDivElement>(null);
-  useAutoScroll(stripRef);
-  const [removed, setRemoved] = useState<string[]>([]);
-  const active = LOANS.filter((l) => !removed.includes(l.id));
-  const total = active.reduce((s, l) => s + l.amount, 0);
-  const newEmi = Math.round((total * NEW_EMI_RATIO) / 100) * 100;
-  const save = total - newEmi;
-
-  const remove = (id: string) => {
-    setRemoved((r) => [...r, id]);
-    track({ name: "select_content", params: { content_type: "hero_emi_remove", content_id: id } });
-  };
+  const months = usePassbookMonths();
 
   return (
-    <section className="relative z-[25] w-full overflow-hidden bg-gradient-to-b from-[#FFF4EC] via-[#FFF9F5] to-[#FFFDFB] pt-[88px] xl:pt-[98px]">
-      <div className="relative mx-auto max-w-[1358px] px-4 pb-10 sm:px-6 lg:px-8 xl:px-0 xl:pb-0">
-        <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,1fr)_448px] xl:gap-6">
+    <section className="relative z-[25] w-full overflow-hidden bg-gradient-to-b from-[#FFF9F4] via-[#FFF9F4] to-[#FFF9F4] pt-[88px] xl:pt-[98px]">
+      <div className="relative mx-auto max-w-[1358px] px-4 pb-10 sm:px-6 lg:px-8 xl:px-8">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,500px)] lg:gap-12">
           {/* ── Left: the promise ── */}
-          <div className="order-1 min-w-0 pt-3 xl:pl-2 xl:pt-[13px]">
-            <p className="inline-flex min-h-9 items-center gap-2.5 rounded-2xl sm:rounded-full bg-[#FDE5D5] px-[18px] py-1.5 text-[13.5px] leading-tight font-[500] text-[#B03F0C] sm:text-[15.5px]">
-              <Image src="/hero/icons/shield.png" alt="" width={22} height={22} className="h-[22px] w-[22px]" {...ICON} />
+          <div className="min-w-0 pt-3">
+            <p className="inline-flex min-h-9 items-center gap-2.5 rounded-2xl bg-[#FFE4CC] px-[18px] py-1.5 text-[13.5px] leading-tight font-[500] text-[#C94400] sm:rounded-full sm:text-[15.5px]">
+              <span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-[#FD6C01]" />
               Debt Consolidation for Salaried Professionals
             </p>
 
-            <h1 className="mt-[22px] xl:mt-[38px] font-[family-name:var(--font-display)] text-[37px] font-[800] leading-[1.05] tracking-[0em] text-[#141414] sm:text-[56px] xl:text-[68px] xl:leading-[0.95] min-[1440px]:text-[80px] min-[1520px]:text-[95px] min-[1520px]:leading-[83px]">
-              <span className="block min-[1520px]:h-[83px]">Multiple Loans.</span>
-              <span className="block min-[1520px]:h-[83px]"><span className="relative inline-block bg-gradient-to-b from-[#FF6E12] to-[#F04E00] bg-clip-text pb-3 text-transparent">
-                One EMI.
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 240 26"
-                  className="absolute -bottom-2 left-[36%] h-[18px] w-[74%] sm:-bottom-3 sm:h-[24px]"
-                  preserveAspectRatio="none"
-                >
-                  <path d="M4 20 C 70 2, 165 2, 236 18" stroke="#F0560A" strokeWidth="7" strokeLinecap="round" fill="none" />
-                </svg>
-              </span></span>
+            <h1 className="mt-[22px] font-[family-name:var(--font-display)] text-[42px] font-[800] leading-[1.02] text-[#252525] sm:text-[64px] lg:text-[64px] xl:text-[84px] xl:leading-[0.98] min-[1520px]:text-[96px]">
+              <span className="block">One line</span>
+              <span className="block">in your</span>
+              <span className="block">
+                <span className="inline-block bg-gradient-to-b from-[#FD6C01] to-[#FD6C01] bg-clip-text pb-[0.14em] text-transparent">
+                  passbook.
+                </span>
+              </span>
             </h1>
 
-            <p className="mt-[16px] max-w-[520px] xl:mt-[28px] text-[18px] leading-[28px] text-[#3D3D3D] sm:text-[20px]">
-              Merge your personal loan, credit card, overdraft and app loans into a single EMI, at a lower interest rate.
+            <p className="mt-4 max-w-[520px] text-[18px] leading-[28px] text-[#3D3D3D] sm:text-[20px] xl:mt-5">
+              Four EMI debits a month become a single one, at a lower interest rate.
             </p>
 
-            <ul className="mt-[30px] grid max-w-[530px] grid-cols-3 gap-x-1">
-              {FEATURES.map(({ icon, text }, i) => (
-                <li
-                  key={icon}
-                  className={`flex flex-col items-center text-center sm:flex-row sm:text-left gap-1.5 sm:gap-3 ${i > 0 ? "border-l border-[#F1D9C8] px-1 sm:pl-4 sm:pr-0" : "px-1 sm:pl-0 sm:pr-2"}`}
-                >
-                  <Image src={icon} alt="" width={48} height={48} className="h-10 w-10 shrink-0 sm:h-12 sm:w-12" {...ICON} />
-                  <span className="text-[13px] font-[500] leading-tight text-[#1F1F1F] sm:whitespace-nowrap sm:text-[15px]">
-                    {text[0]}
-                    <br />
-                    {text[1]}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-[26px] flex flex-col gap-3 sm:flex-row sm:gap-[22px] xl:mt-[33px] xl:-ml-[11px]">
+            <div className="mt-[26px] flex flex-col gap-3 sm:flex-row sm:gap-[22px] xl:mt-[33px]">
               <Link
                 href="#lead-form"
                 data-analytics-cta="hero_check_eligibility"
@@ -159,13 +94,14 @@ export function ConsolidationHero() {
                 Check my eligibility
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
-              <WhatsAppChatLink
+              <Link
+                href="/contact"
+                data-analytics-cta="hero_contact_us"
                 data-analytics-location="hero"
-                className="inline-flex h-[58px] items-center justify-center gap-2.5 whitespace-nowrap rounded-lg border border-[#F0E3D9] bg-white px-[18px] text-[17px] font-[500] text-[#141414] shadow-[0_10px_22px_-14px_rgba(120,60,20,0.45)] transition-colors hover:bg-[#FFF8F3]"
+                className="inline-flex h-[58px] items-center justify-center gap-2.5 whitespace-nowrap rounded-lg border border-[#252525]/15 bg-white px-[22px] text-[17px] font-[500] text-[#252525] shadow-ambient transition-colors hover:bg-[#FFF9F4]"
               >
-                <Image src="/hero/icons/wa.png" alt="" width={30} height={30} className="h-[30px] w-[30px]" {...ICON} />
-                Chat on WhatsApp
-              </WhatsAppChatLink>
+                Contact us
+              </Link>
             </div>
 
             <ul className="mt-[20px] flex flex-wrap gap-x-[26px] gap-y-2 text-[15px] text-[#1F1F1F]">
@@ -178,115 +114,71 @@ export function ConsolidationHero() {
             </ul>
           </div>
 
-          {/* ── Right: the EMI card, with the phone artwork behind it ── */}
-          <div className="relative order-3 min-w-0 xl:order-2">
-            {/* Artwork cut from the design: orange band, phone, pedestal. Sits behind the card. */}
+          {/* ── Right: the passbook. Month labels follow the visitor's calendar ── */}
+          <div className="min-w-0">
             <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-[-349px] top-[-96px] hidden origin-[349px_96px] xl:block max-[1519px]:scale-[0.92] max-[1439px]:scale-[0.8]"
-              style={{
-                width: 452,
-                height: 698,
-                WebkitMaskImage: "linear-gradient(to right, transparent 0, #000 84px), linear-gradient(to top, transparent 0, #000 46px)",
-                maskImage: "linear-gradient(to right, transparent 0, #000 84px), linear-gradient(to top, transparent 0, #000 46px)",
-                WebkitMaskComposite: "source-in",
-                maskComposite: "intersect",
-              }}
+              role="img"
+              aria-label={`Example passbook: four EMI debits in one month, then a single EMI of ₹25,600 the month after.`}
+              className={`pb mx-auto w-full max-w-[500px] overflow-hidden rounded-md border border-[#252525]/25 bg-[#FFF9F4] font-mono text-[#1D1D1D] shadow-standard sm:shadow-standard ${months ? "pb-live" : ""}`}
             >
-              <Image src="/hero/hero-art.webp" alt="" width={452} height={698} priority {...ICON} />
-            </div>
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-full top-[-96px] hidden xl:block"
-              style={{ width: 87, height: 698 }}
-            >
-              <Image src="/hero/hero-arc.webp" alt="" width={87} height={698} {...ICON} />
-            </div>
-
-            <div className="relative rounded-[22px] border border-[#F6EBE3] bg-white p-5 shadow-[0_30px_64px_-26px_rgba(150,70,20,0.38)] xl:px-[23px] xl:pb-[26px] xl:pt-[22px]">
-              <div className="flex items-center gap-3.5">
-                <Image src="/hero/icons/calc.png" alt="" width={34} height={34} className="h-[34px] w-[34px] shrink-0" {...ICON} />
-                <h2 className="text-[22px] font-[600] tracking-[-0.015em] text-[#141414] sm:text-[23px]">See your new EMI</h2>
+              <div className="flex justify-between gap-3 bg-[#252525] px-3.5 py-3 text-[11px] tracking-[0.14em] text-white sm:px-[18px] sm:text-[12px]">
+                <span>SALARY ACCOUNT</span>
+                <span>{months?.header ?? ""}</span>
               </div>
-              <p className="mt-[5px] text-[15px] text-[#3F3F3F]">Add your current EMIs to see how much you can save.</p>
+              <div className="grid grid-cols-[56px_minmax(0,1fr)_64px] gap-2 border-b border-[#BBB] px-3.5 py-[9px] text-[10.5px] tracking-[0.1em] text-[#666] sm:grid-cols-[62px_minmax(0,1fr)_86px] sm:px-[18px] sm:text-[11px]">
+                <span>DATE</span>
+                <span>PARTICULARS</span>
+                <span className="text-right">DEBIT</span>
+              </div>
 
-              <ul className="mt-[14px] flex flex-col gap-[7px]">
-                {active.map(({ id, name, amount, icon }) => (
-                  <li key={id} className="flex h-[43px] items-center rounded-lg border border-[#EEE7E2] bg-[#FAF8F7] pl-[10px] pr-[7px]">
-                    <Image src={icon} alt="" width={36} height={36} className="h-9 w-9 shrink-0" {...ICON} />
-                    <span className="ml-[14px] flex-1 text-[15px] font-[500] text-[#141414]">{name}</span>
-                    <span className="text-[16px] font-[500] tabular-nums text-[#141414]">{inr(amount)}</span>
-                    <button
-                      type="button"
-                      onClick={() => remove(id)}
-                      aria-label={`Remove ${name}`}
-                      className="ml-3 flex h-[30px] w-[30px] items-center justify-center rounded-full bg-white text-[#1F1F1F] shadow-[0_1px_3px_rgba(0,0,0,0.08)] transition-colors hover:bg-[#FFF1E8]"
-                    >
-                      <X className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
-                    </button>
-                  </li>
-                ))}
-                {active.length === 0 && (
-                  <li className="rounded-lg border border-dashed border-[#FFC9A8] px-4 py-4 text-center text-[15px] text-[#575757]">
-                    No loans left in the example.
-                  </li>
-                )}
-              </ul>
-              {removed.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setRemoved([])}
-                  className="mt-2 text-[14px] font-semibold text-[#2E2E2E] underline underline-offset-4"
+              {OLD_DEBITS.map((d) => (
+                <div
+                  key={d.label}
+                  className="pb-r grid grid-cols-[56px_minmax(0,1fr)_64px] gap-2 border-b border-dashed border-[#CFC7B5] px-3.5 py-[9px] text-[12px] sm:grid-cols-[62px_minmax(0,1fr)_86px] sm:px-[18px] sm:text-[14px]"
+                  style={{ ["--d" as string]: d.delay }}
                 >
-                  Reset example
-                </button>
-              )}
-
-              <div className="mt-[16px] flex items-center justify-between border-t-2 border-dashed border-[#F9C7A3] px-[10px] pt-[11px]">
-                <span className="text-[16px] font-[500] text-[#141414]">Total (Current EMIs)</span>
-                <span className="text-[19px] font-[600] tabular-nums text-[#141414]" aria-live="polite">{inr(total)}</span>
-              </div>
-
-              <div className="mt-[14px] rounded-2xl bg-[#FEF0E6] px-[16px] pb-[12px] pt-[12px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-                <p className="text-[16px] font-[600] text-[#141414]">New EMI with Amortas</p>
-                <div className="mt-[3px] flex flex-wrap items-center justify-between gap-x-2 gap-y-2 xl:flex-nowrap">
-                  <span className="text-[40px] font-[800] leading-[1.1] tracking-[-0.02em] text-[#F05000] tabular-nums" aria-live="polite">
-                    {inr(newEmi)}
-                  </span>
-                  <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-md bg-[#E2F5E9] px-2.5 py-[6px] text-[13.5px] font-[500] text-[#15803D]">
-                    <ArrowDown className="h-3.5 w-3.5" aria-hidden="true" />
-                    Save {inr(save)} / month
-                  </span>
+                  <span>{d.day} {months?.current}</span>
+                  <span className="truncate">{d.label}</span>
+                  <span className="text-right font-bold tabular-nums">{d.amount}</span>
                 </div>
+              ))}
+
+              <div className="flex items-center justify-between gap-3 px-3.5 py-3 sm:px-[18px]">
+                <span className="pb-sep-text text-[10px] tracking-[0.12em] text-[#C94400] sm:text-[11px] sm:tracking-[0.14em]">
+                  - FROM NEXT MONTH -
+                </span>
+                <span className="pb-stamp shrink-0 whitespace-nowrap rounded-[2px] border-[3px] border-[#C94400] bg-[#FFF9F4]/70 px-2 py-0.5 font-[family-name:var(--font-display)] text-[12px] font-[800] tracking-[0.06em] text-[#C94400] sm:px-2.5 sm:text-[14px]">
+                  CONSOLIDATED
+                </span>
               </div>
 
-              <Link
-                href="#calculator"
-                data-analytics-cta="hero_calculate_savings"
-                data-analytics-location="hero"
-                className={`${ORANGE_BTN} mt-[16px] h-[50px] w-full text-[20px]`}
+              <div
+                className="pb-r grid grid-cols-[56px_minmax(0,1fr)_64px] gap-2 bg-[#FFE4CC] px-3.5 py-[10px] text-[12px] sm:grid-cols-[62px_minmax(0,1fr)_86px] sm:px-[18px] sm:text-[14px]"
+                style={{ ["--d" as string]: "3.6s" }}
               >
-                Calculate my savings
-                <ArrowRight className="h-5 w-5" aria-hidden="true" />
-              </Link>
+                <span>05 {months?.next}</span>
+                <span>ONE EMI</span>
+                <span className="text-right font-bold tabular-nums">25,600</span>
+              </div>
             </div>
+            <p className="mt-4 text-center text-[13px] text-[#6B6B6B]">Illustrative example. Your numbers will differ.</p>
           </div>
+        </div>
 
         {/* ── Lender strip ── */}
-        <div className="order-2 min-w-0 xl:order-3 xl:col-span-2 xl:pb-10 xl:pt-[44px]">
+        <div className="mt-10 min-w-0 lg:mt-12">
           <div className="hidden items-center justify-center gap-4 sm:flex xl:gap-[26px]">
-            <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-r from-transparent to-[#F2A06E] xl:block" />
-            <p className="text-center text-[17px] font-[500] text-[#141414] sm:text-[20px]">
-              13 partner banks and NBFCs compared in one place
+            <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-r from-transparent to-[#FFB366] xl:block" />
+            <p className="text-center text-[17px] font-[500] text-[#252525] sm:text-[20px]">
+              {LOGOS.length} partner banks and NBFCs compared in one place
             </p>
-            <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-l from-transparent to-[#F2A06E] xl:block" />
+            <span aria-hidden="true" className="hidden h-[2px] w-[190px] bg-gradient-to-l from-transparent to-[#FFB366] xl:block" />
           </div>
           <div
-            ref={stripRef}
-            className="lender-strip mt-[22px] py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]"
+            className="lender-strip mt-[22px] py-3"
             aria-label="Partner lenders"
           >
-            <ul className="flex w-max items-center">
+            <ul className="lender-track flex w-max items-center">
               {[0, 1].flatMap((copy) => [
                 ...LOGOS.map((l) => (
                   <li
@@ -294,7 +186,7 @@ export function ConsolidationHero() {
                     aria-hidden={copy === 1}
                     className="shrink-0 pr-3 xl:pr-[22px]"
                   >
-                    <div className={`${LOGO_CARD} w-[140px] xl:w-[var(--w)]`} style={{ ["--w" as string]: `${l.w}px` }}>
+                    <div className={`${LOGO_CARD} w-[var(--mw)] xl:w-[var(--w)]`} style={{ ["--w" as string]: `${l.w}px`, ["--mw" as string]: `${"mw" in l ? l.mw : 140}px` }}>
                       <Image src={l.src} alt={copy === 1 ? "" : l.alt} width={l.iw} height={l.ih} className="h-auto max-w-full" {...ICON} />
                     </div>
                   </li>
@@ -303,8 +195,6 @@ export function ConsolidationHero() {
             </ul>
           </div>
         </div>
-        </div>
-
       </div>
     </section>
   );

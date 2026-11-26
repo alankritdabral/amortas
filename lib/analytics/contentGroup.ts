@@ -5,6 +5,11 @@
  */
 const RULES: Array<[prefix: string, group: string]> = [
   ["/personal-loan-in-", "city"],
+  ["/loans-in-", "city"],
+  ["/quick-loan-in-", "city"],
+  ["/personal-loan-overdraft-in-", "city"],
+  ["/debt-consolidation-in-", "city"],
+  ["/loans-by-city", "city"],
   ["/learning-center", "learning"],
   ["/calculators", "calculator"],
   ["/personal-loan-emi-calculator", "calculator"],
@@ -14,6 +19,9 @@ const RULES: Array<[prefix: string, group: string]> = [
   ["/privacy-policy", "legal"],
   ["/terms-and-conditions", "legal"],
   ["/partner-disclosures", "legal"],
+  ["/disclaimer", "legal"],
+  ["/cookie-policy", "legal"],
+  ["/grievance-redressal", "legal"],
   ["/about", "company"],
   ["/how-it-works", "company"],
   ["/faq", "company"],

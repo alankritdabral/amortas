@@ -8,8 +8,6 @@ import { loanCategories } from "./loanData";
 
 // Darker than the brand orange so white text on it passes WCAG AA.
 const ORANGE = "#C94400";
-// Highlighter behind the key phrase; same amber as the rest of the site.
-const AMBER = "#F7E0D4";
 
 /**
  * Option D: one open card, four slim strips. Click (or Enter/Space) to swap.
@@ -19,7 +17,7 @@ export const EligibleLoansSlider = () => {
   const [open, setOpen] = useState(loanCategories[0].id);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#17171B] py-12 md:py-20">
+    <section className="relative w-full overflow-hidden bg-[#252525] py-12 md:py-20">
       <div className="mx-auto max-w-[1220px] px-4 md:px-6 lg:px-8">
         <div className="mb-8 text-center md:mb-12">
           <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-[#B8B8C0] md:mb-4 md:text-sm">
@@ -27,13 +25,13 @@ export const EligibleLoansSlider = () => {
           </p>
           <h2 className="mx-auto max-w-[300px] text-[28px] font-semibold leading-[1.15] tracking-[-0.03em] text-white md:max-w-none md:text-[38px] lg:text-[46px]">
             Different Loans.{" "}
-            <span className="whitespace-nowrap rounded-[12px] px-2.5 text-[#141414] box-decoration-clone" style={{ background: AMBER }}>
+            <span className="brush whitespace-nowrap text-[#252525]">
               One Lower EMI.
             </span>
           </h2>
         </div>
 
-        <div className="flex flex-col gap-3 lg:h-[470px] lg:flex-row">
+        <div className="flex flex-col gap-3 lg:h-[620px] lg:flex-row">
           {loanCategories.map((c, i) => {
             const isOpen = open === c.id;
             const panelId = `eligible-panel-${c.id}`;
@@ -41,7 +39,7 @@ export const EligibleLoansSlider = () => {
               <article
                 key={c.id}
                 className={`relative min-w-0 overflow-hidden rounded-[24px] transition-[flex-grow,background-color] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none lg:flex lg:basis-0 lg:flex-col ${
-                  isOpen ? "lg:grow-[4.2]" : "bg-[#2A2A30] hover:bg-[#33333B] lg:grow-[1]"
+                  isOpen ? "lg:grow-[4.2]" : "bg-[#333333] hover:bg-[#3A3A3A] lg:grow-[1]"
                 }`}
                 style={isOpen ? { background: ORANGE } : undefined}
               >
@@ -50,8 +48,9 @@ export const EligibleLoansSlider = () => {
                   src={c.image}
                   alt=""
                   fill
-                  sizes="(min-width:1024px) 200px, 0px"
-                  className={`hidden object-cover transition-opacity duration-500 motion-reduce:transition-none lg:block ${isOpen ? "opacity-0" : "opacity-35"}`}
+                  sizes="(min-width:1024px) 720px, 0px"
+                  quality={90}
+                  className={`hidden object-cover transition-opacity duration-500 motion-reduce:transition-none lg:block ${isOpen ? "opacity-0" : "opacity-60"}`}
                 />
 
                 <button
@@ -60,7 +59,7 @@ export const EligibleLoansSlider = () => {
                   aria-controls={panelId}
                   onClick={() => setOpen(c.id)}
                   className={`relative flex w-full items-center gap-4 p-4 text-left text-white focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-white lg:p-6 ${
-                    isOpen ? "" : "lg:h-full lg:flex-col lg:items-start lg:justify-between"
+                    isOpen ? "" : "lg:flex-1 lg:flex-col lg:items-start lg:justify-between"
                   }`}
                 >
                   <span aria-hidden className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-xl bg-white">
@@ -81,12 +80,24 @@ export const EligibleLoansSlider = () => {
                   id={panelId}
                   inert={!isOpen}
                   className={`relative grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(.2,.8,.2,1)] motion-reduce:transition-none ${
-                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                    isOpen ? "grid-rows-[1fr] lg:min-h-0 lg:flex-1" : "grid-rows-[0fr]"
                   }`}
                 >
-                  <div className="min-h-0 overflow-hidden">
+                  <div className="min-h-0 overflow-hidden lg:overflow-y-auto">
                     <div className="px-4 pb-5 pt-1 lg:min-w-[380px] lg:px-6 lg:pb-6">
                       <p className="max-w-[460px] text-[16px] leading-snug text-white lg:text-[17px]">{c.description}</p>
+                      <div className="mt-3">
+                        <p className="text-[13px] font-semibold text-white">
+                          {c.fundingLenders.length} partner lenders fund ₹30 lakh or more
+                        </p>
+                        <ul className="mt-2 flex flex-wrap gap-1.5">
+                          {c.fundingLenders.map((l) => (
+                            <li key={l.id} className="rounded-full bg-white/15 px-2.5 py-1 text-[12px] font-medium text-white">
+                              {l.name}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                       {/* Example panel: the data file styles it for a light surface, so give it one. */}
                       <div className="mt-4 rounded-2xl bg-white p-4 text-slate-800">
                         {c.renderActiveContent()}

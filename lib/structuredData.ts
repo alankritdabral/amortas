@@ -28,9 +28,9 @@ export function organizationSchema() {
     url: siteConfig.url,
     logo: `${siteConfig.url}/icon-512.png`,
     sameAs: [
-      "https://www.facebook.com/people/Credit-Expert-India/100095328945231/",
-      "https://www.instagram.com/creditexpertindia/",
-      "https://www.linkedin.com/company/credit-expert-india/home/",
+      "https://www.facebook.com/profile.php?id=61596290447233",
+      "https://www.instagram.com/amortas__/",
+      "https://www.linkedin.com/company/amortas/",
     ],
     contactPoint: {
       "@type": "ContactPoint",

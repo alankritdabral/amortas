@@ -11,7 +11,6 @@ import {
   EligibilityForm,
   ScamProtection,
   FAQ,
-  NetworkStats,
   EligibleLoansSlider,
   ContactForm,
 } from "@/components/home/LazyHomeSections";
@@ -37,7 +36,7 @@ export default function Home() {
 
       <SectionDivider />
       {/* Row 1.6: Contact Form */}
-      <section className="w-full bg-[#F7E0D4] py-12 md:py-[72px]">
+      <section className="w-full bg-[#FFE4CC] py-12 md:py-[72px]">
         <div className="max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <ContactForm />
@@ -51,10 +50,6 @@ export default function Home() {
       <div className="w-full section-tint">
         <EligibleLoansSlider />
       </div>
-
-      <SectionDivider />
-      {/* Row 2.5: Backbone stats */}
-      <NetworkStats />
 
       <SectionDivider />
       {/* Row 3: How it Works & Scam Protection */}
@@ -78,14 +73,14 @@ export default function Home() {
       <section className="w-full section-tint">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
-            <FAQ />
+            <FAQ featured />
           </AnimatedSection>
         </div>
       </section>
 
       <SectionDivider />
       {/* Row 6: Eligibility Form */}
-      <section id="lead-form" className="w-full bg-[#F7E0D4]">
+      <section id="lead-form" className="w-full bg-[#FFE4CC]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px]">
           <AnimatedSection>
             <EligibilityForm />

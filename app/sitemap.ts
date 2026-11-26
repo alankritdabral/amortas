@@ -1,7 +1,9 @@
 import { MetadataRoute } from 'next';
 import { siteConfig } from '@/lib/config';
 import { staticRoutes } from '@/lib/routes';
+import { CITY_PAGES_LAST_MODIFIED } from '@/lib/cities';
 import { cities } from '@/lib/cities';
+import { allCityPages, cityHubPath, cityPagePath, isIndexed } from '@/lib/cityPages';
 import { articles } from '@/content/articles';
 
 // Google ignores <changefreq> and <priority> (developers.google.com/search/
@@ -17,17 +19,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ...(r.lastModified ? { lastModified: r.lastModified } : {}),
     }));
 
-  const cityPages: MetadataRoute.Sitemap = cities
-    .filter((c) => !c.noindex)
-    .map((c) => ({
-      url: `${siteConfig.url}/personal-loan-in-${c.slug}`,
-      lastModified: c.lastModified,
+  const cityPages: MetadataRoute.Sitemap = allCityPages()
+    .filter(({ product, city }) => isIndexed(product, city))
+    .map(({ product, city }) => ({
+      url: `${siteConfig.url}${cityPagePath(product, city.slug)}`,
+      lastModified: CITY_PAGES_LAST_MODIFIED,
     }));
+  const cityHubs: MetadataRoute.Sitemap = cities.map((c) => ({
+    url: `${siteConfig.url}${cityHubPath(c.slug)}`,
+    lastModified: CITY_PAGES_LAST_MODIFIED,
+  }));
 
   const articlePages: MetadataRoute.Sitemap = articles.map((a) => ({
     url: `${siteConfig.url}/learning-center/${a.slug}`,
     lastModified: a.updatedAt,
   }));
 
-  return [...pages, ...cityPages, ...articlePages];
+  return [...pages, ...cityHubs, ...cityPages, ...articlePages];
 }

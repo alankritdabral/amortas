@@ -6,7 +6,8 @@ import { writeLeadAnalytics } from "@/lib/analytics/leadAnalytics";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, phone, requirement, consent, netSalary, ongoingEmi, attribution, ga } = body;
+    const { name, phone, requirement, consent, netSalary, ongoingEmi, attribution, ga, city, pagePath, formLocation } = body;
+    const clip = (v: unknown, n: number) => (typeof v === "string" && v.trim() ? v.trim().slice(0, n) : undefined);
 
     if (!name || !phone || !requirement || !netSalary || !ongoingEmi) {
       return NextResponse.json(
@@ -51,7 +52,9 @@ export async function POST(request: Request) {
       leadId = await saveWebsiteLead({
         name,
         phone: phoneDigits,
-        requirement,
+        requirement: String(requirement).trim().slice(0, 100),
+        city: clip(city, 80),
+        extra: { pagePath: clip(pagePath, 200), formLocation: clip(formLocation, 20) },
         netSalary: Math.round(salary),
         ongoingEmi: Math.round(emi),
         consent: {

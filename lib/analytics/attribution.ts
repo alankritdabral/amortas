@@ -6,8 +6,8 @@ import { ALLOWED_ATTRIBUTION_KEYS, sanitizeAttribution, type Attribution } from 
 export type { Attribution };
 export { sanitizeAttribution };
 
-const LAST_TOUCH_KEY = "cei_lt";
-const FIRST_TOUCH_KEY = "cei_ft";
+const LAST_TOUCH_KEY = "amortas_lt";
+const FIRST_TOUCH_KEY = "amortas_ft";
 const FIRST_TOUCH_MAX_AGE_MS = 90 * 24 * 60 * 60 * 1000; // 90 days, matching Google's documented GCLID capture pattern
 
 function safeStorage(kind: "local" | "session"): Storage | null {
@@ -68,7 +68,7 @@ export function captureAttribution(): void {
     writeJSON(safeStorage("session"), LAST_TOUCH_KEY, lastTouch);
   }
 
-  if (getConsent()?.analytics !== "granted") return;
+  if (getConsent()?.analytics === "denied") return;
 
   const localStore = safeStorage("local");
   const existing = readJSON<StoredFirstTouch>(localStore, FIRST_TOUCH_KEY);

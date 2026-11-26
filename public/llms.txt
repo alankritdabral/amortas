@@ -1,0 +1,41 @@
+# Amortas
+
+> Amortas helps salaried borrowers in India compare debt consolidation, balance transfer and personal loan options from partner banks and NBFCs. Rates and eligibility depend on the applicant's profile and the lender's policy; figures on the site are illustrative.
+
+## Products
+- [Debt consolidation](https://www.amortas.com/debt-consolidation): combine personal loans, card dues and app loans into one EMI
+- [Personal loans](https://www.amortas.com/personal-loan): options for salaried employees
+- [Loan balance transfer](https://www.amortas.com/loan-balance-transfer): compare your current rate with partner rates
+- [Credit card debt](https://www.amortas.com/credit-card-debt): move card dues into a lower-rate loan
+- [High-interest loan refinancing](https://www.amortas.com/high-interest-loan)
+- [App loan consolidation](https://www.amortas.com/app-loan)
+- [Overdraft options](https://www.amortas.com/personal-loan-overdraft)
+- [Free credit score check](https://www.amortas.com/free-cibil-score): see your score and the loan options that fit it
+- [Free credit report](https://www.amortas.com/free-credit-report): every loan, card and enquiry in one place
+
+## Calculators
+- [All calculators](https://www.amortas.com/calculators)
+- [Debt consolidation calculator](https://www.amortas.com/calculators/debt-consolidation-calculator)
+- [Personal loan EMI calculator](https://www.amortas.com/personal-loan-emi-calculator)
+- [EMI savings calculator](https://www.amortas.com/emi-savings-calculator)
+
+## Guides and help
+- [Learning center](https://www.amortas.com/learning-center): plain-language loan and EMI guides
+- [How to get out of debt in 2027](https://www.amortas.com/learning-center/how-to-get-out-of-debt-in-2027)
+- [Debt consolidation vs debt settlement](https://www.amortas.com/learning-center/debt-consolidation-vs-debt-settlement)
+- [How to read your credit report](https://www.amortas.com/learning-center/how-to-read-your-credit-report)
+- [Personal loan eligibility in 2027](https://www.amortas.com/learning-center/personal-loan-eligibility-in-2027)
+- [Repo rate change and your EMI](https://www.amortas.com/learning-center/repo-rate-change-what-it-means-for-your-emi)
+- [Loans by city](https://www.amortas.com/loans-by-city): options for 37 Indian cities
+- [Eligibility and documents](https://www.amortas.com/eligibility)
+- [How it works](https://www.amortas.com/how-it-works)
+- [FAQ](https://www.amortas.com/faq)
+
+## Company
+- [About](https://www.amortas.com/about)
+- [Contact](https://www.amortas.com/contact)
+- [Partner disclosures](https://www.amortas.com/partner-disclosures)
+- [Grievance redressal](https://www.amortas.com/grievance-redressal)
+- [Privacy policy](https://www.amortas.com/privacy-policy)
+- [Terms and conditions](https://www.amortas.com/terms-and-conditions)
+- [Cookie policy](https://www.amortas.com/cookie-policy)

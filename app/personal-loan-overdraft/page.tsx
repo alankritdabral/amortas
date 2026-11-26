@@ -5,11 +5,12 @@ import { Eligibility } from "@/components/Eligibility";
 import { LoanCalculator } from "@/components/LoanCalculator";
 import { LeadForm } from "@/components/LeadForm";
 import { PageIntro, PageProof } from "@/components/page-sections/PageSections";
+import { FitAndDocs, GuidesAndAlso } from "@/components/page-sections/Extras";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Overdraft Options for Salaried Staff",
+  title: "Overdraft Loan for Salaried Employees {year}",
   description:
-    "Explore overdraft and credit-line options for salaried professionals, and see whether a personal loan or consolidation would cost you less.",
+    "Explore overdraft and credit-line options for salaried employees in {year}, and see whether a personal loan or consolidation costs less.",
   path: "/personal-loan-overdraft",
 });
 
@@ -23,26 +24,27 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-white">
       <ProductHero
+        breadcrumbs={[{ name: "Home", path: "/" }, { name: "Overdraft" }]}
+        updatedPath="/personal-loan-overdraft"
         title="Need flexible cash? Let's look at overdraft options."
         body="If your salary doesn't always stretch to month-end, an overdraft or credit line can help. We'll also check if another route would cost you less."
         cta="Check my overdraft options"
-        image="/img/od.webp"
-        imageAlt="A salaried professional checking an overdraft credit line on a phone"
         points={["Free assessment", "For salaried professionals", "No pressure to go ahead"]}
       />
 
       <PageIntro page="overdraft" />
+      <FitAndDocs page="overdraft" />
 
-      <section className="section-tint text-[#2E2E2E]">
+      <section className="section-tint text-[#252525]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid gap-12 lg:grid-cols-[5fr_7fr] lg:gap-20">
           <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold">
             How an overdraft works.
           </h2>
           <div>
             {points.map((i, n) => (
-              <div key={i.t} className={`px-5 md:px-7 py-7 ${n % 2 === 0 ? "bg-[#F7E0D4]" : ""}`}>
+              <div key={i.t} className={`px-5 md:px-7 py-7 ${n % 2 === 0 ? "bg-[#FFE4CC]" : ""}`}>
                 <h3 className="text-2xl md:text-[32px] leading-tight tracking-[-0.02em] font-bold">{i.t}</h3>
-                <p className="mt-2 text-lg text-[#575757] leading-relaxed max-w-lg">{i.d}</p>
+                <p className="mt-2 text-lg text-[#626262] leading-relaxed max-w-lg">{i.d}</p>
               </div>
             ))}
           </div>
@@ -51,6 +53,7 @@ export default function Page() {
 
       <Eligibility />
       <LoanCalculator />
+      <GuidesAndAlso page="overdraft" />
       <PageProof page="overdraft" />
       <LeadForm />
     </div>

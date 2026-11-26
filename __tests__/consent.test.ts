@@ -80,13 +80,13 @@ describe("lib/consent", () => {
 
   it("ignores a malformed stored value instead of throwing", () => {
     const fake = installFakeLocalStorage();
-    fake.setItem("cei_consent", "{not json");
+    fake.setItem("amortas_consent", "{not json");
     expect(getConsent()).toBeNull();
   });
 
   it("ignores a stored value missing required fields", () => {
     const fake = installFakeLocalStorage();
-    fake.setItem("cei_consent", JSON.stringify({ analytics: "granted" }));
+    fake.setItem("amortas_consent", JSON.stringify({ analytics: "granted" }));
     expect(getConsent()).toBeNull();
   });
 

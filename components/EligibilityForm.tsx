@@ -16,19 +16,24 @@ import { getGaIds } from "@/lib/analytics/ids";
 import { GA_ID } from "@/lib/analytics/gaId";
 import { setClarityTag } from "@/lib/analytics/clarityTags";
 
+// Impure calls live outside the component: they only run inside event handlers, never during render.
+const nowMs = () => Date.now();
+const randomId = () => Math.random().toString(36).substring(2, 10);
+
 const CreditReportDashboard = dynamic(
   () => import("./CreditReportDashboard").then((mod) => mod.CreditReportDashboard),
   {
     ssr: false,
     loading: () => (
       <div className="flex flex-col items-center justify-center p-12 text-center bg-white rounded-2xl border border-slate-200">
-        <Loader2 className="w-8 h-8 animate-spin text-[#2E2E2E] mb-3" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#252525] mb-3" />
         <p className="text-sm font-medium text-slate-700">Loading your report...</p>
       </div>
     ),
   }
 );
 import { logSystemEvent } from "@/lib/logger";
+import { clearReportSession, loadReportSession, saveReportSession } from "@/lib/reportSession";
 
 export function EligibilityForm() {
 
@@ -85,8 +90,33 @@ export function EligibilityForm() {
     track({ name: "lead_form_start", params: { form_id: "eligibility" } });
   };
 
+  // A report fetched earlier in this tab is reused, so the visitor is not asked for details, OTP and
+  // consent again. Restored in an animation frame (not synchronously in the effect) so server and
+  // client first render match and React does not warn about cascading renders.
+  const [restored, setRestored] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      const saved = loadReportSession();
+      if (!saved) return;
+      setFormData((prev) => ({ ...prev, ...(saved.formData as Partial<typeof prev>) }));
+      setCibilData(saved.cibilData);
+      setRestored(true);
+      setStep(6);
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const startNewReport = () => {
+    clearReportSession();
+    setCibilData(null);
+    setRestored(false);
+    setFormData((prev) => ({ ...prev, pan: "", dob: "", consent: false, consentContact: false, consentShareWithLenders: false }));
+    setStep(1);
+  };
+
   const processFetchedReport = (reportData: any) => {
     setCibilData(reportData);
+    saveReportSession(reportData, formData);
     if (reportData?.credit_report_link) {
       window.open(reportData.credit_report_link, "_blank");
     }
@@ -98,8 +128,10 @@ export function EligibilityForm() {
   const handleFetchReport = async () => {
     track({ name: "lead_form_submit", params: { form_id: "eligibility" } });
 
-    if (!formData.consent || !formData.consentContact || !formData.consentShareWithLenders) {
-      setError("Please accept the consent checkbox to continue.");
+    // Credit-report retrieval (with the 21+ confirmation) and being contacted are needed to
+    // run this check. Sharing details with partner lenders is optional and never assumed.
+    if (!formData.consent) {
+      setError("Please tick the consent box to continue.");
       track({ name: "lead_form_error", params: { form_id: "eligibility", error_code: "consent_missing", error_field: "consent" } });
       return;
     }
@@ -312,7 +344,7 @@ export function EligibilityForm() {
 
   const proceedToFetchReport = async () => {
     let activeBureau: string | undefined;
-    const requestId = "req_" + Math.random().toString(36).substring(2, 10);
+    const requestId = "req_" + randomId();
     let startTime = 0;
     let fallbackStartTime = 0;
     try {
@@ -438,7 +470,7 @@ export function EligibilityForm() {
       }
 
       // Send the request through our new Next.js API Route which talks to IDSPay
-      startTime = Date.now();
+      startTime = nowMs();
       await logSystemEvent({
         level: "info",
         event: "BUREAU_REQUEST_STARTED",
@@ -488,7 +520,7 @@ export function EligibilityForm() {
           },
           message: fallbackReason,
           identifiers: { pan: formData.pan, mobile: formData.mobile },
-          duration_ms: Date.now() - startTime
+          duration_ms: nowMs() - startTime
         });
         
         const crifPayload = {
@@ -498,7 +530,7 @@ export function EligibilityForm() {
           name_lookup: 0
         };
         
-        fallbackStartTime = Date.now();
+        fallbackStartTime = nowMs();
         res = await fetch("/api/idspay", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -520,11 +552,11 @@ export function EligibilityForm() {
       }
 
       // Computed once and reused below (for the log call and the tracking
-      // call), rather than calling Date.now() again at each use — the
+      // call), rather than calling nowMs() again at each use — the
       // existing logSystemEvent calls already did this inline; duplicating
       // that expression a third time would add new instances of this
       // file's pre-existing react-hooks/purity lint finding for no reason.
-      const bureauDurationMs = fallbackData ? Date.now() - fallbackStartTime : Date.now() - startTime;
+      const bureauDurationMs = fallbackData ? nowMs() - fallbackStartTime : nowMs() - startTime;
       const bureauForTracking = (usedBureau.replace(/_v\d+$/, "").replace(/_pdf$/, "") as Bureau) || "experian";
 
       if (!res.ok || (data.status && data.status.type !== "success" && !data.success)) {
@@ -631,7 +663,7 @@ export function EligibilityForm() {
         application_id: `app_${formData.mobile}`,
         message: e?.message || "A network error occurred",
         identifiers: { pan: formData.pan, mobile: formData.mobile },
-        duration_ms: startTime > 0 ? Date.now() - startTime : undefined
+        duration_ms: startTime > 0 ? nowMs() - startTime : undefined
       });
     } finally {
       setLoading(false);
@@ -655,11 +687,11 @@ export function EligibilityForm() {
               <div className="flex flex-col gap-4">
                 <div className="relative flex-1">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input type="text" placeholder="First Name" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all" />
+                  <input type="text" placeholder="First Name" value={formData.firstName} onChange={e => setFormData({ ...formData, firstName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#252525]/20 focus:border-[#252525] outline-none transition-all" />
                 </div>
                 <div className="relative flex-1">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input type="text" placeholder="Last Name" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all" />
+                  <input type="text" placeholder="Last Name" value={formData.lastName} onChange={e => setFormData({ ...formData, lastName: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#252525]/20 focus:border-[#252525] outline-none transition-all" />
                 </div>
               </div>
               {!formData.bureau.startsWith('crif') && (
@@ -670,14 +702,14 @@ export function EligibilityForm() {
                     placeholder="PAN Number"
                     value={formData.pan}
                     onChange={e => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
-                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all uppercase"
+                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#252525]/20 focus:border-[#252525] outline-none transition-all uppercase"
                     maxLength={10}
                   />
                 </div>
               )}
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input type="tel" placeholder="Mobile Number" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all" />
+                <input type="tel" placeholder="Mobile Number" value={formData.mobile} onChange={e => setFormData({ ...formData, mobile: e.target.value })} className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#252525]/20 focus:border-[#252525] outline-none transition-all" />
               </div>
               {(formData.bureau === 'experian' || formData.bureau === 'v1_json') && (
                 <div className="relative">
@@ -686,7 +718,7 @@ export function EligibilityForm() {
                     type="date"
                     value={formData.dob}
                     onChange={e => setFormData({ ...formData, dob: e.target.value })}
-                    className="w-full bg-white border border-icy-blue rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none transition-all text-sm"
+                    className="w-full bg-white border border-icy-blue rounded-xl pl-12 pr-4 py-3.5 focus:ring-2 focus:ring-[#252525]/20 focus:border-[#252525] outline-none transition-all text-sm"
                   />
                 </div>
               )}
@@ -696,7 +728,7 @@ export function EligibilityForm() {
                   <select
                     value={formData.gender}
                     onChange={e => setFormData({ ...formData, gender: e.target.value })}
-                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#2E2E2E]/20 focus:border-[#2E2E2E] outline-none text-brand-black transition-all"
+                    className="w-full bg-white border border-icy-blue rounded-xl pl-11 pr-4 py-3.5 focus:ring-2 focus:ring-[#252525]/20 focus:border-[#252525] outline-none text-brand-black transition-all"
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -705,19 +737,25 @@ export function EligibilityForm() {
                 </div>
               )}
 
-              <label className="flex items-start gap-3 p-4 border border-icy-blue rounded-xl cursor-pointer hover:bg-slate-50 transition-colors mt-4">
-                <input
-                  type="checkbox"
-                  checked={formData.consent && formData.consentContact && formData.consentShareWithLenders}
-                  onChange={e => setFormData({ ...formData, consent: e.target.checked, consentContact: e.target.checked, consentShareWithLenders: e.target.checked })}
-                  className="w-5 h-5 mt-0.5 text-[#2E2E2E] accent-[#2E2E2E] shrink-0 rounded"
-                />
-                <span className="text-xs text-brand-black/70 leading-relaxed">
-                  <strong>Consent</strong><br />
-                  I confirm I am 21 or older and I consent and authorize Amortas to securely retrieve my credit report from the credit bureau, to contact me about this enquiry, and to share my details with partner lenders (see{" "}
-                  <Link href="/partner-disclosures" className="underline">partner disclosures</Link>).
-                </span>
-              </label>
+              <fieldset className="mt-4 space-y-2">
+                <legend className="sr-only">Your permissions</legend>
+                <label className="flex items-start gap-3 p-4 border border-icy-blue rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={formData.consent}
+                    onChange={e => setFormData({ ...formData, consent: e.target.checked, consentContact: e.target.checked })}
+                    required
+                    className="w-5 h-5 mt-0.5 text-[#252525] accent-[#252525] shrink-0 rounded"
+                  />
+                  <span className="text-xs text-brand-black/70 leading-relaxed">
+                    I am 21+ and allow Amortas to fetch my credit report and contact me about this enquiry.
+                  </span>
+                </label>
+                <p className="text-xs text-brand-black/60 px-1">
+                  How we use and protect your data, and your rights, are in our{" "}
+                  <Link href="/privacy-policy" className="underline">Privacy Policy</Link>.
+                </p>
+              </fieldset>
 
               {error && (
                 <div className="p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-3">
@@ -739,7 +777,19 @@ export function EligibilityForm() {
         );
 
       case 6:
-        return <CreditReportDashboard bureau={formData.bureau} cibilData={cibilData} formData={formData} />;
+        return (
+          <>
+            {restored && (
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#E15F00]/20 bg-[#FFF1E3] px-4 py-3 text-sm text-[#252525]">
+                <span>This is the report you already fetched in this session, so we have not asked again.</span>
+                <button type="button" onClick={startNewReport} className="font-semibold underline underline-offset-2">
+                  Fetch a new report
+                </button>
+              </div>
+            )}
+            <CreditReportDashboard bureau={formData.bureau} cibilData={cibilData} formData={formData} />
+          </>
+        );
     }
   };
 
@@ -747,22 +797,22 @@ export function EligibilityForm() {
     <div id="check-eligibility" className="w-full max-w-[1220px] mx-auto flex flex-col justify-center h-full">
       <div className={step === 1 ? "grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-10 lg:gap-16 items-start" : ""}>
         {step === 1 ? (
-          <div className="bg-[#F7E0D4] text-[#1A1A1A] p-8 md:p-12 lg:sticky lg:top-28">
+          <div className="bg-[#FFE4CC] text-[#252525] p-8 md:p-12 lg:sticky lg:top-28">
             <h2 className="text-3xl sm:text-4xl leading-[1.15] tracking-tight font-semibold">
               See what you could save, in about two minutes.
             </h2>
-            <p className="mt-5 text-base leading-7 text-[#2E2E2E]">
+            <p className="mt-5 text-base leading-7 text-[#252525]">
               Tell us a little about yourself. We look at your credit profile the way a lender would,
               so what we tell you is realistic, not a sales pitch.
             </p>
-            <ul className="mt-8 space-y-3 text-base leading-6 text-[#2E2E2E]">
+            <ul className="mt-8 space-y-3 text-base leading-6 text-[#252525]">
               {[
                 "We never ask you to pay anything.",
                 "Your details stay with us unless you say otherwise.",
                 "You decide what happens next.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#1A1A1A]" aria-hidden />
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#252525]" aria-hidden />
                   <span>{item}</span>
                 </li>
               ))}
@@ -784,7 +834,7 @@ export function EligibilityForm() {
             {step === 1 && (
               <div className="flex items-center gap-2 pt-8 text-sm text-slate-500">
                 <Shield className="w-4 h-4" />
-                <span>Your information is secure and never shared without consent.</span>
+                <span>Your details are shared with lenders only if you choose to allow it.</span>
               </div>
             )}
           </div>
@@ -821,7 +871,7 @@ export function EligibilityForm() {
               </button>
 
               {/* Icon */}
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#2E2E2E] text-white flex items-center justify-center shadow-lg shadow-black/10">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#252525] text-white flex items-center justify-center shadow-lg shadow-black/10">
                 <Shield className="w-8 h-8" />
               </div>
 
@@ -852,8 +902,8 @@ export function EligibilityForm() {
                       onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                       className={`w-14 h-16 sm:w-16 sm:h-18 text-center text-2xl font-black text-slate-900 bg-slate-50 border-2 rounded-2xl outline-none transition-all shadow-inner ${
                         digit
-                          ? "border-[#2E2E2E] bg-white ring-2 ring-[#2E2E2E]/20"
-                          : "border-slate-200 focus:border-[#2E2E2E] focus:bg-white"
+                          ? "border-[#252525] bg-white ring-2 ring-[#252525]/20"
+                          : "border-slate-200 focus:border-[#252525] focus:bg-white"
                       }`}
                     />
                   ))}
@@ -913,7 +963,7 @@ export function EligibilityForm() {
                     type="button"
                     onClick={() => handleRequestOtp(true)}
                     disabled={otpLoading}
-                    className="text-[#2E2E2E] hover:underline font-bold transition-colors flex items-center gap-1"
+                    className="text-[#252525] hover:underline font-bold transition-colors flex items-center gap-1"
                   >
                     <RotateCw className="w-3.5 h-3.5" />
                     <span>Resend Code</span>

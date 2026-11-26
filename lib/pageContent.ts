@@ -32,26 +32,11 @@ export const stats = [
   { value: "84", label: "months of maximum repayment tenure*" },
 ];
 
-// Placeholder stories: replace with real, consented customer quotes before launch.
-export const testimonials = [
-  {
-    quote: "I had four EMIs due on different dates. Now it's one payment and I finally know what I owe.",
-    who: "Salaried professional, Bangalore",
-  },
-  {
-    quote: "They told me honestly that switching wouldn't save much on one of my loans. I appreciated that.",
-    who: "Salaried professional, Delhi",
-  },
-  {
-    quote: "Simple process, no jargon, and nobody pushed me to sign up for anything.",
-    who: "Salaried professional, Pune",
-  },
-];
 
 const commonFaq: Faq[] = [
   { q: "Is the assessment free?", a: "Yes. The initial assessment is free and carries no obligation. Any applicable charges are always shared clearly before you proceed." },
   { q: "Do you guarantee approval or a lower rate?", a: "No. Approval, rate, amount and tenure are decided by the lender based on your profile and its policy. We help you explore suitable options." },
-  { q: "Will checking affect my credit score?", a: "We start with a soft profile review. A hard enquiry only happens if you choose to apply with a lender." },
+  { q: "Will checking affect my credit score?", a: "Looking at your own credit report is generally treated as a soft enquiry and does not lower your score, and we ask your permission first. A formal application with a lender usually creates a hard enquiry, which can lower your score slightly for a while." },
 ];
 
 export const pageContent: Record<PageKey, PageContent> = {
@@ -59,9 +44,9 @@ export const pageContent: Record<PageKey, PageContent> = {
     heading: "What we stand for.",
     intro: "We're a small team of credit specialists who'd rather give you a straight answer than a sales pitch.",
     benefits: [
-      { icon: "users", title: "Real people", text: "Every enquiry is handled by a credit specialist, not a chatbot." },
+      { icon: "users", title: "Real people", text: "A credit specialist follows up on every enquiry and walks you through your options." },
       { icon: "shield", title: "Modest claims", text: "We tell you what's possible and what isn't, even if it means no sale." },
-      { icon: "lock", title: "Careful with your data", text: "Your details are used only to assess your options." },
+      { icon: "lock", title: "Careful with your data", text: "Your details go to lenders only if you allow it, and you can ask us to delete them." },
       { icon: "map", title: "Offices in 3 cities", text: "Visit us in Dehradun, Delhi or Rudrapur." },
     ],
     faqs: [

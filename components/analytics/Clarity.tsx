@@ -30,11 +30,11 @@ export function ClarityLoader() {
       return; // never let a failed third-party script load break the page
     }
 
-    applyConsent(getConsent()?.recordings === "granted" ? "granted" : "denied");
+    applyConsent(getConsent()?.recordings === "denied" ? "denied" : "granted");
     setClarityTag("content_group", contentGroupFor(window.location.pathname));
 
     return onConsentChange((state) => {
-      applyConsent(state?.recordings === "granted" ? "granted" : "denied");
+      applyConsent(state?.recordings === "denied" ? "denied" : "granted");
     });
   }, []);
 

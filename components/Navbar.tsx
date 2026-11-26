@@ -6,7 +6,8 @@ import { Logo } from "@/components/Logo";
 import { ArrowRight, X, Mail, ShieldCheck, ChevronDown, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { cities } from "@/lib/cities";
+import { cities, topCitySlugs } from "@/lib/cities";
+import { cityHubPath } from "@/lib/cityPages";
 import { track } from "@/lib/analytics/track";
 
 type MenuLink = { label: string; desc?: string; href: string };
@@ -20,17 +21,25 @@ type Menu = {
   narrow?: boolean;
 };
 
-const G1 = "linear-gradient(90deg,#2E2E2E,#FFD2B8 55%,#ffd24d)";
-const G2 = "linear-gradient(90deg,#2E2E2E,#FFD2B8 55%,#ffd24d)";
-const G3 = "linear-gradient(90deg,#2E2E2E,#F7E0D4 60%,#ff6fb5)";
+const G1 = "linear-gradient(90deg,#252525,#FFD1A3 55%,#ffd24d)";
+const G2 = "linear-gradient(90deg,#252525,#FFD1A3 55%,#ffd24d)";
+const G3 = "linear-gradient(90deg,#252525,#FFE4CC 60%,#ff6fb5)";
 
 const promoAssessment = {
-  img: "/img/multipleloans.webp",
+  img: "/img/debt-consolidation-multiple-emis.webp",
   title: "Not sure where to start?",
   text: "Get a free assessment. We'll look at your loans and tell you honestly what could help.",
   cta: "Start now",
   href: "/eligibility#credit-profile",
 };
+
+const cityLink = (slug: string) => ({ label: cities.find((c) => c.slug === slug)!.name, href: cityHubPath(slug) });
+
+// Every other city, A to Z, after the top ones.
+const otherCitySlugs = cities
+  .filter((c) => !(topCitySlugs as readonly string[]).includes(c.slug))
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .map((c) => c.slug);
 
 const menus: Menu[] = [
   {
@@ -60,6 +69,8 @@ const menus: Menu[] = [
         title: "Check first",
         gradient: G3,
         links: [
+          { label: "Free credit score", desc: "Check it free, get matched options", href: "/free-cibil-score" },
+          { label: "Free credit report", desc: "Every loan, card and enquiry", href: "/free-credit-report" },
           { label: "Eligibility", desc: "See what you may qualify for", href: "/eligibility" },
           { label: "Free assessment", desc: "Talk to a credit expert", href: "/eligibility#credit-profile" },
         ],
@@ -98,11 +109,11 @@ const menus: Menu[] = [
     key: "cities",
     label: "Cities",
     columns: [
-      { title: "Personal loans by city", gradient: G2, links: cities.slice(0, 5).map((c) => ({ label: c.name, href: `/personal-loan-in-${c.slug}` })) },
-      { title: "More cities", gradient: G3, links: cities.slice(5, 10).map((c) => ({ label: c.name, href: `/personal-loan-in-${c.slug}` })) },
-      { title: "And also", gradient: G1, links: cities.slice(10).map((c) => ({ label: c.name, href: `/personal-loan-in-${c.slug}` })) },
+      { title: "Top cities", gradient: G2, links: topCitySlugs.map(cityLink) },
+      { title: "More cities", gradient: G3, links: otherCitySlugs.slice(0, Math.ceil(otherCitySlugs.length / 2)).map(cityLink) },
+      { title: "And more", gradient: G1, links: otherCitySlugs.slice(Math.ceil(otherCitySlugs.length / 2)).map(cityLink) },
     ],
-    footer: { label: "Our offices: Dehradun, Delhi, Rudrapur", href: "/contact" },
+    footer: { label: `All ${cities.length} cities and loan types`, href: "/loans-by-city" },
   },
   {
     key: "resources",
@@ -124,6 +135,7 @@ const menus: Menu[] = [
           { label: "About us", desc: "Who we are", href: "/about" },
           { label: "Contact", desc: "Offices, phone and email", href: "/contact" },
           { label: "Partner disclosures", desc: "How we work with lenders", href: "/partner-disclosures" },
+          { label: "Grievance redressal", desc: "How to complain and escalate", href: "/grievance-redressal" },
         ],
       },
       {
@@ -236,11 +248,13 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", onKey);
   }, [hidePanel]);
 
-  // close the mobile drawer after navigating
-  useEffect(() => {
+  // close the mobile drawer after navigating (reset state while rendering, not in an effect)
+  const [drawerPath, setDrawerPath] = useState(pathname);
+  if (drawerPath !== pathname) {
+    setDrawerPath(pathname);
     setOpen(false);
     setMobileGroup(null);
-  }, [pathname]);
+  }
 
   // lock page scroll while the mobile drawer is open; close it if the viewport grows to desktop
   useEffect(() => {
@@ -270,7 +284,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="hidden lg:block fixed inset-0 z-40 bg-[#2E2E2E]/10 pointer-events-none"
+            className="hidden lg:block fixed inset-0 z-40 bg-[#252525]/10 pointer-events-none"
           />
         )}
       </AnimatePresence>
@@ -295,10 +309,10 @@ export function Navbar() {
           {/* Bar highlight: spans logo to CTA, lights up when the bar is hovered */}
           <div
             aria-hidden
-            className={`hidden lg:block absolute -inset-x-5 inset-y-[8px] rounded-xl border transition-[background-color,box-shadow,border-color] duration-200 ${
+            className={`hidden lg:block absolute -inset-x-5 inset-y-[8px] rounded-xl transition-[background-color,box-shadow] duration-200 ${
               barHover || active
-                ? "bg-white border-[#2E2E2E] shadow-[4px_4px_0_0_#2E2E2E]"
-                : "bg-transparent border-transparent"
+                ? "bg-white shadow-[0_4px_16px_-6px_rgba(0,0,0,0.12)]"
+                : "bg-transparent"
             }`}
           />
 
@@ -319,7 +333,7 @@ export function Navbar() {
                 transition:
                   "clip-path 0.2s cubic-bezier(0.45,0.05,0.55,0.95), height 0.28s cubic-bezier(0.45,0.05,0.55,0.95), width 0.28s cubic-bezier(0.45,0.05,0.55,0.95)",
               }}
-              className="hidden lg:block absolute left-[-28px] top-[6px] z-0 bg-white rounded-md border-2 border-[#2E2E2E] overflow-hidden shadow-[6px_6px_0_0_#2E2E2E]"
+              className="hidden lg:block absolute left-[-28px] top-[6px] z-0 bg-white rounded-md overflow-hidden shadow-[0_12px_32px_-8px_rgba(0,0,0,0.10)]"
             >
               <div ref={panelInner}>
                 <motion.div key={renderMenu.key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.16 }}>
@@ -328,7 +342,7 @@ export function Navbar() {
                       <div className={`grid gap-10 pb-10 ${renderMenu.columns.length === 1 ? "grid-cols-1 max-w-sm" : renderMenu.columns.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
                         {renderMenu.columns.map((col) => (
                           <div key={col.title}>
-                            <p className="text-base font-medium text-[#2E2E2E] pb-3 mb-4 relative">
+                            <p className="text-base font-medium text-[#252525] pb-3 mb-4 relative">
                               {col.title}
                               <span className="absolute left-0 right-0 bottom-0 h-px" style={{ background: col.gradient || G1 }} />
                             </p>
@@ -336,8 +350,8 @@ export function Navbar() {
                               {col.links.map((l) => (
                                 <li key={l.href + l.label}>
                                   <Link href={l.href} className="group block">
-                                    <span className="block text-base font-bold text-[#2E2E2E] group-hover:text-[#2E2E2E] transition-colors font-bold">{l.label}</span>
-                                    {l.desc && <span className="block text-sm leading-snug text-[#575757] mt-0.5">{l.desc}</span>}
+                                    <span className="block text-base font-bold text-[#252525] group-hover:text-[#252525] transition-colors font-bold">{l.label}</span>
+                                    {l.desc && <span className="block text-sm leading-snug text-[#626262] mt-0.5">{l.desc}</span>}
                                   </Link>
                                 </li>
                               ))}
@@ -347,7 +361,7 @@ export function Navbar() {
                       </div>
                       {renderMenu.footer && (
                         <div className="-mx-12 px-12 py-5 border-t border-[#E5E5E5]">
-                          <Link href={renderMenu.footer.href} className="text-base font-bold text-[#2E2E2E] hover:text-[#2E2E2E] inline-flex items-center gap-1">
+                          <Link href={renderMenu.footer.href} className="text-base font-bold text-[#252525] hover:text-[#252525] inline-flex items-center gap-1">
                             {renderMenu.footer.label} <ChevronRight className="h-4 w-4" />
                           </Link>
                         </div>
@@ -355,14 +369,14 @@ export function Navbar() {
                     </div>
   
                     {renderMenu.sidebar && (
-                      <div className="bg-[#FAFAFA] border-l border-[#E5E5E5] pt-[84px] px-8 pb-8">
-                        <p className="text-base font-medium text-[#2E2E2E] mb-4">{renderMenu.sidebar.title}</p>
+                      <div className="bg-[#FFF9F4] border-l border-[#E5E5E5] pt-[84px] px-8 pb-8">
+                        <p className="text-base font-medium text-[#252525] mb-4">{renderMenu.sidebar.title}</p>
                         <ul className="space-y-4">
                           {renderMenu.sidebar.links.map((l) => (
                             <li key={l.href}>
                               <Link href={l.href} className="group block">
-                                <span className="block text-base font-bold text-[#2E2E2E] group-hover:text-[#2E2E2E] transition-colors font-bold">{l.label}</span>
-                                {l.desc && <span className="block text-sm text-[#575757] mt-0.5">{l.desc}</span>}
+                                <span className="block text-base font-bold text-[#252525] group-hover:text-[#252525] transition-colors font-bold">{l.label}</span>
+                                {l.desc && <span className="block text-sm text-[#626262] mt-0.5">{l.desc}</span>}
                               </Link>
                             </li>
                           ))}
@@ -373,9 +387,9 @@ export function Navbar() {
                               <Image src={renderMenu.sidebar.promo.img} alt="" fill sizes="320px" className="object-cover" />
                             </div>
                             <div className="p-4">
-                              <p className="text-base font-medium text-[#2E2E2E]">{renderMenu.sidebar.promo.title}</p>
-                              <p className="mt-1 text-sm leading-snug text-[#575757]">{renderMenu.sidebar.promo.text}</p>
-                              <p className="mt-3 text-base font-bold text-[#2E2E2E] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                              <p className="text-base font-medium text-[#252525]">{renderMenu.sidebar.promo.title}</p>
+                              <p className="mt-1 text-sm leading-snug text-[#626262]">{renderMenu.sidebar.promo.text}</p>
+                              <p className="mt-3 text-base font-bold text-[#252525] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                                 {renderMenu.sidebar.promo.cta} <ChevronRight className="h-4 w-4" />
                               </p>
                             </div>
@@ -413,8 +427,8 @@ export function Navbar() {
                         }}
                         onFocus={() => openMenu(m.key, true)}
                         onClick={() => (isOpen ? hidePanel() : openMenu(m.key, true))}
-                        className={`h-10 px-[18px] text-[18px] font-[500] flex items-center gap-1.5 rounded-lg transition-colors duration-200 cursor-pointer hover:bg-[#F7E0D4] ${
-                          dim ? "text-[#737373]" : "text-[#2E2E2E]"
+                        className={`h-10 px-[18px] text-[18px] font-[500] flex items-center gap-1.5 rounded-lg transition-colors duration-200 cursor-pointer hover:bg-[#FFE4CC] ${
+                          dim ? "text-[#737373]" : "text-[#252525]"
                         }`}
                       >
                         {m.label}
@@ -431,7 +445,7 @@ export function Navbar() {
                 href="/eligibility"
                 data-analytics-cta="navbar_eligibility"
                 data-analytics-location="navbar"
-                className="h-10 px-[22px] inline-flex items-center text-[17px] font-[500] text-[#1A1A1A] bg-white/80 border border-[#2E2E2E] rounded-lg hover:bg-white transition-colors"
+                className="h-12 px-[22px] inline-flex items-center text-[17px] font-[500] text-[#252525] bg-white/80 border border-[#252525] rounded-lg hover:bg-white transition-colors"
               >
                 Eligibility
               </Link>
@@ -439,7 +453,7 @@ export function Navbar() {
                 href={assessmentHref}
                 data-analytics-cta="navbar_get_assessment"
                 data-analytics-location="navbar"
-                className="h-10 px-[22px] inline-flex items-center gap-2 text-[17px] font-semibold text-white bg-gradient-to-b from-[#FF6A14] to-[#EC4F00] rounded-lg shadow-[0_10px_20px_-10px_rgba(236,79,0,0.8)] hover:brightness-105 transition-[filter]"
+                className="h-12 px-[22px] inline-flex items-center gap-2 text-[17px] font-semibold text-white bg-[#FD6C01] hover:bg-[#E15F00] rounded-lg shadow-[0_10px_20px_-10px_rgba(225,95,0,0.35)] hover:brightness-105 transition-[filter]"
               >
                 Get assessment <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
@@ -451,7 +465,7 @@ export function Navbar() {
               aria-label="Open menu"
               aria-expanded={open}
               onClick={() => setOpen(!open)}
-              className="relative w-[44px] h-[44px] rounded-md bg-[#FF5A00] hover:bg-[#2E2E2E] flex items-center justify-center cursor-pointer lg:hidden z-50 transition-colors shadow-sm"
+              className="relative w-[44px] h-[44px] rounded-md bg-[#FD6C01] hover:bg-[#252525] flex items-center justify-center cursor-pointer lg:hidden z-50 transition-colors shadow-sm"
             >
               <div className="relative w-5 h-[14px] flex flex-col justify-between items-center">
                 <span className={`block h-[2px] w-5 bg-white transition-transform duration-300 ${open ? "rotate-45 translate-y-[6px]" : ""}`}></span>
@@ -473,7 +487,7 @@ export function Navbar() {
               initial="initial"
               animate="enter"
               exit="exit"
-              className="absolute inset-0 bg-[#2E2E2E]/60"
+              className="absolute inset-0 bg-[#252525]/60"
               onClick={() => setOpen(false)}
             />
 
@@ -486,7 +500,7 @@ export function Navbar() {
               role="dialog"
               aria-modal="true"
               aria-label="Menu"
-              className="absolute top-0 right-0 h-[100dvh] w-full bg-white border-l-2 border-[#2E2E2E] overflow-y-auto overscroll-contain flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+              className="absolute top-0 right-0 h-[100dvh] w-full bg-white border-l border-[#252525]/25 overflow-y-auto overscroll-contain flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {/* Header */}
               <div className="h-[60px] shrink-0 sticky top-0 z-10 bg-white px-4 md:px-6 flex items-center justify-between">
@@ -495,7 +509,7 @@ export function Navbar() {
                   type="button"
                   aria-label="Close menu"
                   onClick={() => setOpen(false)}
-                  className="relative w-[44px] h-[44px] rounded-md bg-[#FF5A00] hover:bg-[#2E2E2E] flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                  className="relative w-[44px] h-[44px] rounded-md bg-[#FD6C01] hover:bg-[#252525] flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                 >
                   <X className="w-5 h-5 text-white" />
                 </button>
@@ -507,7 +521,7 @@ export function Navbar() {
                   <Link
                     href="/"
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between py-3.5 px-2 text-lg font-semibold text-[#2E2E2E] tracking-tight"
+                    className="flex items-center justify-between py-3.5 px-2 text-lg font-semibold text-[#252525] tracking-tight"
                   >
                     Home
                   </Link>
@@ -527,7 +541,7 @@ export function Navbar() {
                               track({ name: "nav_menu_open", params: { menu_id: next } });
                             }
                           }}
-                          className="w-full flex items-center justify-between py-3.5 px-2 text-lg font-semibold text-[#2E2E2E] tracking-tight cursor-pointer"
+                          className="w-full flex items-center justify-between py-3.5 px-2 text-lg font-semibold text-[#252525] tracking-tight cursor-pointer"
                         >
                           {m.label}
                           <ChevronDown className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
@@ -549,8 +563,8 @@ export function Navbar() {
                                       {g.links.map((l) => (
                                         <li key={l.href + l.label}>
                                           <Link href={l.href} onClick={() => setOpen(false)} className="block">
-                                            <span className="block text-base font-bold text-[#2E2E2E]">{l.label}</span>
-                                            {l.desc && <span className="block text-sm text-[#575757]">{l.desc}</span>}
+                                            <span className="block text-base font-bold text-[#252525]">{l.label}</span>
+                                            {l.desc && <span className="block text-sm text-[#626262]">{l.desc}</span>}
                                           </Link>
                                         </li>
                                       ))}
@@ -568,7 +582,7 @@ export function Navbar() {
                   <Link
                     href="/eligibility"
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between py-3.5 px-2 text-lg font-semibold text-[#2E2E2E] tracking-tight border-t border-[#E5E5E5]"
+                    className="flex items-center justify-between py-3.5 px-2 text-lg font-semibold text-[#252525] tracking-tight border-t border-[#E5E5E5]"
                   >
                     Eligibility
                   </Link>
@@ -580,7 +594,7 @@ export function Navbar() {
                 <Link
                   href={pathname === "/" ? "#lead-form" : pathname === "/eligibility" ? "#credit-profile" : "/eligibility#credit-profile"}
                   onClick={() => setOpen(false)}
-                  className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-[#2E2E2E] active:scale-[0.98] transition-transform border-2 border-[#2E2E2E] shadow-[4px_4px_0_0_#2E2E2E] bg-[#FF5A00]"
+                  className="mx-2 mb-4 group flex items-center justify-between p-3 rounded text-[#252525] active:scale-[0.98] transition-transform border border-[#252525]/25 shadow-standard bg-[#FD6C01]"
                 >
                   <span className="text-base font-semibold pl-2">Get Free Assessment</span>
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -596,9 +610,9 @@ export function Navbar() {
                     className="group flex items-center p-2 rounded-xl hover:bg-slate-50 transition-colors"
                   >
                     <div className="w-9 h-9 rounded-[10px] bg-slate-50 flex items-center justify-center mr-3 group-hover:bg-slate-100 transition-colors">
-                      <Mail className="w-[16px] h-[16px] text-[#2E2E2E]" />
+                      <Mail className="w-[16px] h-[16px] text-[#252525]" />
                     </div>
-                    <span className="text-base font-medium text-[#2E2E2E] flex-1 tracking-tight">Contact Us</span>
+                    <span className="text-base font-medium text-[#252525] flex-1 tracking-tight">Contact Us</span>
                     <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-slate-400 group-hover:translate-x-1 transition-all" />
                   </Link>
                 </div>

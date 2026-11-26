@@ -15,7 +15,7 @@
  */
 import fs from "fs";
 import path from "path";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, SEO_YEAR, withYear } from "@/lib/seo";
 import { articles } from "@/content/articles";
 
 const TITLE_TEMPLATE_SUFFIX = " | Amortas".length; // lib/config.ts siteConfig.name
@@ -79,7 +79,12 @@ describe("page metadata stays within Google's display budget", () => {
 describe("root layout metadata stays within Google's display budget", () => {
   it("homepage title and description", () => {
     const source = fs.readFileSync(path.join(APP_DIR, "layout.tsx"), "utf-8");
-    const title = extractFirst(source, /default:\s*`([^`]+)`/);
+    const rawTitle = extractFirst(source, /default:\s*`([^`]+)`/);
+    // Resolve the template placeholders to what actually renders.
+    const title = rawTitle
+      ?.replaceAll("${siteConfig.name}", "Amortas")
+      .replaceAll("${SEO_YEAR}", SEO_YEAR) ?? null;
+    expect(title).not.toContain("${");
     const description = extractFirst(source, /description:\s*\n?\s*"([^"]+)"/);
     expect(title).not.toBeNull();
     expect(description).not.toBeNull();
@@ -88,6 +93,16 @@ describe("root layout metadata stays within Google's display budget", () => {
     expect(title!.length).toBeLessThanOrEqual(MAX_RENDERED_TITLE);
     expect(description!.length).toBeLessThanOrEqual(MAX_DESCRIPTION);
     expect(description!.length).toBeGreaterThanOrEqual(MIN_DESCRIPTION);
+  });
+});
+
+describe("{year} token", () => {
+  it("renders the current four-digit year", () => {
+    expect(SEO_YEAR).toMatch(/^20\d\d$/);
+    expect(withYear("EMI Calculator {year}")).toBe(`EMI Calculator ${SEO_YEAR}`);
+    const m = buildMetadata({ title: "A {year}", description: "In {year}.", path: "/x" });
+    expect(m.title).toBe(`A ${SEO_YEAR}`);
+    expect(m.description).toBe(`In ${SEO_YEAR}.`);
   });
 });
 

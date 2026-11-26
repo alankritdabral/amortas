@@ -31,6 +31,30 @@ export const contact = {
   legalName: "Amortas",
 } as const;
 
+/**
+ * Registered-entity and grievance-officer details shown on the legal pages,
+ * footer and About page. EVERY field here is optional and is rendered only
+ * when filled in, so nothing is invented. OWNER ACTION: fill these in from the
+ * incorporation documents; the RBI Digital Lending Directions expect a named
+ * grievance/nodal officer. Until then the pages fall back to the public
+ * contact email.
+ */
+export const company = {
+  legalEntityName: "",
+  cin: "",
+  registeredOffice: "",
+  gstin: "",
+  grievanceOfficer: {
+    name: "",
+    designation: "",
+    email: "",
+    phone: "",
+  },
+} as const;
+
+/** Date the legal pages were last revised (shown to visitors). */
+export const LEGAL_LAST_UPDATED = "26 November 2026";
+
 export const lendingPartners = {
   enabled: true,
   headline: "Affiliated Banking & Lending Partners",

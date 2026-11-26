@@ -1,45 +1,66 @@
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
+import { LastUpdated } from "@/components/LastUpdated";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import type { BreadcrumbItem } from "@/lib/structuredData";
 
 type Props = {
   title: string;
   body: string;
   cta: string;
-  image: string;
-  /** A real, page-specific description. Falls back to "" (decorative) only
-   * when a caller genuinely has nothing more specific to say than the
-   * title already does. */
-  imageAlt?: string;
   points?: string[];
+  /** Where the secondary button goes: the full eligibility check further down the page. */
   href?: string;
+  /** The page's route path (e.g. "/personal-loan"). When set, shows the
+   * "Updated <date>" stamp from lib/routes.ts under the points. */
+  updatedPath?: string;
+  /** Set false when something above (e.g. breadcrumbs under the page's own navbar spacer) already clears the navbar. */
+  spacer?: boolean;
+  /** Visible breadcrumb band plus BreadcrumbList JSON-LD, rendered between the navbar spacer and the hero. */
+  breadcrumbs?: BreadcrumbItem[];
+  /** Preselects the form's "What can we help you with?". Defaults from the page's route. */
+  requirement?: string;
+  /** City this page is for, sent with the lead. */
+  city?: string;
 };
 
-export function ProductHero({ title, body, cta, image, imageAlt = "", points = [], href = "#lead-form" }: Props) {
+export function ProductHero({ title, body, cta, points = [], href = "#lead-form", updatedPath, spacer = true, breadcrumbs, requirement, city }: Props) {
   return (
     <>
-    <div className="h-[84px] bg-white" aria-hidden="true" />
-    <section className="w-full grid grid-cols-1 lg:grid-cols-[6fr_5fr] bg-[#FF5A00] text-[#2E2E2E]">
-      <div className="px-4 md:px-10 lg:pl-[max(2rem,calc((100vw-1220px)/2+2rem))] lg:pr-14 pt-14 pb-14 lg:pt-24 lg:pb-24">
-        <h1 className="hero-title text-[clamp(36px,10vw,44px)] sm:text-5xl lg:text-[56px] leading-[1.02] tracking-[-0.04em] font-medium max-w-2xl">
-          {title}
-        </h1>
-        <p className="hero-description mt-6 text-base sm:text-lg lg:text-xl leading-[1.5] text-[#1A1A1A] max-w-xl">{body}</p>
-        <a
-          href={href}
-          data-analytics-cta={`hero_${cta.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")}`}
-          data-analytics-location="product_hero"
-          className="mt-9 inline-flex items-center gap-2 rounded bg-white text-[#2E2E2E] font-semibold text-base px-[22px] h-[48px] hover:bg-[#2E2E2E] hover:text-white transition-colors"
-        >
-          {cta} <ArrowRight className="w-5 h-5" />
-        </a>
-        <ul className="mt-10 space-y-2 text-base sm:text-lg font-medium text-[#1A1A1A]">
-          {points.map((p) => (
-            <li key={p}>{p}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="relative min-h-[320px] lg:min-h-full">
-        <Image src={image} alt={imageAlt} fill priority sizes="(min-width:1024px) 45vw, 100vw" className="object-cover" />
+    {spacer && <div className="h-[84px] bg-white" aria-hidden="true" />}
+    {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+    <section className="w-full bg-[#FFF3E8] text-[#252525] border-b border-[#F0E3D8]">
+      <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-14 lg:py-[72px] grid grid-cols-1 lg:grid-cols-[6fr_5fr] gap-x-16 gap-y-8 lg:gap-y-0">
+        <div className="lg:self-end">
+          <h1 className="hero-title text-[clamp(34px,9vw,42px)] sm:text-5xl lg:text-[52px] leading-[1.04] tracking-[-0.04em] font-semibold max-w-2xl">
+            {title}
+          </h1>
+          <p className="hero-description mt-5 text-base sm:text-lg leading-[1.55] text-[#4A4540] max-w-xl">{body}</p>
+        </div>
+        <div className="w-full lg:max-w-[520px] lg:ml-auto lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-center">
+          <ContactForm variant="card" location="hero" defaultRequirement={requirement} city={city} />
+        </div>
+        <div className="lg:self-start">
+          {points.length > 0 && (
+            <ul className="mt-1 lg:mt-7 space-y-2.5 text-base sm:text-[17px] text-[#252525]">
+              {points.map((p) => (
+                <li key={p} className="flex items-start gap-2.5">
+                  <Check className="mt-1 h-[18px] w-[18px] shrink-0 text-[#E15F00]" strokeWidth={2.5} aria-hidden="true" />
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <a
+            href={href}
+            data-analytics-cta={`hero_${cta.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")}`}
+            data-analytics-location="product_hero"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg border border-[#252525]/25 bg-white/60 text-[#252525] font-semibold text-[15px] px-5 h-11 hover:bg-[#252525] hover:text-white hover:border-[#252525] transition-colors"
+          >
+            {cta} <ArrowRight className="w-4 h-4" />
+          </a>
+          {updatedPath && <LastUpdated path={updatedPath} className="mt-6 text-[#252525]/70" />}
+        </div>
       </div>
     </section>
     </>

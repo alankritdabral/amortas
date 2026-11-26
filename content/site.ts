@@ -205,27 +205,6 @@ export const faqs = [
   },
 ];
 
-export const testimonials = [
-  {
-    name: "Rahul S.",
-    role: "Software Engineer, Bengaluru",
-    text: "I had 2 personal loans and ₹1.8 Lakhs in credit card debt with 3 different due dates. Amortas helped me consolidate everything into one single EMI, reducing my monthly outflow substantially.",
-    rating: 5,
-  },
-  {
-    name: "Ananya M.",
-    role: "Senior HR Manager, Mumbai",
-    text: "The team guided me transparently through the eligibility check. They didn't make unrealistic promises and connected me with a top private bank balance transfer offer at 10.5% p.a.",
-    rating: 5,
-  },
-  {
-    name: "Vikram P.",
-    role: "Marketing Lead, Gurgaon",
-    text: "Clear, honest advice without pushing debt settlement. They explained how consolidating app loans into a structured personal loan protects CIBIL scores.",
-    rating: 5,
-  },
-];
-
 export const trustBullets = [
   "Free initial consultation",
   "Confidential assistance",

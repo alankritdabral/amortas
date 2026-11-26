@@ -129,7 +129,7 @@ export async function POST(request: Request) {
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Total Debt Balance:</strong></td>
-                  <td style="padding: 6px 0; font-weight: bold; color: #FF5A00;">₹${Number(totalDebt).toLocaleString('en-IN')}</td>
+                  <td style="padding: 6px 0; font-weight: bold; color: #FD6C01;">₹${Number(totalDebt).toLocaleString('en-IN')}</td>
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #737373;"><strong>Current Total Monthly EMI:</strong></td>
@@ -145,9 +145,9 @@ export async function POST(request: Request) {
                 </tr>
               </table>
 
-              <div style="margin-top: 16px; padding: 12px; background: #FAFAFA; border-radius: 8px; font-size: 13px;">
+              <div style="margin-top: 16px; padding: 12px; background: #FFF9F4; border-radius: 8px; font-size: 13px;">
                 <strong>Debts Breakdown:</strong><br/>
-                <span style="color: #575757;">${escapeHtml(debtsSummary)}</span>
+                <span style="color: #626262;">${escapeHtml(debtsSummary)}</span>
               </div>
 
               <div style="margin-top: 24px; display: flex; gap: 12px;">

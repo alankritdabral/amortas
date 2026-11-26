@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
+import { usePathname } from "next/navigation";
 import { Loader2, ArrowRight, CheckCircle2, AlertCircle, ChevronDown, Lock, Check, CheckCheck } from "lucide-react";
 import Link from "next/link";
 import { LogoMark } from "@/components/Logo";
@@ -11,33 +12,61 @@ import { getAttribution } from "@/lib/analytics/attribution";
 import { getGaIds } from "@/lib/analytics/ids";
 import { GA_ID } from "@/lib/analytics/gaId";
 import { setClarityTag } from "@/lib/analytics/clarityTags";
+import { REQUIREMENTS, requirementForPath, needFromSearch } from "@/lib/helpDefaults";
 
-const REQUIREMENTS = [
-  "Reduce my EMI",
-  "Consolidate Multiple Loans",
-  "Personal Loan",
-  "Credit Card Loan",
-  "App Loans",
-  "Loan Balance Transfer",
-  "Overdraft / OD",
-  "Check My Eligibility",
-  "Other"
-];
+type Props = {
+  /** "home" and "page" are the full-size layouts; "card" is the compact white card used in heroes and mid-page bands. */
+  variant?: "home" | "page" | "card";
+  /** Where on the page this copy sits, so analytics can tell several forms on one page apart. */
+  location?: "hero" | "contact_form";
+  /** Preselects "What can we help you with?". Falls back to the page's own default (lib/helpDefaults). */
+  defaultRequirement?: string;
+  /** City page the visitor is on, sent with the lead. */
+  city?: string;
+};
 
-export function ContactForm({ variant = "home" }: { variant?: "home" | "page" }) {
+export function ContactForm({ variant = "home", location = "contact_form", defaultRequirement, city }: Props) {
   const page = variant === "page";
-  const inputCls = page
-    ? "w-full bg-[#FFF8F3] border-2 border-transparent focus:border-[#2E2E2E] rounded-md px-4 h-[52px] text-[#2E2E2E] text-base outline-none transition-colors placeholder:text-[#575757]/60"
-    : "w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#2E2E2E] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#575757]/50";
-  const labelCls = page ? "text-base font-semibold text-[#2E2E2E]" : "text-sm font-bold text-[#2E2E2E]";
+  const card = variant === "card";
+  const uid = useId();
+  const ids = {
+    name: `${uid}-name`,
+    phone: `${uid}-phone`,
+    requirement: `${uid}-requirement`,
+    netSalary: `${uid}-netSalary`,
+    ongoingEmi: `${uid}-ongoingEmi`,
+  };
+  const pathname = usePathname();
+  const baseRequirement = defaultRequirement ?? requirementForPath(pathname);
+  const inputCls = card
+    ? "w-full bg-[#FFF9F4] border border-[#EADFD5] focus:border-[#252525] rounded-lg px-3.5 h-11 text-[#252525] text-[15px] outline-none transition-colors placeholder:text-[#626262]/60"
+    : page
+    ? "w-full bg-[#FFF9F4] border-2 border-transparent focus:border-[#252525] rounded-md px-4 h-[52px] text-[#252525] text-base outline-none transition-colors placeholder:text-[#626262]/60"
+    : "w-full bg-slate-50 border border-slate-50 focus:border-slate-200 rounded-xl px-4 py-3 text-[#252525] text-sm focus:ring-4 focus:ring-blue-50 outline-none transition-all placeholder:text-[#626262]/50";
+  const labelCls = card ? "text-sm font-semibold text-[#252525]" : page ? "text-base font-semibold text-[#252525]" : "text-sm font-bold text-[#252525]";
+  const isListed = (v: string) => (REQUIREMENTS as readonly string[]).includes(v);
+  // A value that is not one of the options (from a link) is shown as a text box the visitor can edit.
+  const [typing, setTyping] = useState(Boolean(baseRequirement) && !isListed(baseRequirement));
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    requirement: "",
+    requirement: baseRequirement,
     netSalary: "",
     ongoingEmi: "",
     consentContact: false,
   });
+  // A link such as /personal-loan?need=balance-transfer overrides the page default. Read after mount so the page stays static.
+  const needRef = useRef("");
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      const need = needFromSearch(window.location.search);
+      if (!need) return;
+      needRef.current = need;
+      if (!isListed(need)) setTyping(true);
+      setFormData((prev) => (prev.requirement === baseRequirement ? { ...prev, requirement: need } : prev));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [baseRequirement]);
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -49,8 +78,8 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
   // a full IntersectionObserver per form instance was judged not worth the
   // added complexity for this phase.
   useEffect(() => {
-    track({ name: "lead_form_view", params: { form_id: "contact", form_location: "contact_form" } });
-  }, []);
+    track({ name: "lead_form_view", params: { form_id: "contact", form_location: location === "contact_form" ? "contact_form" : `contact_form_${location}` } });
+  }, [location]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (!hasStartedRef.current) {
@@ -123,6 +152,9 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
         body: JSON.stringify({
           ...formData,
           phone: phoneDigits,
+          city,
+          pagePath: window.location.pathname,
+          formLocation: location,
           consent: {
             contact: formData.consentContact,
             shareWithLenders: false, // the consent text no longer mentions lenders
@@ -145,10 +177,12 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
         url.searchParams.set("status", "submitted");
         window.history.replaceState(window.history.state, "", url.toString());
       } catch {}
+      const resetNeed = needRef.current || baseRequirement;
+      setTyping(Boolean(resetNeed) && !isListed(resetNeed));
       setFormData({
         name: "",
         phone: "",
-        requirement: "",
+        requirement: resetNeed,
         netSalary: "",
         ongoingEmi: "",
         consentContact: false,
@@ -190,7 +224,7 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
               href="/eligibility"
               data-analytics-cta="contact_form_success_check_eligibility"
               data-analytics-location="contact_form_success"
-              className="flex-1 px-6 py-3 bg-[#FF5A00] text-[#2E2E2E] hover:bg-[#FF5A00]/90 rounded font-bold transition-all shadow-md shadow-[#FF5A00]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
+              className="flex-1 px-6 py-3 bg-[#FD6C01] text-[#252525] hover:bg-[#FD6C01]/90 rounded font-bold transition-all shadow-md shadow-[#FD6C01]/20 hover:-translate-y-0.5 text-sm sm:text-base flex items-center justify-center gap-2"
             >
               Check Eligibility
             </Link>
@@ -214,13 +248,13 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
     }
 
     return (
-      <div className={page ? "bg-white p-6 sm:p-10 flex flex-col scroll-mt-24 rounded-lg" : "bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated"} id="contact-form-card">
-        <div className="mb-6 md:mb-8 shrink-0">
+      <div className={card ? "bg-white p-5 sm:p-7 flex flex-col scroll-mt-24 rounded-2xl border border-[#F0E3D8] shadow-[0_28px_60px_-30px_rgba(120,60,20,0.4)]" : page ? "bg-white p-6 sm:p-10 flex flex-col scroll-mt-24 rounded-lg" : "bg-white p-6 sm:p-10 relative z-20 flex flex-col scroll-mt-24 rounded-2xl card-elevated"} id={location === "contact_form" ? "contact-form-card" : undefined}>
+        <div className={card ? "mb-5 shrink-0" : "mb-6 md:mb-8 shrink-0"}>
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-2">
-            <h2 className={page ? "text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] text-[#2E2E2E]" : "text-[32px] font-bold tracking-[-0.02em] text-[#2E2E2E]"}>Leave your details</h2>
+            <h2 className={card ? "text-2xl font-bold tracking-[-0.02em] text-[#252525]" : page ? "text-[32px] leading-[1.1] font-semibold tracking-[-0.03em] text-[#252525]" : "text-[32px] font-bold tracking-[-0.02em] text-[#252525]"}>{card ? "Get a free callback" : "Leave your details"}</h2>
 
           </div>
-          <p className={page ? "text-[#575757] text-base mt-1" : "text-[#575757] text-sm -mt-1 sm:mt-0"}>We&apos;ll call you back, usually within 24 hours.</p>
+          <p className={card ? "text-[#626262] text-sm mt-1" : page ? "text-[#626262] text-base mt-1" : "text-[#626262] text-sm -mt-1 sm:mt-0"}>We&apos;ll call you back, usually within 24 hours.</p>
         </div>
 
         {status === "error" && (
@@ -230,15 +264,15 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 flex flex-col flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className={card ? "space-y-3.5 flex flex-col flex-1" : "space-y-4 flex flex-col flex-1"}>
+          <div className={card ? "grid grid-cols-1 sm:grid-cols-2 gap-3.5" : "grid grid-cols-1 md:grid-cols-2 gap-4"}>
             <div className="space-y-1.5">
-              <label htmlFor="name" className={labelCls}>
+              <label htmlFor={ids.name} className={labelCls}>
                 Full Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
-                id="name"
+                id={ids.name}
                 name="name"
                 autoComplete="name"
                 value={formData.name}
@@ -249,12 +283,12 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
               />
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="phone" className={labelCls}>
+              <label htmlFor={ids.phone} className={labelCls}>
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
-                id="phone"
+                id={ids.phone}
                 name="phone"
                 autoComplete="tel-national"
                 inputMode="numeric"
@@ -269,72 +303,106 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="requirement" className={labelCls}>
+            <label htmlFor={ids.requirement} className={labelCls}>
               What can we help you with? <span className="text-red-500">*</span>
             </label>
-            <div className="relative">
-              <select
-                id="requirement"
-                name="requirement"
-                value={formData.requirement}
-                onChange={handleChange}
-                className={`${inputCls} appearance-none pr-10`}
-                required
-              >
-                <option value="" disabled>Select an option</option>
-                {REQUIREMENTS.map((req) => (
-                  <option key={req} value={req}>
-                    {req}
-                  </option>
-                ))}
-              </select>
-              <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#575757]">
-                <ChevronDown className="w-4 h-4" />
+            {typing ? (
+              <>
+                <input
+                  type="text"
+                  id={ids.requirement}
+                  name="requirement"
+                  value={formData.requirement}
+                  onChange={handleChange}
+                  maxLength={60}
+                  placeholder="Tell us what you need, e.g. wedding loan"
+                  className={inputCls}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTyping(false);
+                    setFormData((prev) => ({ ...prev, requirement: (REQUIREMENTS as readonly string[]).includes(baseRequirement) ? baseRequirement : "" }));
+                  }}
+                  className="text-xs text-[#626262] underline hover:text-[#252525]"
+                >
+                  Choose from the list instead
+                </button>
+              </>
+            ) : (
+              <div className="relative">
+                <select
+                  id={ids.requirement}
+                  name="requirement"
+                  value={formData.requirement}
+                  onChange={(e) => {
+                    if (e.target.value === "Other") {
+                      // "Other" has no meaning on its own: let the visitor say what they need.
+                      setTyping(true);
+                      setFormData((prev) => ({ ...prev, requirement: "" }));
+                      return;
+                    }
+                    handleChange(e);
+                  }}
+                  className={`${inputCls} appearance-none pr-10`}
+                  required
+                >
+                  <option value="" disabled>Select an option</option>
+                  {REQUIREMENTS.map((req) => (
+                    <option key={req} value={req}>
+                      {req}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-[#626262]">
+                  <ChevronDown className="w-4 h-4" />
+                </div>
               </div>
-            </div>
+            )}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className={card ? "grid grid-cols-1 sm:grid-cols-2 gap-3.5" : "grid grid-cols-1 md:grid-cols-2 gap-4"}>
             <div className="space-y-1.5">
-              <label htmlFor="netSalary" className={labelCls}>
+              <label htmlFor={ids.netSalary} className={labelCls}>
                 Net Monthly Salary (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
-                id="netSalary"
+                id={ids.netSalary}
                 name="netSalary"
                 inputMode="numeric"
                 min={0}
                 value={formData.netSalary}
                 onChange={handleChange}
-                aria-describedby="netSalary-hint"
+                aria-describedby={`${ids.netSalary}-hint`}
                 placeholder="e.g. 50000"
                 className={inputCls}
                 required
               />
-              <p id="netSalary-hint" className="text-sm text-[#575757]">Take-home pay. Must be above ₹45,000.</p>
+              <p id={`${ids.netSalary}-hint`} className={card ? "text-xs text-[#626262]" : "text-sm text-[#626262]"}>{card ? "Take-home, above ₹45,000." : "Take-home pay. Must be above ₹45,000."}</p>
             </div>
             <div className="space-y-1.5">
-              <label htmlFor="ongoingEmi" className={labelCls}>
+              <label htmlFor={ids.ongoingEmi} className={labelCls}>
                 Ongoing EMI (₹) <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
-                id="ongoingEmi"
+                id={ids.ongoingEmi}
                 name="ongoingEmi"
                 inputMode="numeric"
                 min={0}
                 value={formData.ongoingEmi}
                 onChange={handleChange}
-                aria-describedby="ongoingEmi-hint"
+                aria-describedby={`${ids.ongoingEmi}-hint`}
                 placeholder="e.g. 15000"
                 className={inputCls}
                 required
               />
-              <p id="ongoingEmi-hint" className="text-sm text-[#575757]">All current EMIs together. 0 if none.</p>
+              <p id={`${ids.ongoingEmi}-hint`} className={card ? "text-xs text-[#626262]" : "text-sm text-[#626262]"}>{card ? "All EMIs together. 0 if none." : "All current EMIs together. 0 if none."}</p>
             </div>
           </div>
 
-          <div className="mt-4 pt-4 shrink-0">
+          <div className={card ? "mt-2 shrink-0" : "mt-4 pt-4 shrink-0"}>
             <label className="flex items-start gap-3 py-1 rounded-xl cursor-pointer group mb-4">
               <div className="relative flex items-center justify-center mt-0.5">
                 <input
@@ -342,20 +410,21 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
                   name="consentContact"
                   checked={formData.consentContact}
                   onChange={handleChange}
-                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#2E2E2E] checked:border-[#2E2E2E] transition-colors cursor-pointer"
+                  className="peer w-[18px] h-[18px] appearance-none border border-slate-200 rounded-[4px] checked:bg-[#252525] checked:border-[#252525] transition-colors cursor-pointer"
                   required
                 />
                 <Check className="absolute w-3 h-3 text-white pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity" strokeWidth={3} />
               </div>
-              <span className="text-sm text-[#575757] group-hover:text-[#2E2E2E] transition-colors">
-                I agree that Amortas may contact me regarding this enquiry. <span className="text-red-500">*</span>
+              <span className={card ? "text-xs leading-relaxed text-[#626262] group-hover:text-[#252525] transition-colors" : "text-sm text-[#626262] group-hover:text-[#252525] transition-colors"}>
+                I agree that Amortas may contact me by call, SMS, WhatsApp or email about this enquiry. This form does not share your details with lenders. See our{" "}
+                <Link href="/privacy-policy" className="underline">Privacy Policy</Link>. <span className="text-red-500">*</span>
               </span>
             </label>
 
             <button
               type="submit"
               disabled={status === "loading"}
-              className={page ? "w-full bg-[#FF5A00] text-[#2E2E2E] h-14 rounded-md font-semibold hover:bg-[#2E2E2E] active:scale-[0.99] transition-[background-color,transform] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed text-base" : "w-full bg-[#FF5A00] text-[#2E2E2E] py-[18px] rounded font-bold shadow-xl shadow-[#FF5A00]/20 hover:shadow-2xl hover:shadow-[#FF5A00]/30 hover:bg-[#FF5A00]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"}
+              className={card ? "w-full bg-[#FD6C01] text-[#252525] h-12 rounded-lg font-semibold hover:bg-[#252525] hover:text-white active:scale-[0.99] transition-[background-color,color,transform] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed text-base" : page ? "w-full bg-[#FD6C01] text-[#252525] h-14 rounded-md font-semibold hover:bg-[#252525] active:scale-[0.99] transition-[background-color,transform] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed text-base" : "w-full bg-[#FD6C01] text-[#252525] py-[18px] rounded font-bold shadow-xl shadow-[#FD6C01]/20 hover:shadow-2xl hover:shadow-[#FD6C01]/30 hover:bg-[#FD6C01]/90 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none text-base"}
             >
               {status === "loading" ? (
                 <>
@@ -370,9 +439,9 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
               )}
             </button>
             
-            <div className="pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#575757]">
-              <Lock className={page ? "w-4 h-4 shrink-0 text-[#575757]" : "w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400"} />
-              <p className={page ? "text-sm text-[#575757]" : "text-[11px] sm:text-xs text-slate-400"}>Your information is secure and will only be used to contact you.</p>
+            <div className={card ? "pt-3 flex items-center justify-center gap-1.5 text-[#626262]" : "pt-4 flex items-start sm:items-center justify-center gap-1.5 text-[#626262]"}>
+              <Lock className={page ? "w-4 h-4 shrink-0 text-[#626262]" : "w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0 text-slate-400"} />
+              <p className={card ? "text-xs text-[#626262]" : page ? "text-sm text-[#626262]" : "text-[11px] sm:text-xs text-slate-400"}>Your information is secure and will only be used to contact you.</p>
             </div>
           </div>
         </form>
@@ -380,16 +449,16 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
     );
   };
 
-  if (page) return <div className="w-full">{renderRightColumn()}</div>;
+  if (page || card) return <div className="w-full">{renderRightColumn()}</div>;
 
   return (
     <div className="w-full">
       <div className="grid grid-cols-1 lg:grid-cols-[5fr_6fr] gap-10 lg:gap-16 items-start">
         <div className="order-2 lg:order-1 lg:sticky lg:top-28">
-          <h2 className="text-[40px] sm:text-[56px] lg:text-[58px] leading-[1.02] tracking-[-0.04em] font-bold text-[#2E2E2E]">
+          <h2 className="text-[40px] sm:text-[56px] lg:text-[58px] leading-[1.02] tracking-[-0.04em] font-bold text-[#252525]">
             Rather have someone call you?
           </h2>
-          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#2E2E2E] max-w-md">
+          <p className="mt-5 text-lg md:text-xl leading-relaxed text-[#252525] max-w-md">
             Leave your number and tell us what you need help with. A credit expert will ring you
             back and walk through it with you.
           </p>
@@ -397,7 +466,7 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
           <div className="mt-9 max-w-md overflow-hidden rounded-2xl card-elevated bg-[#efeae2]">
             <div className="flex items-center gap-3 bg-[#008069] px-4 py-3 text-white">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white">
-                <LogoMark className="h-[14px] w-auto text-[#2E2E2E]" />
+                <LogoMark className="h-[16px] w-auto text-[#FD6C01]" />
               </div>
               <div className="leading-tight">
                 <p className="text-[15px] font-semibold">Amortas</p>
@@ -428,7 +497,7 @@ export function ContactForm({ variant = "home" }: { variant?: "home" | "page" })
             </div>
           </div>
 
-          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-[#2E2E2E] max-w-md">
+          <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-[#252525] max-w-md">
             <li>Your data is encrypted.</li>
             <li>Never shared with third parties.</li>
             <li>Verified loan experts.</li>

@@ -23,8 +23,30 @@ const DEFAULT_OG_IMAGE = {
 
 type OgImage = { url: string; width: number; height: number; alt: string };
 
+/**
+ * The current year in India, evaluated when the page is rendered (at build
+ * time for static pages), so a title like "Personal Loan EMI Calculator
+ * {year}" rolls over to the new year on the first deploy in January instead
+ * of a hard-coded "2026" going stale. Year-tagged queries ("personal loan
+ * 2026", "best debt consolidation 2027") are how many borrowers search, and
+ * a current year in the title lifts click-through on those results.
+ */
+export const SEO_YEAR = new Intl.DateTimeFormat("en-IN", { year: "numeric", timeZone: "Asia/Kolkata" }).format(new Date());
+
+/** The year after SEO_YEAR: lets titles and descriptions target "plan for next year" searches ("debt-free {nextYear}")
+ * without a hard-coded number that goes stale. Use it in descriptions and articles, not in titles. */
+export const SEO_NEXT_YEAR = String(Number(SEO_YEAR) + 1);
+
+/** Replaces every `{year}` / `{nextYear}` token. The literal "{year}" is two
+ * characters longer than the rendered year, so __tests__/seo-metadata.test.ts
+ * (which measures the literal) errs on the safe side of the 60-char budget. */
+export function withYear(text: string): string {
+  return text.replaceAll("{year}", SEO_YEAR).replaceAll("{nextYear}", SEO_NEXT_YEAR);
+}
+
 type PageSeo = {
-  /** Page title without the site name; the root layout title template appends it. */
+  /** Page title without the site name; the root layout title template
+   * appends it. May contain `{year}` (see withYear). */
   title: string;
   description: string;
   /** Route path starting with "/", used for canonical and og:url. */
@@ -43,7 +65,9 @@ type PageSeo = {
   noindex?: boolean;
 };
 
-export function buildMetadata({ title, description, path, keywords, type = "website", image, noindex }: PageSeo): Metadata {
+export function buildMetadata({ title: rawTitle, description: rawDescription, path, keywords, type = "website", image, noindex }: PageSeo): Metadata {
+  const title = withYear(rawTitle);
+  const description = withYear(rawDescription);
   const socialTitle = `${title} | ${siteConfig.name}`;
   const resolvedImage = image ?? DEFAULT_OG_IMAGE;
   return {

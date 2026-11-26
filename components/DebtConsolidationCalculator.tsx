@@ -13,6 +13,7 @@ import { getGaIds } from "@/lib/analytics/ids";
 import { GA_ID } from "@/lib/analytics/gaId";
 import { setClarityTag } from "@/lib/analytics/clarityTags";
 import Link from "next/link";
+import { LENDERS } from "@/lib/lenderEngine";
 
 const DEBT_TYPE_LABELS: Record<DebtType, string> = {
   personal_loan: "Personal Loan",
@@ -261,7 +262,7 @@ export function DebtConsolidationCalculator() {
         
         {/* Left Column: Input Debt Obligations (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 card-elevated space-y-6">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-elevated space-y-6">
             <div className="flex items-start justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
                 <h2 className="text-lg font-bold text-slate-900">Step 1: Your Active Debts & EMIs</h2>
@@ -384,7 +385,7 @@ export function DebtConsolidationCalculator() {
           </div>
 
           {/* Step 2: Proposed Consolidation Loan Parameters */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 card-elevated space-y-6">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-elevated space-y-6">
             <div className="border-b border-slate-100 pb-4">
               <h2 className="text-lg font-bold text-slate-900">Step 2: Proposed Consolidation Loan Terms</h2>
               <p className="text-xs text-slate-500 mt-0.5">Adjust tenure and estimated interest rate to view your new single EMI</p>
@@ -472,7 +473,7 @@ export function DebtConsolidationCalculator() {
         <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
           
           {/* Main Comparison Card */}
-          <div className="rounded-3xl bg-slate-900 text-white p-6 sm:p-8 shadow-xl relative overflow-hidden">
+          <div className="rounded-2xl bg-slate-900 text-white p-6 sm:p-8 shadow-xl relative overflow-hidden">
             {/* Background glowing gradient */}
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-56 h-56 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
             
@@ -514,7 +515,7 @@ export function DebtConsolidationCalculator() {
 
                 {/* Monthly Savings Banner */}
                 {result.monthlyCashflowSavings > 0 ? (
-                  <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/20 via-emerald-600/10 to-transparent border border-emerald-500/30 flex items-center justify-between">
+                  <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between">
                     <div>
                       <span className="text-xs font-semibold text-slate-300 block">Monthly Cash-flow Relief</span>
                       <p className="text-lg font-black text-emerald-400">
@@ -582,7 +583,7 @@ export function DebtConsolidationCalculator() {
                   }}
                   data-analytics-cta="debt_calculator_explore_offers"
                   data-analytics-location="debt_calculator"
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold text-sm shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer group"
+                  className="w-full py-4 px-6 rounded-2xl bg-[#FD6C01] hover:bg-[#E15F00] text-[#252525] font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer group"
                 >
                   <span>Explore Lender Options</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -604,7 +605,7 @@ export function DebtConsolidationCalculator() {
             <ul className="text-xs text-slate-600 space-y-2">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                <span><strong>13 RBI-Regulated Lenders:</strong> Compare partner private banks and NBFC networks.</span>
+                <span><strong>{LENDERS.length} partner lenders:</strong> private banks and NBFCs compared in one place.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -624,7 +625,7 @@ export function DebtConsolidationCalculator() {
       {/* Pre-Qualify Intake Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
             
             <button
               type="button"
@@ -655,7 +656,7 @@ export function DebtConsolidationCalculator() {
               <form onSubmit={handleLeadSubmit} className="space-y-4">
                 <div>
                   <span className="text-xs font-bold uppercase tracking-wider text-blue-600 block mb-1">
-                    Path B — Confidential Pre-Qualification
+                    Free assessment
                   </span>
                   <h3 className="text-xl font-bold text-slate-900">
                     Explore Your Consolidation Options
@@ -755,7 +756,7 @@ export function DebtConsolidationCalculator() {
                   disabled={leadStatus === "loading"}
                   className="w-full py-3.5 px-4 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
-                  {leadStatus === "loading" ? "Submitting..." : "Get My Free Pre-Approval Options"}
+                  {leadStatus === "loading" ? "Submitting..." : "Request my free assessment"}
                 </button>
               </form>
             )}

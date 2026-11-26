@@ -20,7 +20,7 @@
  */
 
 export const NOTICE_VERSION = "2026-11-v2";
-const STORAGE_KEY = "cei_consent";
+const STORAGE_KEY = "amortas_consent";
 
 /** The cautious default: analytics off until the visitor accepts. Flip this
  * one constant if counsel confirms a notice-only basis is sufficient. */

@@ -4,11 +4,12 @@ import { LoanCalculator } from "@/components/LoanCalculator";
 import { LeadForm } from "@/components/LeadForm";
 import { ProductHero } from "@/components/ProductHero";
 import { PageIntro, PageProof } from "@/components/page-sections/PageSections";
+import { FitAndDocs, GuidesAndAlso } from "@/components/page-sections/Extras";
 
 export const metadata: Metadata = buildMetadata({
-  title: "High-Interest Loan Refinancing",
+  title: "Refinance a High-Interest Loan in {year}",
   description:
-    "Explore options to refinance high-rate personal loans and reduce monthly EMI burden with partner banks.",
+    "Paying a high rate on an old personal loan? Explore refinancing with partner banks in {year} to cut your interest cost and monthly EMI.",
   path: "/high-interest-loan",
 });
 
@@ -17,17 +18,19 @@ export default function HighInterestLoanPage() {
     <div className="min-h-screen bg-white">
       
       <ProductHero
+        breadcrumbs={[{ name: "Home", path: "/" }, { name: "High-interest loans" }]}
+        updatedPath="/high-interest-loan"
         title="Is your loan costing more than it should?"
         body="If you're paying above 16% a year, refinancing or consolidating with a partner bank might lower your monthly burden. We'll tell you honestly."
         cta="Check my options"
-        image="/img/od.webp"
-        imageAlt="A stack of high-interest loan statements being reviewed for refinancing"
         points={["Free assessment", "Honest answer, even if switching isn't worth it", "You stay in control"]}
       />
 
       <PageIntro page="high-interest-loan" />
+      <FitAndDocs page="high-interest-loan" />
 
       <LoanCalculator />
+      <GuidesAndAlso page="high-interest-loan" />
       <PageProof page="high-interest-loan" />
       <LeadForm />
     </div>

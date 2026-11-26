@@ -15,7 +15,7 @@ export function AnimatedMeshBackground() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute -top-[20%] -left-[10%] w-[60%] h-[70%] rounded-full bg-[#F7DCCB] opacity-80 blur-[80px]"
+        className="absolute -top-[20%] -left-[10%] w-[60%] h-[70%] rounded-full bg-[#FFE4CC] opacity-80 blur-[80px]"
       />
       <motion.div
         animate={{
@@ -41,7 +41,7 @@ export function AnimatedMeshBackground() {
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute -bottom-[20%] left-[20%] w-[60%] h-[70%] rounded-full bg-[#F7D2BC] opacity-80 blur-[90px]"
+        className="absolute -bottom-[20%] left-[20%] w-[60%] h-[70%] rounded-full bg-[#FFE4CC] opacity-80 blur-[90px]"
       />
       <motion.div
         animate={{
