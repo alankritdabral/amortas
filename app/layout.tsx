@@ -42,8 +42,21 @@ export const metadata: Metadata = {
   },
   description:
     "Paying too much interest on loans or card dues? Explore debt consolidation, balance transfer and personal loans from 9.99% p.a.*, for eligible applicants.",
-  // No `keywords`: Google has ignored the meta keywords tag since 2009
-  // (developers.google.com/search/blog/2009/09/google-does-not-use-keywords-meta-tag).
+  // Google ignores the meta keywords tag (since 2009), but Bing, Yandex and
+  // some AI/answer crawlers still read it. These are the "best / top / No.1
+  // in India" phrases people type when searching; they are search terms,
+  // not claims made on the page, so visible copy stays factual.
+  keywords: [
+    "best debt consolidation in India",
+    "India's best debt consolidation company",
+    "No.1 debt consolidation India",
+    "best personal loan in India",
+    "India's best personal loan",
+    "top personal loan balance transfer India",
+    "best way to clear credit card debt India",
+    "India's top loan consolidation platform",
+    "Amortas",
+  ],
   metadataBase: new URL(siteConfig.url),
   openGraph: {
     title: `${siteConfig.name} — Paying Too Much Interest?`,

@@ -12,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Merge personal loans, card dues and app loans into one lower EMI. Compare debt consolidation options for {year} and a debt-free {nextYear}.",
   path: "/debt-consolidation",
+  keywords: ["best debt consolidation in India", "India's best debt consolidation", "No.1 debt consolidation company India", "top debt consolidation loan India", "debt consolidation loan India", "debt relief India"],
 });
 
 export default function DebtConsolidationPage() {

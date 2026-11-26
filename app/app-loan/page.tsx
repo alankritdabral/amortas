@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Too many instant app loans? Consolidate fintech and app loan EMIs into one lower-cost bank loan in {year}. Free eligibility check.",
   path: "/app-loan",
+  keywords: ["best app loan consolidation India", "India's best instant loan app debt solution", "No.1 loan app consolidation India", "clear instant loan app debt"],
 });
 
 export default function AppLoanPage() {

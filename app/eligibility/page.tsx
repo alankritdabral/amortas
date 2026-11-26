@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Personal loan eligibility criteria and documents for {year} and {nextYear}: age, income, credit score, employer and EMIs. Check yours free.",
   path: "/eligibility",
+  keywords: ["personal loan eligibility India", "best personal loan eligibility check India", "India's best eligibility checker", "personal loan documents required"],
 });
 
 export default function EligibilityPage() {

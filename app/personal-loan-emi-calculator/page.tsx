@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Free {year} personal loan EMI calculator: monthly EMI, total interest and total payable for any amount, rate and tenure. Plan your {nextYear} budget.",
   path: "/personal-loan-emi-calculator",
+  keywords: ["best personal loan EMI calculator India", "India's best EMI calculator", "No.1 personal loan EMI calculator", "free EMI calculator India"],
 });
 
 export default function Page() {

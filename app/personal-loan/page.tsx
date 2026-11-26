@@ -12,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Compare personal loans for salaried employees in {year}. Rates from 9.99% p.a.*, soft eligibility check, partner banks and NBFCs. Plan {nextYear} early.",
   path: "/personal-loan",
+  keywords: ["best personal loan in India", "India's best personal loan", "top personal loan India", "No.1 personal loan India", "personal loan for salaried employees", "lowest interest personal loan India"],
 });
 
 export default function PersonalLoanPage() {

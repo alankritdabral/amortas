@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Free {year} calculators for Indian borrowers: work out a personal loan EMI, estimate EMI savings, or see what debt consolidation could look like.",
   path: "/calculators",
+  keywords: ["best loan calculators India", "India's best EMI calculators", "free loan and EMI calculators India"],
 });
 
 const calculators = [

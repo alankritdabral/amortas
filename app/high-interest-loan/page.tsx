@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Paying a high rate on an old personal loan? Explore refinancing with partner banks in {year} to cut your interest cost and monthly EMI.",
   path: "/high-interest-loan",
+  keywords: ["best way to refinance high interest loan India", "India's best loan refinance", "No.1 loan refinance India", "reduce loan interest rate India", "refinance high interest loan"],
 });
 
 export default function HighInterestLoanPage() {

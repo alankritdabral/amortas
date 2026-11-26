@@ -12,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Explore overdraft and credit-line options for salaried employees in {year}, and see whether a personal loan or consolidation costs less.",
   path: "/personal-loan-overdraft",
+  keywords: ["best overdraft loan in India", "India's best personal loan overdraft", "top overdraft facility India", "overdraft loan for salaried employees"],
 });
 
 const points = [

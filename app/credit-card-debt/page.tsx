@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Paying 36% to 42% p.a. on card dues? Move credit card debt into a lower-rate loan and start {nextYear} with one fixed EMI. Free check.",
   path: "/credit-card-debt",
+  keywords: ["best credit card debt consolidation India", "India's best credit card debt relief", "No.1 credit card debt solution India", "credit card debt consolidation loan", "clear credit card dues India"],
 });
 
 export default function CreditCardDebtPage() {

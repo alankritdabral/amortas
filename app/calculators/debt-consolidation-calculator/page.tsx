@@ -15,6 +15,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Free debt consolidation calculator for Indian borrowers. Combine personal loans, credit card dues and app loans into one lower EMI.",
   path: "/calculators/debt-consolidation-calculator",
+  keywords: ["best debt consolidation calculator India", "India's best debt consolidation calculator", "free debt consolidation calculator India"],
 });
 
 const calculatorSchema = {

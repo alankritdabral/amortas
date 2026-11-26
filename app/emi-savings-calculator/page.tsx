@@ -11,6 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "See how much you could save every month in {year} by combining your loans and card dues into one lower-rate loan. Free estimate.",
   path: "/emi-savings-calculator",
+  keywords: ["best EMI savings calculator India", "India's best loan savings calculator", "free loan savings calculator India"],
 });
 
 export default function Page() {
