@@ -105,7 +105,7 @@ export function CreditFaq({ faqs, faqSet }: { faqs: Faq[]; faqSet: string }) {
         <h2 className="text-[40px] sm:text-[56px] leading-[1.02] tracking-[-0.04em] font-bold lg:sticky lg:top-28 self-start">Common questions.</h2>
         <TrackedAccordion faqSet={faqSet} type="single" collapsible className="w-full">
           {faqs.map((f, i) => (
-            <AccordionItem value={`f-${i}`} key={f.q} className="mb-2 border-b-0 px-4 transition-colors data-[state=open]:bg-[#FFE4CC] md:px-6">
+            <AccordionItem value={`f-${i}`} key={f.q} className="mb-3 rounded-xl border border-[#252525]/25 bg-white px-4 transition-colors data-[state=open]:bg-[#FFE4CC] md:px-6">
               <AccordionTrigger className="gap-6 py-5 text-left hover:no-underline">
                 <span className="text-xl font-semibold leading-snug tracking-[-0.015em] md:text-2xl">{f.q}</span>
               </AccordionTrigger>

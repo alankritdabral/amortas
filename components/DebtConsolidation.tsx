@@ -123,7 +123,7 @@ export function DebtConsolidation() {
             href="#lead-form"
             data-analytics-cta="debt_consolidation_check_options"
             data-analytics-location="debt_consolidation_scenarios"
-            className="inline-flex items-center justify-center gap-2 rounded bg-[#FD6C01] hover:bg-[#252525] transition-colors text-[#252525] hover:text-white font-bold text-lg px-7 py-4"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#FD6C01] hover:bg-[#252525] transition-colors text-white font-semibold text-[18px] h-[56px] px-7"
           >
             Check my options <ArrowRight className="h-5 w-5" />
           </a>

@@ -15,13 +15,13 @@ export function CtaBand() {
             href="#lead-form"
             data-analytics-cta="cta_band_check_eligibility"
             data-analytics-location="cta_band"
-            className="inline-flex items-center justify-center gap-2 h-[60px] px-7 bg-[#FD6C01] text-[#252525] text-lg font-bold rounded border border-[#252525]/25 shadow-standard hover:bg-[#E15F00] transition-colors"
+            className="inline-flex items-center justify-center gap-2 h-[56px] px-7 bg-[#FD6C01] text-white text-[18px] font-semibold rounded-lg border border-[#252525]/25 shadow-standard hover:bg-[#E15F00] transition-colors"
           >
             Check my eligibility <ArrowRight className="w-5 h-5" aria-hidden="true" />
           </Link>
           <WhatsAppChatLink
             data-analytics-location="cta_band"
-            className="inline-flex items-center justify-center gap-2.5 h-[60px] px-7 bg-white text-[#252525] text-lg font-bold rounded border border-[#252525]/25 shadow-standard hover:bg-[#FFE4CC] transition-colors"
+            className="inline-flex items-center justify-center gap-2.5 h-[56px] px-7 bg-white text-[#252525] text-[18px] font-semibold rounded-lg border border-[#252525]/25 shadow-standard hover:bg-[#FFE4CC] transition-colors"
           >
             <MessageCircle className="w-5 h-5" aria-hidden="true" />
             Chat on WhatsApp

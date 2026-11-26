@@ -81,7 +81,7 @@ const SOLUTIONS: Solution[] = [
 
 
 const BTN =
-  "inline-flex h-[56px] items-center gap-2 rounded-full bg-[#FD6C01] hover:bg-[#E15F00] px-8 text-[19px] font-semibold text-white shadow-[0_14px_26px_-12px_rgba(225,95,0,0.35)] transition-[filter] hover:brightness-105";
+  "inline-flex h-[56px] items-center gap-2 rounded-lg bg-[#FD6C01] hover:bg-[#E15F00] px-7 text-[18px] font-semibold text-white shadow-[0_14px_26px_-12px_rgba(225,95,0,0.35)] transition-[filter] hover:brightness-105";
 
 // What the visitor can tick. "Multiple loans" is the answer once two or more are ticked, so it is not a choice itself.
 const CHOICES = ["personal-loan", "credit-card", "app-loans", "overdraft"] as const;
@@ -257,7 +257,7 @@ export const LoanSolutionsSection = () => {
                     href={answer.cta.href}
                     data-analytics-cta={`loan_solutions_${answer.id}`}
                     data-analytics-location="loan_solutions"
-                    className="inline-flex min-h-[52px] max-w-full items-center gap-2 rounded-full bg-[#FD6C01] hover:bg-[#E15F00] px-6 py-2.5 text-[17px] font-semibold text-white shadow-[0_14px_26px_-12px_rgba(225,95,0,0.35)] transition-[filter] hover:brightness-105"
+                    className="inline-flex min-h-[56px] max-w-full items-center gap-2 rounded-lg bg-[#FD6C01] hover:bg-[#E15F00] px-7 py-2.5 text-[18px] font-semibold text-white shadow-[0_14px_26px_-12px_rgba(225,95,0,0.35)] transition-[filter] hover:brightness-105"
                   >
                     {answer.cta.label}
                     <ArrowRight className="h-5 w-5" aria-hidden="true" />

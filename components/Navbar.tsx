@@ -6,8 +6,8 @@ import { Logo } from "@/components/Logo";
 import { ArrowRight, X, Mail, ShieldCheck, ChevronDown, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { cities, topCitySlugs } from "@/lib/cities";
-import { cityHubPath } from "@/lib/cityPages";
+import { cities } from "@/lib/cities";
+import { CityPickerDesktop, CityPickerMobile } from "@/components/NavCities";
 import { track } from "@/lib/analytics/track";
 
 type MenuLink = { label: string; desc?: string; href: string };
@@ -32,14 +32,6 @@ const promoAssessment = {
   cta: "Start now",
   href: "/eligibility#credit-profile",
 };
-
-const cityLink = (slug: string) => ({ label: cities.find((c) => c.slug === slug)!.name, href: cityHubPath(slug) });
-
-// Every other city, A to Z, after the top ones.
-const otherCitySlugs = cities
-  .filter((c) => !(topCitySlugs as readonly string[]).includes(c.slug))
-  .sort((a, b) => a.name.localeCompare(b.name))
-  .map((c) => c.slug);
 
 const menus: Menu[] = [
   {
@@ -108,11 +100,7 @@ const menus: Menu[] = [
   {
     key: "cities",
     label: "Cities",
-    columns: [
-      { title: "Top cities", gradient: G2, links: topCitySlugs.map(cityLink) },
-      { title: "More cities", gradient: G3, links: otherCitySlugs.slice(0, Math.ceil(otherCitySlugs.length / 2)).map(cityLink) },
-      { title: "And more", gradient: G1, links: otherCitySlugs.slice(Math.ceil(otherCitySlugs.length / 2)).map(cityLink) },
-    ],
+    columns: [], // rendered by CityPickerDesktop / CityPickerMobile
     footer: { label: `All ${cities.length} cities and loan types`, href: "/loans-by-city" },
   },
   {
@@ -339,6 +327,9 @@ export function Navbar() {
                 <motion.div key={renderMenu.key} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.16 }}>
                   <div className={`grid ${renderMenu.sidebar ? "grid-cols-[1fr_300px]" : "grid-cols-1"}`}>
                     <div className="pt-[84px] px-12">
+                      {renderMenu.key === "cities" ? (
+                        <CityPickerDesktop onNavigate={hidePanel} />
+                      ) : (
                       <div className={`grid gap-10 pb-10 ${renderMenu.columns.length === 1 ? "grid-cols-1 max-w-sm" : renderMenu.columns.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
                         {renderMenu.columns.map((col) => (
                           <div key={col.title}>
@@ -359,6 +350,7 @@ export function Navbar() {
                           </div>
                         ))}
                       </div>
+                      )}
                       {renderMenu.footer && (
                         <div className="-mx-12 px-12 py-5 border-t border-[#E5E5E5]">
                           <Link href={renderMenu.footer.href} className="text-base font-bold text-[#252525] hover:text-[#252525] inline-flex items-center gap-1">
@@ -555,6 +547,9 @@ export function Navbar() {
                               transition={{ duration: 0.2, ease: "easeOut" }}
                               className="overflow-hidden"
                             >
+                              {m.key === "cities" ? (
+                                <CityPickerMobile onNavigate={() => setOpen(false)} />
+                              ) : (
                               <div className="px-2 pb-4 space-y-5">
                                 {groups.map((g) => (
                                   <div key={g.title}>
@@ -572,6 +567,7 @@ export function Navbar() {
                                   </div>
                                 ))}
                               </div>
+                              )}
                             </motion.div>
                           )}
                         </AnimatePresence>

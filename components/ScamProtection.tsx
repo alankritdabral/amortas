@@ -17,8 +17,10 @@ export function ScamProtection() {
           {nevers.map((n, i) => (
             <li
               key={n}
-              className={`text-[32px] sm:text-[48px] lg:text-[72px] leading-[1.08] font-bold tracking-[-0.04em] line-through decoration-primary-brand decoration-[2px] md:decoration-[3px] ${
-                i % 2 === 0 ? "text-primary-brand" : "text-white"
+              className={`text-[32px] sm:text-[48px] lg:text-[72px] leading-[1.08] font-bold tracking-[-0.04em] line-through decoration-[2px] md:decoration-[3px] ${
+                i % 2 === 0
+                  ? "text-primary-brand decoration-white"
+                  : "text-white decoration-primary-brand"
               }`}
             >
               {n}

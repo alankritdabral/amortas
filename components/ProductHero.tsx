@@ -55,9 +55,9 @@ export function ProductHero({ title, body, cta, points = [], href = "#lead-form"
             href={href}
             data-analytics-cta={`hero_${cta.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "")}`}
             data-analytics-location="product_hero"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg border border-[#252525]/25 bg-white/60 text-[#252525] font-semibold text-[15px] px-5 h-11 hover:bg-[#252525] hover:text-white hover:border-[#252525] transition-colors"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg border border-[#252525]/25 bg-white/60 text-[#252525] font-semibold text-[18px] px-7 h-[56px] hover:bg-[#252525] hover:text-white hover:border-[#252525] transition-colors"
           >
-            {cta} <ArrowRight className="w-4 h-4" />
+            {cta} <ArrowRight className="w-5 h-5" />
           </a>
           {updatedPath && <LastUpdated path={updatedPath} className="mt-6 text-[#252525]/70" />}
         </div>

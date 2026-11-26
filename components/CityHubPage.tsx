@@ -109,7 +109,7 @@ export function CityHubPage({ city }: { city: City }) {
           </h2>
           <TrackedAccordion faqSet={`city-hub:${city.slug}`} type="single" collapsible className="w-full">
             {faqs.map((f, i) => (
-              <AccordionItem value={`f-${i}`} key={f.q} className="border-b-0 mb-2 px-4 md:px-6 data-[state=open]:bg-[#FFE4CC] transition-colors">
+              <AccordionItem value={`f-${i}`} key={f.q} className="border border-[#252525]/25 bg-white rounded-xl mb-3 px-4 md:px-6 data-[state=open]:bg-[#FFE4CC] transition-colors">
                 <AccordionTrigger className="hover:no-underline text-left gap-6 py-5">
                   <span className="text-xl md:text-2xl leading-snug font-semibold tracking-[-0.015em]">{f.q}</span>
                 </AccordionTrigger>

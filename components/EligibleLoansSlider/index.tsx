@@ -115,7 +115,7 @@ export const EligibleLoansSlider = () => {
             href="/eligibility"
             data-analytics-cta="eligible_loans_check_eligibility"
             data-analytics-location="eligible_loans"
-            className="inline-flex h-[52px] items-center gap-2 rounded-full px-8 text-[17px] font-semibold text-white transition-[filter] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="inline-flex h-[56px] items-center gap-2 rounded-lg px-7 text-[18px] font-semibold text-white transition-[filter] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             style={{ background: ORANGE }}
           >
             Check your eligibility <ChevronRight className="h-5 w-5" />

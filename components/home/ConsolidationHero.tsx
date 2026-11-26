@@ -89,7 +89,7 @@ export function ConsolidationHero() {
                 href="#lead-form"
                 data-analytics-cta="hero_check_eligibility"
                 data-analytics-location="hero"
-                className={`${ORANGE_BTN} h-[58px] px-7 text-[20px]`}
+                className={`${ORANGE_BTN} h-[56px] px-7 text-[18px]`}
               >
                 Check my eligibility
                 <ArrowRight className="h-5 w-5" aria-hidden="true" />
@@ -98,7 +98,7 @@ export function ConsolidationHero() {
                 href="/contact"
                 data-analytics-cta="hero_contact_us"
                 data-analytics-location="hero"
-                className="inline-flex h-[58px] items-center justify-center gap-2.5 whitespace-nowrap rounded-lg border border-[#252525]/15 bg-white px-[22px] text-[17px] font-[500] text-[#252525] shadow-ambient transition-colors hover:bg-[#FFF9F4]"
+                className="inline-flex h-[56px] items-center justify-center gap-2.5 whitespace-nowrap rounded-lg border border-[#252525]/15 bg-white px-7 text-[18px] font-semibold text-[#252525] shadow-ambient transition-colors hover:bg-[#FFF9F4]"
               >
                 Contact us
               </Link>
