@@ -9,9 +9,9 @@ import { Steps, FeatureGrid, SituationTable, CreditFaq, CheckSection, SectionHea
 import type { Faq } from "@/lib/pageContent";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Free CIBIL & Credit Score Check {year}",
+  title: "Free Credit Score Check Online {year}",
   description:
-    "Check your CIBIL and credit score free in minutes. No fee, no obligation. See what it means for loans in {year} and {nextYear}.",
+    "Check your credit score free in minutes, from Experian or CRIF High Mark. No fee, no obligation. See what it means for loans in {year}.",
   path: "/free-cibil-score",
   keywords: ["free CIBIL score", "free credit score check", "check credit score online free India", "best free CIBIL score check India", "free CIBIL report", "free CIBIL report online India", "free CIBIL score no fee"],
 });
