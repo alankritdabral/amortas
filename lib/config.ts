@@ -40,10 +40,12 @@ export const contact = {
  * contact email.
  */
 export const company = {
-  legalEntityName: "",
-  cin: "",
-  registeredOffice: "",
-  gstin: "",
+  // Source: Certificate of Incorporation (MCA, 7 May 2024) and GST REG-06
+  // (issued 1 Jul 2024). Do not edit without updating from the documents.
+  legalEntityName: "Portro Financial Advisors Private Limited",
+  cin: "U82990DL2024PTC430932",
+  registeredOffice: "1/560A, Second Floor, Mansarovar Park, Shahdara, Delhi 110032",
+  gstin: "07AAOCP7230Q1ZO",
   grievanceOfficer: {
     name: "",
     designation: "",
