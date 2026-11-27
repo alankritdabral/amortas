@@ -59,7 +59,7 @@ Fixing 1 and 2 is a few hours of work and should get the pages **indexed within 
 | 1.6 Old-domain redirects | Done. Vercel redirects `creditexpertindia.com` and `www` to `www.amortas.com` (301, path kept); GoDaddy forwarding removed, A `216.150.1.1`, CNAME `www` to Vercel. |
 | 1.8 Change of Address | Done. Accepted 27 Nov 2026. |
 | 1.9 Bing | Done. Signed in with Google, imported `amortas.com` (view-only), sitemap submitted (Processing). IndexNow sent 60 URLs (HTTP 202). |
-| 1.10 Social profile rename | Not done. Owner action. |
+| 1.10 Social profiles | Done. Owner confirmed (27 Nov 2026) all three profiles already show Amortas; the footer and `sameAs` links in `lib/structuredData.ts` point to them. |
 | Trust details (Phase 5) | Legal entity, CIN, GSTIN and registered office published from the incorporation and GST documents. Grievance officer still blank (owner). |
 | Delhi office address | Corrected to 2nd floor to match the GST certificate and ROC record. |
 
@@ -67,7 +67,7 @@ Fixing 1 and 2 is a few hours of work and should get the pages **indexed within 
 
 **Email (separate from SEO):** `creditexpertindia.com` MX, SPF, DKIM and DMARC were brought in line with Google's recommendations. Verified mail still arrives.
 
-**Still open, all owner input:** grievance officer details, first-hand facts for 3 to 5 cities, social profile rename, Google Business Profile address check, DMARC `p=quarantine` after about two weeks of reports.
+**Still open, all owner input:** grievance officer details, first-hand facts for 3 to 5 cities, Google Business Profile address check, DMARC `p=quarantine` after about two weeks of reports.
 
 ## Phase 1: Get indexed (this week)
 
