@@ -21,7 +21,7 @@ export const contact = {
     },
     {
       city: "Delhi",
-      fullAddress: "3rd floor 1/560A main GT road shahdra near jindal oil mills mansarovar park shahdara delhi-110032"
+      fullAddress: "2nd floor, 1/560A, Main GT Road, near Jindal Oil Mills, Mansarovar Park, Shahdara, Delhi 110032"
     },
     {
       city: "Rudrapur",
