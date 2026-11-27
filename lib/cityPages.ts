@@ -34,14 +34,26 @@ export function allCityPages(): { product: CityProduct; city: City }[] {
 }
 
 /**
- * Whether a page is indexed and listed in the sitemap. Owner decision
- * (2026-11-26): every product/city page is indexed. To pull a page back out
- * (for example if Search Console flags the templated pages as thin or
- * duplicate), return false for it here: it then gets `noindex, follow` and
- * drops out of the sitemap.
+ * Whether a page is indexed and listed in the sitemap.
+ *
+ * The 2026-11-26 decision was to index every city page. That was reversed on
+ * 2026-11-27: with the city name masked, the pages for different cities are
+ * 100% identical (about 1,500 words each, ~185 pages), which Google treats as
+ * thin/doorway content and which can hold back the whole site. Only cities
+ * where Amortas has an office are indexed, because their pages carry real
+ * local information. The rest are `noindex, follow`, so they stay reachable
+ * for visitors and pass link value, but drop out of the sitemap.
+ *
+ * To index another city, give it real local content first, then set
+ * `office: true` in lib/cities.ts (or add an explicit allow-list here).
  */
-export function isIndexed(_product: CityProduct, _city: City): boolean {
-  return true;
+export function isIndexed(_product: CityProduct, city: City): boolean {
+  return city.office;
+}
+
+/** The per-city hub follows the same rule as that city's product pages. */
+export function isHubIndexed(city: City): boolean {
+  return city.office;
 }
 
 /** Longest prefix first so "personal-loan-overdraft-in-" wins over "personal-loan-in-". */

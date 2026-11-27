@@ -23,8 +23,12 @@ describe("city pages", () => {
     expect(parseCityPageSlug("about")).toBeNull();
   });
 
-  it("indexes every city page", () => {
-    expect(allCityPages().every(({ product, city }) => isIndexed(product, city))).toBe(true);
+  it("indexes only city pages for cities with an Amortas office", () => {
+    for (const { product, city } of allCityPages()) {
+      expect(isIndexed(product, city)).toBe(city.office);
+    }
+    expect(allCityPages().some(({ product, city }) => isIndexed(product, city))).toBe(true);
+    expect(allCityPages().some(({ product, city }) => !isIndexed(product, city))).toBe(true);
   });
 
   it("keeps rendered titles and descriptions inside the SEO budget", () => {

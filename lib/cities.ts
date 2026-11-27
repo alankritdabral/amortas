@@ -3,8 +3,9 @@
  * (lib/cityPages.ts): personal loan, quick loan, personal-loan overdraft and
  * debt consolidation, each at /<product>-in-<slug>.
  *
- * Indexing: all pages are indexed (owner decision, 2026-11-26); see `isIndexed` in
- * lib/cityPages.ts, which is also where to noindex a page again.
+ * Indexing: only cities with `office: true` are indexed and in the sitemap
+ * (the other pages are identical templates; reversed 2026-11-27). See
+ * `isIndexed` and `isHubIndexed` in lib/cityPages.ts.
  *
  * `nearestOffice` is set only for cities that are plainly in the catchment of
  * an Amortas office (Noida, Gurgaon, Ghaziabad and Faridabad are in Delhi NCR).

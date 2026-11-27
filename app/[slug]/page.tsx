@@ -4,7 +4,7 @@ import { CityHubPage } from "@/components/CityHubPage";
 import { CityLoanPage } from "@/components/CityLoanPage";
 import { cities } from "@/lib/cities";
 import { buildMetadata } from "@/lib/seo";
-import { allCityPages, cityHubPath, cityPagePath, isIndexed, parseCityHubSlug, parseCityPageSlug, productDef, type CityProduct } from "@/lib/cityPages";
+import { allCityPages, cityHubPath, cityPagePath, isHubIndexed, isIndexed, parseCityHubSlug, parseCityPageSlug, productDef, type CityProduct } from "@/lib/cityPages";
 
 /**
  * One route serves every "<product>-in-<city>" page (lib/cityPages.ts):
@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `Loans in ${hub.name}: All Options`,
       description: `Personal loan, quick loan, overdraft, debt consolidation and more in ${hub.name}. Compare every option side by side and check yours for free.`,
       path: cityHubPath(hub.slug),
+      noindex: !isHubIndexed(hub),
     });
   }
   const hit = parseCityPageSlug(slug);

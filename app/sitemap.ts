@@ -3,7 +3,7 @@ import { siteConfig } from '@/lib/config';
 import { staticRoutes } from '@/lib/routes';
 import { CITY_PAGES_LAST_MODIFIED } from '@/lib/cities';
 import { cities } from '@/lib/cities';
-import { allCityPages, cityHubPath, cityPagePath, isIndexed } from '@/lib/cityPages';
+import { allCityPages, cityHubPath, cityPagePath, isHubIndexed, isIndexed } from '@/lib/cityPages';
 import { articles } from '@/content/articles';
 
 // Google ignores <changefreq> and <priority> (developers.google.com/search/
@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}${cityPagePath(product, city.slug)}`,
       lastModified: CITY_PAGES_LAST_MODIFIED,
     }));
-  const cityHubs: MetadataRoute.Sitemap = cities.map((c) => ({
+  const cityHubs: MetadataRoute.Sitemap = cities.filter(isHubIndexed).map((c) => ({
     url: `${siteConfig.url}${cityHubPath(c.slug)}`,
     lastModified: CITY_PAGES_LAST_MODIFIED,
   }));
