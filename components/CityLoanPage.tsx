@@ -11,6 +11,8 @@ import { cities, type City } from "@/lib/cities";
 import { CityOptionTabs, CityOptionsGrid } from "@/components/city/CityOptions";
 import { cityHubPath, cityPagePath, productDef, type CityProduct } from "@/lib/cityPages";
 import { contact } from "@/lib/config";
+import { factsFor } from "@/lib/cityFacts";
+import { CityLocalNotes } from "@/components/city/CityLocalNotes";
 import { MapPin } from "lucide-react";
 
 type Copy = {
@@ -92,6 +94,7 @@ export function CityLoanPage({ city, product = "personal-loan" }: { city: City; 
   const office = contact.addresses.find((a) => a.city === city.name);
   const nearOffice = !office && city.nearestOffice ? contact.addresses.find((a) => a.city === city.nearestOffice) : null;
   const sameState = cities.filter((x) => x.slug !== city.slug && x.state === city.state);
+  const facts = factsFor(city);
 
   return (
     <div className="min-h-screen bg-white">
@@ -151,6 +154,8 @@ export function CityLoanPage({ city, product = "personal-loan" }: { city: City; 
           )}
         </div>
       </section>
+
+      {facts && <CityLocalNotes city={city} facts={facts} />}
 
       {c.showDebtBlock ? <DebtConsolidation /> : <Eligibility />}
       <LoanCalculator />

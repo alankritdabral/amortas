@@ -11,10 +11,13 @@ import { cities, type City } from "@/lib/cities";
 import { cityHubPath } from "@/lib/cityPages";
 import { cityHubFaqs, hubSteps } from "@/lib/cityOptions";
 import { contact } from "@/lib/config";
+import { factsFor } from "@/lib/cityFacts";
+import { CityLocalNotes } from "@/components/city/CityLocalNotes";
 import { jsonLd, pageFaqSchema } from "@/lib/structuredData";
 
 export function CityHubPage({ city }: { city: City }) {
   const faqs = cityHubFaqs(city);
+  const facts = factsFor(city);
   const office = contact.addresses.find((a) => a.city === city.name);
   const nearOffice = !office && city.nearestOffice ? contact.addresses.find((a) => a.city === city.nearestOffice) : null;
   const sameState = cities.filter((x) => x.slug !== city.slug && x.state === city.state);
@@ -60,6 +63,8 @@ export function CityHubPage({ city }: { city: City }) {
       </section>
 
       <LoanCalculator />
+
+      {facts && <CityLocalNotes city={city} facts={facts} />}
 
       <section className="section-tint text-[#252525]">
         <div className="max-w-[1220px] mx-auto px-4 md:px-6 lg:px-8 py-12 md:py-[72px] grid gap-10 lg:grid-cols-2">

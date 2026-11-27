@@ -1,4 +1,5 @@
 import { cities, type City } from "@/lib/cities";
+import { factsFor } from "@/lib/cityFacts";
 
 export type CityProduct = "personal-loan" | "quick-loan" | "overdraft" | "debt-consolidation";
 
@@ -47,13 +48,17 @@ export function allCityPages(): { product: CityProduct; city: City }[] {
  * To index another city, give it real local content first, then set
  * `office: true` in lib/cities.ts (or add an explicit allow-list here).
  */
-export function isIndexed(_product: CityProduct, city: City): boolean {
-  return city.office;
+export function isIndexed(product: CityProduct, city: City): boolean {
+  if (city.office) return true;
+  // A non-office city earns an indexed page only once it has real first-hand
+  // facts (lib/cityFacts.ts). Only the main personal-loan page is indexed, so
+  // the four product pages for one city do not compete with each other.
+  return product === "personal-loan" && factsFor(city) !== undefined;
 }
 
 /** The per-city hub follows the same rule as that city's product pages. */
 export function isHubIndexed(city: City): boolean {
-  return city.office;
+  return city.office || factsFor(city) !== undefined;
 }
 
 /** Longest prefix first so "personal-loan-overdraft-in-" wins over "personal-loan-in-". */
