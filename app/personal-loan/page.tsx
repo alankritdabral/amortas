@@ -10,9 +10,9 @@ import { FitAndDocs, GuidesAndAlso } from "@/components/page-sections/Extras";
 export const metadata: Metadata = buildMetadata({
   title: "Personal Loan for Salaried Employees {year}",
   description:
-    "Compare personal loans for salaried employees in {year}. Rates from 9.99% p.a.*, soft eligibility check, partner banks and NBFCs. Plan {nextYear} early.",
+    "Compare personal loans for salaried employees in {year}. Rates from 9.99% p.a.*, free soft eligibility check, no Amortas fee, partner banks and NBFCs.",
   path: "/personal-loan",
-  keywords: ["best personal loan in India", "India's best personal loan", "top personal loan India", "No.1 personal loan India", "personal loan for salaried employees", "lowest interest personal loan India"],
+  keywords: ["best personal loan in India", "India's best personal loan", "top personal loan India", "No.1 personal loan India", "personal loan for salaried employees", "lowest interest personal loan India", "lowest interest rate personal loan India", "low interest personal loan India", "free personal loan assessment India", "no fee loan advice India"],
 });
 
 export default function PersonalLoanPage() {

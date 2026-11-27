@@ -12,7 +12,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Get your full credit report free: score, loans, card dues and enquiries. Plan your {nextYear} EMIs with the best-fit option for your profile.",
   path: "/free-credit-report",
-  keywords: ["free credit report", "free credit report India", "download credit report free"],
+  keywords: ["free credit report", "free credit report India", "download credit report free", "best free credit report India", "free CIBIL report", "free credit report no fee"],
 });
 
 const faqs: Faq[] = [

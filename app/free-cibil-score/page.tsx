@@ -11,9 +11,9 @@ import type { Faq } from "@/lib/pageContent";
 export const metadata: Metadata = buildMetadata({
   title: "Free CIBIL & Credit Score Check {year}",
   description:
-    "Check your CIBIL and credit score free in minutes. See what your score means for loans in {year} and {nextYear}, and which option fits it best.",
+    "Check your CIBIL and credit score free in minutes. No fee, no obligation. See what it means for loans in {year} and {nextYear}.",
   path: "/free-cibil-score",
-  keywords: ["free CIBIL score", "free credit score check", "check credit score online free India"],
+  keywords: ["free CIBIL score", "free credit score check", "check credit score online free India", "best free CIBIL score check India", "free CIBIL report", "free CIBIL report online India", "free CIBIL score no fee"],
 });
 
 const faqs: Faq[] = [

@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Work out your personal loan balance transfer savings for {year} and {nextYear}. Compare your rate and charges with partner rates from 9.99% p.a.*",
   path: "/loan-balance-transfer",
-  keywords: ["best personal loan balance transfer India", "India's best loan balance transfer", "top balance transfer loan India", "lowest interest balance transfer India", "personal loan balance transfer"],
+  keywords: ["best personal loan balance transfer India", "India's best loan balance transfer", "top balance transfer loan India", "lowest interest balance transfer India", "lowest interest rate balance transfer India", "free balance transfer check India", "personal loan balance transfer"],
 });
 
 export default function BalanceTransferPage() {
